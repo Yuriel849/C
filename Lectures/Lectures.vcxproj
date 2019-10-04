@@ -123,6 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="01_Start.c" />
+    <ClCompile Include="02_Datatypes.c" />
+    <ClCompile Include="03_TypeConversion.c" />
+    <ClCompile Include="04_Integer.c" />
+    <ClCompile Include="05_FloatingPoint.c" />
+    <ClCompile Include="06_Char.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

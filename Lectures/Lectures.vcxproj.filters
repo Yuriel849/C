@@ -14,4 +14,24 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="01_Start.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="02_Datatypes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="03_TypeConversion.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="04_Integer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="05_FloatingPoint.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="06_Char.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
