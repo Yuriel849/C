@@ -7,7 +7,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
-int main()
+int lab1c_main()
 {
 	int year, sum = 0;
 
