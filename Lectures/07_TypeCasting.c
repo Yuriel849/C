@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <math.h>
 
-void main()
+void TC_main()
 {
 	// Variables for good parts, bad parts, the total number of parts and the ratio of bad parts to the total:
 	int goodParts, badParts, total;
