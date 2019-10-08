@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_DEPRECATE // required to use scanf() -> otherwise VS will stop program and recommend scanf_s()
 #include <stdio.h>
 
-int S_main()
+int DT_main()
 {
 	//int secondsPerDay = 60 * 60 * 24;
 	//int secondsPerWeek = secondsPerDay * 7;

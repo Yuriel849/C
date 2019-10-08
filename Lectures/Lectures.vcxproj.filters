@@ -33,5 +33,8 @@
     <ClCompile Include="06_Char.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="07_TypeCasting.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
