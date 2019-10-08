@@ -9,14 +9,17 @@
 
 int lab1b_main()
 {
+	// Prepare two variables to receive two integers from the user
 	int inputOne, inputTwo;
 
+	// Receive two integers from the user
 	printf("Please enter one integer and press Enter.");
 	scanf("%d", &inputOne);
 	printf("Please enter another integer and press Enter.");
 	scanf("%d", &inputTwo);
 	getchar();
 
+	// Perform basic arithmetic operations
 	printf("Simple calculator : \n");
 	printf("------------------\n");
 	printf("1st operand: %d\n", inputOne);

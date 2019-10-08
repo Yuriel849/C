@@ -10,8 +10,10 @@
 
 int lab1a_main()
 {
+	// Fix values of variables
 	int seven = 7, three = 3;
 
+	// Perform basic arithmetic operations
 	printf("Simple calculator : \n");
 	printf("------------------\n");
 	printf("1st operand: %d\n", seven);

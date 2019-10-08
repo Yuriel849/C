@@ -22,6 +22,7 @@
     <ClCompile Include="lab1a.c" />
     <ClCompile Include="lab1b.c" />
     <ClCompile Include="lab1c.c" />
+    <ClCompile Include="lab1c_mod.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
