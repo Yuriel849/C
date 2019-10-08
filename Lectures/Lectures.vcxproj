@@ -129,6 +129,7 @@
     <ClCompile Include="04_Integer.c" />
     <ClCompile Include="05_FloatingPoint.c" />
     <ClCompile Include="06_Char.c" />
+    <ClCompile Include="07_TypeCasting.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
