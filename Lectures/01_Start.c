@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int S_main() // There can only be ONE(1) main() in a project
+int main() // There can only be ONE(1) main() in a project
 {
 	// all commands within a function are called statements and must end with a semicolon (";")
 	printf("So..... the first \'program\' for this course in C :)");
