@@ -18,9 +18,12 @@ int lab1c_main()
 	scanf("%d", &year);
 	getchar();
 
+	/* One problem is that the two methods below do not show what the individual digits are, instead showing only the sum
+		ex) "2016" is printed as "9", without showing 2 + 0 + 1 + 6
+	 */
 
 	/*
-	// A year has only 4 digits, but it's possible a number with more digits may be entered, so a loop is used to handle numbers with any number of digits
+	// A year has only 4 digits, but a number with more digits may be entered, so a loop is used to handle numbers with any number of digits
 	while (year != 0) {
 		// Get the remainder of the year entered by the user when divided by 10
 		sum += year % 10;
