@@ -36,5 +36,11 @@
     <ClCompile Include="07_TypeCasting.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="08_WhileLoop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="09_While_AvgValue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
