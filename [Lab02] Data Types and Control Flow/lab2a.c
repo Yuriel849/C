@@ -8,14 +8,24 @@
 #include <stdio.h>
 
 int main()
-{
-	// Use two for loops, one inside the other.aa
-	// The other loop prints each row.
-	// The inner loops prints the contents of each row.
-	// If it is an odd-numbered row, print the pluses and dashes.
-	// If it is an even-numbered row, print the bars and identifiers for each place.
-	// Two separate variables, one to represent the row number and the other to represent the column letter.
-	// Reduce the row number by one every time the outer loop runs.
-	// Increase the column letter by one every time the inner loop runs in an even-numbered row, then reset.
+{	
+	// Variables to represent the row numbers and column characters.
+	int rowNumber = 8;
+	char columnChar = 'a';
 
+	// Use two for loops, one inside the other. The outer loop prints each row.
+	for (int i = (2 * rowNumber + 1); i > 0; i--) {
+		if (i % 2 == 1) { // If this is an odd-numbered row, print pluses and dashes.
+			printf("\n+----+----+----+----+----+----+----+----+\n");
+		}
+		else { // If this is an even-numbered row, print bars and identifiers with the inner for loop.
+			printf("| "); // First leftmost bar.
+			// The inner loop prints the contents of each row.
+			for (int j = columnChar; j <= 'h'; j++) { // columnChar remains unchanged
+				printf("%c%d | ", j, i / 2);
+			}
+		}
+	}
+
+	/* NOP */ // => comment indicating there is supposed to be nothing here, "No OPeration"
 }
