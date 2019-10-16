@@ -15,3 +15,5 @@ int S_main() // There can only be ONE(1) main() in a project
 	Remove "//" comment --> ctrl + k + u
 	Add & remove comments --> shift + ctrl + /
  */
+
+ /* NOP */ // => comment indicating there is supposed to be nothing here, "No OPeration"
