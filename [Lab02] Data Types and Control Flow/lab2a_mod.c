@@ -3,8 +3,10 @@
    Instructions: 1. Use for loops to print all fields of a chessboard in a two-dimensional order to the console.
 				 2. Rows are labeled 8 (top) to 1 (bottom).
 				 3. Columns are labeled a (left) to h (right).
+   Note		   : Modified version of file lab2a.c to receive input from the user with scanf().
  */
 
+#define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
 int main()
