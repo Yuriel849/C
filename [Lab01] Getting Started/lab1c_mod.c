@@ -1,6 +1,6 @@
 /* Author	   : Myungjun Kim
    Contents    : Take the user's year of birth and print the digit sum of the entered year.
-				 Modified version of file lab1c.c to use integer field widths with scanf().
+   Note		   : Modified version of file lab1c.c to use integer field widths with scanf().
  */
 
 #define _CRT_SECURE_NO_DEPRECATE
