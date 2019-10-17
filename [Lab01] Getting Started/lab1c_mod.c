@@ -6,7 +6,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
-int lab1c_mode_main()
+int lab1c_mod_main()
 {
 	// Prepare one variable to receive input from the user, and one variable to store the sum
 	int firstDigit, secondDigit, thirdDigit, fourthDigit, sum = 0;
