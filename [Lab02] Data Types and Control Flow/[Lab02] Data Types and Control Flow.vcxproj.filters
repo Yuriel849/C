@@ -21,5 +21,8 @@
     <ClCompile Include="lab2a_mod.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lab2b.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
