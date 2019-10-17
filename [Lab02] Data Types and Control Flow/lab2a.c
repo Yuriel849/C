@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-int main()
+int lab2a_main()
 {	
 	// Variables to represent the row numbers and column characters.
 	int rowNumber = 8;

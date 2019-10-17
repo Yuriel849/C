@@ -9,11 +9,29 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
-int main()
+int lab2a_mod_main()
 {	
 	// Variables to represent the row numbers and column characters.
-	int rowNumber = 8;
-	char columnChar = 'a';
+	int rowNumber = 8; // Default value.
+	char columnChar = 'a'; // Default value.
+	int rowFlag = 1, charFlag = 1; // Default values are 'true'.
+
+	// Use a while loop to receive input from the user and check that the input is valid.
+	while (rowFlag == 1 && charFlag == 1) {
+		// Row number must be between 1 ~ 26.
+		printf("Please enter one number between 1 and 26.");
+		scanf("%d", &rowNumber);
+		if (!(rowNumber >= 1 && rowNumber <= 26)) {
+			continue;
+		}
+
+		// Column character must be between 'a' and 'z'.
+		printf("Please enter one character between a and z.");
+		scanf("%c", &columnChar);
+		if (!(columnChar >= 'a' && columnChar <= 'z')) {
+			continue;
+		}
+	}
 
 	// Use two for loops, one inside the other. The outer loop prints each row.
 	for (int i = (2 * rowNumber + 1); i > 0; i--) {
