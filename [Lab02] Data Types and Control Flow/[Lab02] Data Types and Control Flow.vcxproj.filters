@@ -33,5 +33,11 @@
     <ClCompile Include="lab2b_unsigned_short.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lab2b_unsigned_long.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lab2b_unsigned_long_long.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

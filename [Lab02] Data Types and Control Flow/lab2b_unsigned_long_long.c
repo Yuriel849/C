@@ -13,10 +13,10 @@
 #include <stdio.h>
 #include <math.h>
 
-int lab2b_unsigned_long_long_main()
+int main()
 {
 	/* ============================================================================================================================== */
-	/* ================================================== USE UNSIGNED LONGS LONGS ======================================================= */
+	/* ================================================== USE UNSIGNED LONGS LONGS ================================================== */
 	/* ============================================================================================================================== */
 
 	/*
@@ -32,22 +32,29 @@ int lab2b_unsigned_long_long_main()
 	unsigned long long onField = 0;
 	// Variable for storing sum of the grains
 	unsigned long long sum = 0;
+	// Variable for the overall weight of all the grains;
+	double totalWeight;
 
 	// Print the header
-	printf("Field | On Field | Sum\n");
-	printf("------+----------+---------------------\n");
+	printf("Field |       On Field       |                Sum               \n");
+	printf("------+----------------------+----------------------------------\n");
 
 	// while loop to print lines so long as the sequential numbering variable is less than 64 in value
 	while (numbering < 64) {
 		onField = (unsigned long long)pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
 		sum += onField; // Add the "On Field" value to the sum
 
-		printf("%5llu | %8llu | %7llu (= %.1e)\n", ++numbering, onField, sum, (double)sum); // %lu is used for unsigned longs
+		printf("%5llu | %20llu | %20llu (= %.1e)\n", ++numbering, onField, sum, (double)sum); // %lu is used for unsigned longs
 
 		if (numbering % 8 == 0) { // Print divider only after multiples of 8
-			printf("------+----------+---------------------\n");
+			printf("------+----------------------+----------------------------------\n");
 		}
 	}
+
+	totalWeight = 0.000055 * sum;
+	printf("\nWeight of all wheat grains (ea. grain is 55 mg) in kilograms : %.2f kg\n", totalWeight);
+
+	printf("Weight of all grains is %.2f times the weight of worldwide wheat production in 2015 (approx. 735.8 million tons)", totalWeight / (735.8 * 1000000));
 
 	getchar(); // Prevent program from terminating.
 	return 0;

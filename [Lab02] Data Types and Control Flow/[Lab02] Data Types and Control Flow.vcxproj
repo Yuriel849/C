@@ -127,6 +127,8 @@
     <ClCompile Include="lab2a_mod.c" />
     <ClCompile Include="lab2b.c" />
     <ClCompile Include="lab2b_unsigned_int.c" />
+    <ClCompile Include="lab2b_unsigned_long.c" />
+    <ClCompile Include="lab2b_unsigned_long_long.c" />
     <ClCompile Include="lab2b_unsigned_short.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>
