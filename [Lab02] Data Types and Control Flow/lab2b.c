@@ -1,5 +1,5 @@
 /* Author	   : Myungjun Kim
-   Contents    : Original version of "lab2b", using SIGNED INTEGERS.
+   Contents    : Version of "lab2b" using UNSIGNED LONG LONGS; designated as the main "lab2b" file because instructions require unsigned long long data type.
    Instructions: 1. Print a table with the following information.
 					a. Sequential numbering of the chessboard fields (1 to 64)
 					b. Number of grains on the specific field (i. e., 1, 2, 4, 8, . . . )
@@ -13,42 +13,48 @@
 #include <stdio.h>
 #include <math.h>
 
-int lab2b_signed_int_main()
+int main()
 {
 	/* ============================================================================================================================== */
-	/* ================================================== USE SIGNED INTEGERS ======================================================= */
+	/* ================================================== USE UNSIGNED LONGS LONGS ================================================== */
 	/* ============================================================================================================================== */
 
 	/*
-		Data type "(signed) int" for numbering, onField, sum
-			--> from numbering == 32, onField shows -2147483648 while sum alternates between -1 & 2147483647
-				onField is always -2147483648 because the figure is always larger than the maximum value of signed int and overflow occurs
-				sum alternates between -1 & 2147483647 because adding the value of onField results in underflow and overflow
-			--> this machine uses 32-bits for the signed int data type
+		Data type "unsigned long long (int)" for numbering, onField, sum
+			--> no overflow or underflow occurs, all numbers are unique
+				BUT when using an exponent greater than 64, overflow and underflow occurs
+			--> this machine uses 64-bits for the unsigned long long data type
 	 */
-	
+
 	// Variable for sequential numbering of chessboard fields (range 1 ~ 64)
-	int numbering = 0;
+	unsigned long long numbering = 0;
 	// Variable for storing the "On Field" value
-	int onField = 0;
+	unsigned long long onField = 0;
 	// Variable for storing sum of the grains
-	int sum = 0;
+	unsigned long long sum = 0;
+	// Variable for the overall weight of all the grains;
+	double totalWeight;
 
 	// Print the header
-	printf("Field | On Field | Sum\n");
-	printf("------+----------+---------------------\n");
+	printf("Field |       On Field       |                Sum               \n");
+	printf("------+----------------------+----------------------------------\n");
 
 	// while loop to print lines so long as the sequential numbering variable is less than 64 in value
 	while (numbering < 64) {
-		onField = (int) pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
+		onField = (unsigned long long)pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
 		sum += onField; // Add the "On Field" value to the sum
 
-		printf("%5d | %8d | %7d (= %.1e)\n", ++numbering, onField, sum, (double) sum);
+		printf("%5llu | %20llu | %20llu (= %.1e)\n", ++numbering, onField, sum, (double)sum); // %lu is used for unsigned longs
 
 		if (numbering % 8 == 0) { // Print divider only after multiples of 8
-			printf("------+----------+---------------------\n");
+			printf("------+----------------------+----------------------------------\n");
 		}
 	}
+
+	totalWeight = 0.000055 * sum;
+	printf("\nWeight of all wheat grains (ea. grain is 55 mg) in kilograms : %.2f kg\n", totalWeight);
+
+	printf("Weight of all grains is %.2f times the weight of worldwide wheat production in 2015 (approx. 735.8 million tons)", totalWeight / (735.8 * 1000000));
 
 	getchar(); // Prevent program from terminating.
 	return 0;
