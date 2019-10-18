@@ -11,20 +11,29 @@
 
 int main()
 {
-	// Variable to be the sequential numbering of the chessboard fields (range 1 ~ 64)
-	double numbering = 1;
-	// Variable to store the sum of the grains
-	int sum = 0;
-	// Variable to store the "On Field" value
+	// Variable for sequential numbering of chessboard fields (range 1 ~ 64)
+	int numbering = 0;
+	// Variable for storing the "On Field" value
 	int onField = 0;
+	// Variable for storing sum of the grains
+	int sum = 0;
+
+	// Print the header
+	printf("Field | On Field | Sum\n");
+	printf("------+----------+---------------------\n");
 
 	// while loop to print lines so long as the sequential numbering variable is less than 64 in value
-	while (numbering <= 64) {
-		// Calculate the "On Field" value
-		onField = (int) pow(2, numbering-1);
-		sum += onField;
+	while (numbering < 64) {
+		onField = (int) pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
+		sum += onField; // Add the "On Field" value to the sum
 
-		printf("%.f | %4d | %4d\n", numbering++, onField, sum);
+		printf("%5d | %8d | %20d\n", ++numbering, onField, sum);
+
+		if (numbering % 8 == 0) { // Print divider only after multiples of 8
+			printf("------+----------+---------------------\n");
+		}
 	}
 
+	getchar(); // Prevent program from terminating.
+	return 0;
 }
