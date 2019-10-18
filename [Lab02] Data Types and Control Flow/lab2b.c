@@ -1,5 +1,5 @@
 /* Author	   : Myungjun Kim
-   Contents    : 
+   Contents    : Original version of "lab2b", using SIGNED INTEGERS.
    Instructions: 1. Print a table with the following information.
 					a. Sequential numbering of the chessboard fields (1 to 64)
 					b. Number of grains on the specific field (i. e., 1, 2, 4, 8, . . . )
