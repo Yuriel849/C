@@ -43,7 +43,7 @@ int lab2b_unsigned_short_main()
 		onField = (unsigned short)pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
 		sum += onField; // Add the "On Field" value to the sum
 
-		printf("%5hu | %8hu | %7hu (= %.1e)\n", ++numbering, onField, sum, (double)sum); // %u is used for unsigned integers
+		printf("%5hu | %8hu | %7hu (= %.1e)\n", ++numbering, onField, sum, (double)sum); // %hu is used for unsigned shorts
 
 		if (numbering % 8 == 0) { // Print divider only after multiples of 8
 			printf("------+----------+---------------------\n");
