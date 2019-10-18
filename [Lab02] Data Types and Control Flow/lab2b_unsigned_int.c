@@ -1,5 +1,5 @@
 /* Author	   : Myungjun Kim
-   Contents    : 
+   Contents    : Version of "lab2b" using UNSIGNED INTEGERS.
    Instructions: 1. Print a table with the following information.
 					a. Sequential numbering of the chessboard fields (1 to 64)
 					b. Number of grains on the specific field (i. e., 1, 2, 4, 8, . . . )
@@ -13,26 +13,26 @@
 #include <stdio.h>
 #include <math.h>
 
-int lab2b_signed_int_main()
+int lab2b_unsigned_int_main()
 {
 	/* ============================================================================================================================== */
-	/* ================================================== USE SIGNED INTEGERS ======================================================= */
+	/* ================================================== USE UNSIGNED INTEGERS ======================================================= */
 	/* ============================================================================================================================== */
 
 	/*
-		Data type "(signed) int" for numbering, onField, sum
-			--> from numbering == 32, onField shows -2147483648 while sum alternates between -1 & 2147483647
-				onField is always -2147483648 because the figure is always larger than the maximum value of signed int and overflow occurs
-				sum alternates between -1 & 2147483647 because adding the value of onField results in underflow and overflow
-			--> this machine uses 32-bits for the signed int data type
+		Data type "unsigned (int)" for numbering, onField, sum
+			--> from numbering == 33, onField shows 0 and sum shows 4294967295
+				onField is always 0 because the figure is always larger than the maximum value of unsigned int and overflow occurs
+				sum is always 4294967295 because adding onField to sum always adds 0
+			--> this machine uses 32-bits for the unsigned int data type
 	 */
-	
+
 	// Variable for sequential numbering of chessboard fields (range 1 ~ 64)
-	int numbering = 0;
+	unsigned numbering = 0;
 	// Variable for storing the "On Field" value
-	int onField = 0;
+	unsigned onField = 0;
 	// Variable for storing sum of the grains
-	int sum = 0;
+	unsigned sum = 0;
 
 	// Print the header
 	printf("Field | On Field | Sum\n");
@@ -40,10 +40,10 @@ int lab2b_signed_int_main()
 
 	// while loop to print lines so long as the sequential numbering variable is less than 64 in value
 	while (numbering < 64) {
-		onField = (int) pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
+		onField = (unsigned)pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
 		sum += onField; // Add the "On Field" value to the sum
 
-		printf("%5d | %8d | %7d (= %.1e)\n", ++numbering, onField, sum, (double) sum);
+		printf("%5u | %8u | %7u (= %.1e)\n", ++numbering, onField, sum, (double)sum); // %u is used for unsigned integers
 
 		if (numbering % 8 == 0) { // Print divider only after multiples of 8
 			printf("------+----------+---------------------\n");
