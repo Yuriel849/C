@@ -23,7 +23,7 @@ int lab2b_unsigned_int_main()
 		Data type "unsigned (int)" for numbering, onField, sum
 			--> from numbering == 33, onField shows 0 and sum shows 4294967295
 				onField is always 0 because the figure is always larger than the maximum value of unsigned int and overflow occurs
-				sum is always 4294967295 because adding onField to sum always adds 0
+				sum is always 4294967295 because onField always adds 0 to the value of sum
 			--> this machine uses 32-bits for the unsigned int data type
 	 */
 
