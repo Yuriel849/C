@@ -27,7 +27,7 @@ int main()
 		onField = (int) pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
 		sum += onField; // Add the "On Field" value to the sum
 
-		printf("%5d | %8d | %20d\n", ++numbering, onField, sum);
+		printf("%5d | %8d | %7d (= %.1e)\n", ++numbering, onField, sum, (double) sum);
 
 		if (numbering % 8 == 0) { // Print divider only after multiples of 8
 			printf("------+----------+---------------------\n");
