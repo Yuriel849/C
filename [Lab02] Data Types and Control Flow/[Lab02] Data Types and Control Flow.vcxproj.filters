@@ -30,5 +30,8 @@
     <ClCompile Include="lab2b_unsigned_int.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lab2b_unsigned_short.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
