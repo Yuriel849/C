@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cleanString.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="01_Start.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="09_While_AvgValue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="10_CleanString.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="11_Max3.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

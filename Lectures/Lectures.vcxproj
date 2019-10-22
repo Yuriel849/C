@@ -132,7 +132,8 @@
     <ClCompile Include="07_TypeCasting.c" />
     <ClCompile Include="08_WhileLoop.c" />
     <ClCompile Include="09_While_AvgValue.c" />
-    <ClCompile Include="cleanString.c" />
+    <ClCompile Include="10_CleanString.c" />
+    <ClCompile Include="11_Max3.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
