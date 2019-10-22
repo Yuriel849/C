@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cleanString.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="01_Start.c">
       <Filter>Source Files</Filter>
     </ClCompile>

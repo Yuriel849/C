@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
-int main()
+int WhileAvg_main()
 {
 	// Note: The scanf() function returns the number of inputs correctly read and assigned.
 	int input = 0;

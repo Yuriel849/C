@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{81C6A2D8-E1A1-4F6C-A6D2-F1C1750DA8BC}</ProjectGuid>
+    <ProjectGuid>{D5FBD2CD-0CF9-415C-9397-2FA954029AB9}</ProjectGuid>
     <RootNamespace>Lectures</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -132,6 +132,7 @@
     <ClCompile Include="07_TypeCasting.c" />
     <ClCompile Include="08_WhileLoop.c" />
     <ClCompile Include="09_While_AvgValue.c" />
+    <ClCompile Include="cleanString.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
