@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{6F1C24CB-3640-4850-95B6-90F5DB872896}</ProjectGuid>
-    <RootNamespace>Lab02DataTypesandControlFlow</RootNamespace>
+    <ProjectGuid>{57929C73-18E6-4CEA-BC9C-54573732C6FB}</ProjectGuid>
+    <RootNamespace>lab2b</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,14 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lab2a.c" />
-    <ClCompile Include="lab2a_mod.c" />
-    <ClCompile Include="lab2b_int.c" />
-    <ClCompile Include="lab2b_unsigned_int.c" />
-    <ClCompile Include="lab2b_unsigned_long.c" />
     <ClCompile Include="lab2b.c" />
-    <ClCompile Include="lab2b_unsigned_short.c" />
-    <ClCompile Include="test.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,27 +11,26 @@
  */
 
 #include <stdio.h>
-#include <math.h>
 
 int main()
 {
-	/* ============================================================================================================================== */
-	/* ================================================== USE UNSIGNED LONGS LONGS ================================================== */
-	/* ============================================================================================================================== */
-
 	/*
 		Data type "unsigned long long (int)" for numbering, onField, sum
 			--> no overflow or underflow occurs, all numbers are unique
 				BUT when using an exponent greater than 64, overflow and underflow occurs
 			--> this machine uses 64-bits for the unsigned long long data type
+
+		Number of all wheat grains is 18,446,744,073,709,551,615 (18,446,744 trillion grains)
+		Weight of all wheat grains is 1,014,570,924,054,025.38 kg (1,014.57 trillion kilograms).
+		Weight of all wheat grains is 1,378.87 times the weight of 2015 worldwide wheat production.
 	 */
 
 	// Variable for sequential numbering of chessboard fields (range 1 ~ 64)
-	unsigned long long numbering = 0;
+	int numbering = 1;
 	// Variable for storing the "On Field" value
-	unsigned long long onField = 0;
+	unsigned long long onField = 1;
 	// Variable for storing sum of the grains
-	unsigned long long sum = 0;
+	unsigned long long sum = 1;
 	// Variable for the overall weight of all the grains;
 	double totalWeight;
 
@@ -39,16 +38,19 @@ int main()
 	printf("Field |       On Field       |                Sum               \n");
 	printf("------+----------------------+----------------------------------\n");
 
-	// while loop to print lines so long as the sequential numbering variable is less than 64 in value
-	while (numbering < 64) {
-		onField = (unsigned long long)pow(2, numbering); // Calculate the "On Field" value; numbering starts from 0 to avoid arithmetic within pow()
-		sum += onField; // Add the "On Field" value to the sum
+	// Print lines so long as the sequential numbering variable is less than or equal to 64 in value
+	while (numbering <= 64)
+	{
+		printf("%5d | %20llu | %20llu (= %.1e)\n", numbering, onField, sum, (double)sum); // %llu is used for unsigned long longs
 
-		printf("%5llu | %20llu | %20llu (= %.1e)\n", ++numbering, onField, sum, (double)sum); // %lu is used for unsigned longs
-
-		if (numbering % 8 == 0) { // Print divider only after multiples of 8
+		if (numbering % 8 == 0)
+		{ // Print divider only after multiples of 8
 			printf("------+----------------------+----------------------------------\n");
 		}
+
+		onField *= 2; // Multiple the "On Field" value by 2 to get the next power of 2
+		sum += onField; // Add the "On Field" value to the sum
+		numbering++; // Increment numbering after one iteration
 	}
 
 	totalWeight = 0.000055 * sum;
