@@ -15,16 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lab1a.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lab1b.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lab1c.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lab1c_mod.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

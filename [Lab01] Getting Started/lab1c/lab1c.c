@@ -8,7 +8,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
-int lab1c_main()
+int main()
 {
 	// Prepare one variable to receive input from the user, and one variable to store the sum
 	int year, sum = 0;

@@ -7,7 +7,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
-int lab1b_main()
+int main()
 {
 	// Prepare two variables to receive two integers from the user
 	int inputOne, inputTwo;

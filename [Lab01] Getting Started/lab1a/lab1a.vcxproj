@@ -18,16 +18,10 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="lab1a.c" />
-    <ClCompile Include="lab1b.c" />
-    <ClCompile Include="lab1c.c" />
-    <ClCompile Include="lab1c_mod.c" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{636384D2-5533-42E0-BB41-496DE039B943}</ProjectGuid>
-    <RootNamespace>Lab01GettingStarted</RootNamespace>
+    <ProjectGuid>{6E697ADC-C2B6-4420-A48C-1D3EBCB4669C}</ProjectGuid>
+    <RootNamespace>lab1a</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -128,6 +122,9 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="lab1a.c" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

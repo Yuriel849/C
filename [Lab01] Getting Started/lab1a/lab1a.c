@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-int lab1a_main()
+int main()
 {
 	// Fix values of variables
 	int seven = 7, three = 3;
