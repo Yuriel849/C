@@ -10,20 +10,51 @@
 #include <stdio.h>
 #include <math.h>
 
-char isNorthernHemisphere(double, double);
-char isSouthernHemisphere(double, double);
+char isNorthernHemisphere(double);
+char isSouthernHemisphere(double);
 
 int main(void)
 {
+	double latitude, longitude;
+	char Hemisphere = 'f';
 
+	//printf("Enter the latitude and longitude, separated by a comma:  \n");
+	//scanf("%lf,%lf", &latitude, &longitude);
+
+	latitude = 22.971177;
+	longitude = -43.182543;
+	
+	if (isNorthernHemisphere(latitude) == 'n')
+	{
+		Hemisphere = 'n';
+	}
+	else if (isSouthernHemisphere(latitude) == 's')
+	{
+		Hemisphere = 's';
+	}
+	else
+	{
+		Hemisphere = 'e';
+	}
+
+	printf("%c", Hemisphere);
+
+	getchar();
+	return 0;
 }
 
-char isNorthernHemisphere(double latitude, double longitude)
+char isNorthernHemisphere(double latitude)
 {
-
+	if (latitude > 0)
+	{
+		return 'n';
+	}
 }
 
-char isSouthernHemisphere(double latitude, double longitude)
+char isSouthernHemisphere(double latitude)
 {
-
+	if (latitude < 0)
+	{
+		return 's';
+	}
 }
