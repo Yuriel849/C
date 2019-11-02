@@ -12,7 +12,7 @@
 		d) Determine the missing distances to the HAW Hamburg in Table 5.1.
 				  Locations			  Global	   Local
 			(i)   Palma de Mallorca - 1654.5 km  - 1656.3 km
-			(ii)  Las Vegas			- 8745.6 km  - 10063.9 km 
+			(ii)  Las Vegas			- 8745.6 km  - 10063.9 km
 			(iii) Copacabanca		- 9932.3 km  - 10255.6 km
 			(iv)  Waikiki Beach		- 11625.4 km - 15266.8 km
 			(v)   Surfer's Paradise - 16887.6 km - 19929.4 km
@@ -40,7 +40,7 @@ int main(void)
 	// Coordinates of other location
 	latitudeY = -28.002695;
 	longitudeY = -153.431781;
-	
+
 	// Check which hemisphere the coordinates are in
 	if (isNorthernHemisphere(latitudeX) == 'n')
 	{
