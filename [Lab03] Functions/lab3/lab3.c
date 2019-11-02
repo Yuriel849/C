@@ -13,6 +13,7 @@
  */
 
 #define _CRT_SECURE_NO_DEPRECATE
+#define M_PI       3.14159265358979323846
 #include <stdio.h>
 #include <math.h>
 
@@ -23,14 +24,16 @@ double distanceKm(double, double, double, double);
 
 int main(void)
 {
-	double latitudeX, longitudeX, latitudeY, longitudeY, distance;
+	double latitudeX = 0, longitudeX = 0, latitudeY = 0, longitudeY = 0, distance;
 	char Hemisphere = 'f';
 
 	//printf("Enter the latitude and longitude, separated by a comma:  \n");
 	//scanf("%lf,%lf", &latitude, &longitude);
 
-	latitudeX = 22.971177;
-	longitudeX = -43.182543;
+	latitudeX = 53.557078;
+	longitudeX = 10.023109;
+	latitudeY = 48.858363;
+	longitudeY = 2.294481;
 	
 	if (isNorthernHemisphere(latitudeX) == 'n') // check if the coordinates are in the northern hemisphere
 	{
@@ -46,6 +49,10 @@ int main(void)
 	}
 
 	distance = localDistanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
+	printf("The local distance between these two points is %.1lf\n", distance);
+
+	distance = distanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
+	printf("The global distance between these two points is %.1lf\n", distance);
 
 	getchar();
 	return 0;
@@ -69,11 +76,29 @@ char isSouthernHemisphere(double latitude)
 
 double localDistanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY)
 {
-	// Convert the given latitudes and longitudes from degrees into radians
+	double deltaX, deltaY;
 
-	// Calculate delta-Y as 111.3 * | latitudeX - latitudeY |
+	// Calculate deltaY as 111.3 * | latitudeX - latitudeY |
+	deltaY = 111.3 * fabs(latitudeX - latitudeY);
 
-	// Calculate delta-X as 111.3 * cos((latitudeX + latitudeY) / 2) * | longitudeX - longitudeY |
+	// Calculate deltaX as 111.3 * cos((latitudeX + latitudeY) / 2) * | longitudeX - longitudeY |
+	deltaX = 111.3 * cos((latitudeX + latitudeY) * M_PI / 180.0 / 2) * fabs(longitudeX - longitudeY);
 
-	// Calculate the distance between the two points as square root((delta-X**2 + delta-Y**2))
+	// Calculate the distance between the two points as square root((deltaX**2 + deltaY**2))
+	return sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+}
+
+double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY)
+{
+	double sinLatX, sinLatY, cosLatX, cosLatY, cosLong;
+
+	// Convert degrees into radians;
+	sinLatX = sin(latitudeX * M_PI / 180.0);
+	sinLatY = sin(latitudeY * M_PI / 180.0);
+	cosLatX = cos(latitudeX * M_PI / 180.0);
+	cosLatY = cos(latitudeY * M_PI / 180.0);
+	cosLong = cos((longitudeY - longitudeX) * M_PI / 180.0);
+
+	// Calculate the distance between two points
+	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong));
 }
