@@ -10,6 +10,12 @@
 		b) Implement a function distanceKm() that returns the distance in km between two geographic locations calculated according to (5.4).
 		c) Verify that the functions return the correct distances between the HAW Hamburg and the Eiffel Tower as given in Table 5.1.
 		d) Determine the missing distances to the HAW Hamburg in Table 5.1.
+				  Locations			  Global	   Local
+			(i)   Palma de Mallorca - 1654.5 km  - 1656.3 km
+			(ii)  Las Vegas			- 8745.6 km  - 10063.9 km 
+			(iii) Copacabanca		- 9932.3 km  - 10255.6 km
+			(iv)  Waikiki Beach		- 11625.4 km - 15266.8 km
+			(v)   Surfer's Paradise - 16887.6 km - 19929.4 km
  */
 
 #define _CRT_SECURE_NO_DEPRECATE
@@ -24,13 +30,16 @@ double distanceKm(double, double, double, double);
 
 int main(void)
 {
-	double latitudeX = 0, longitudeX = 0, latitudeY = 0, longitudeY = 0, distance;
-	char Hemisphere = 'f';
+	double latitudeX, longitudeX, latitudeY, longitudeY, distance;
+	char Hemisphere = 'f'; // Default value is "false"
 
+	// Coordinates of HAW Hamburg
 	latitudeX = 53.557078;
 	longitudeX = 10.023109;
-	latitudeY = 48.858363;
-	longitudeY = 2.294481;
+
+	// Coordinates of other location
+	latitudeY = -28.002695;
+	longitudeY = -153.431781;
 	
 	// Check which hemisphere the coordinates are in
 	if (isNorthernHemisphere(latitudeX) == 'n')
@@ -48,11 +57,11 @@ int main(void)
 
 	// Calculate the distance between the two sets of coordinates
 	distance = localDistanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
-	printf("The local distance between these two points is %.1lf\n", distance);
+	printf("The local distance between these two points is %.1lf km\n", distance);
 
 	// More accurately calculate the distance between the two sets of coordinates
 	distance = distanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
-	printf("The global distance between these two points is %.1lf\n", distance);
+	printf("The global distance between these two points is %.1lf km\n", distance);
 
 	getchar();
 	return 0;
