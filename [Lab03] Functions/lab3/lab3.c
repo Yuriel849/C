@@ -27,30 +27,30 @@ int main(void)
 	double latitudeX = 0, longitudeX = 0, latitudeY = 0, longitudeY = 0, distance;
 	char Hemisphere = 'f';
 
-	//printf("Enter the latitude and longitude, separated by a comma:  \n");
-	//scanf("%lf,%lf", &latitude, &longitude);
-
 	latitudeX = 53.557078;
 	longitudeX = 10.023109;
 	latitudeY = 48.858363;
 	longitudeY = 2.294481;
 	
-	if (isNorthernHemisphere(latitudeX) == 'n') // check if the coordinates are in the northern hemisphere
+	// Check which hemisphere the coordinates are in
+	if (isNorthernHemisphere(latitudeX) == 'n')
 	{
-		Hemisphere = 'n';
+		Hemisphere = 'n'; // Northern hemisphere
 	}
-	else if (isSouthernHemisphere(latitudeX) == 's') // check if the coordinates are in the southern hemisphere
+	else if (isSouthernHemisphere(latitudeX) == 's')
 	{
-		Hemisphere = 's';
+		Hemisphere = 's'; // Southern hemisphere
 	}
-	else // if the coordinates are neither in the northern nor southern hemispheres, set as the equator
+	else
 	{
-		Hemisphere = 'e';
+		Hemisphere = 'e'; // Equator
 	}
 
+	// Calculate the distance between the two sets of coordinates
 	distance = localDistanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
 	printf("The local distance between these two points is %.1lf\n", distance);
 
+	// More accurately calculate the distance between the two sets of coordinates
 	distance = distanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
 	printf("The global distance between these two points is %.1lf\n", distance);
 
@@ -84,7 +84,7 @@ double localDistanceKm(double latitudeX, double longitudeX, double latitudeY, do
 	// Calculate deltaX as 111.3 * cos((latitudeX + latitudeY) / 2) * | longitudeX - longitudeY |
 	deltaX = 111.3 * cos((latitudeX + latitudeY) * M_PI / 180.0 / 2) * fabs(longitudeX - longitudeY);
 
-	// Calculate the distance between the two points as square root((deltaX**2 + deltaY**2))
+	// Calculate and return the distance between the two points
 	return sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 }
 
@@ -99,6 +99,6 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 	cosLatY = cos(latitudeY * M_PI / 180.0);
 	cosLong = cos((longitudeY - longitudeX) * M_PI / 180.0);
 
-	// Calculate the distance between two points
+	// Calculate and return the distance between two points
 	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong));
 }
