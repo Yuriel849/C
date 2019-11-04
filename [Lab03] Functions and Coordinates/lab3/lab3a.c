@@ -25,28 +25,21 @@
 
 char isNorthernHemisphere(double);
 char isSouthernHemisphere(double);
-double localDistanceKm(double, double, double, double);
-double distanceKm(double, double, double, double);
 
 int main(void)
 {
-	double latitudeX, longitudeX, latitudeY, longitudeY, distance;
+	double latitude, longitude;
 	char Hemisphere = 'f'; // Default value is "false"
 
-	// Coordinates of HAW Hamburg
-	latitudeX = 53.557078;
-	longitudeX = 10.023109;
-
-	// Coordinates of other location
-	latitudeY = -28.002695;
-	longitudeY = -153.431781;
+	latitude = 53.557078;
+	longitude = 10.023109;
 
 	// Check which hemisphere the coordinates are in
-	if (isNorthernHemisphere(latitudeX) == 'n')
+	if (isNorthernHemisphere(latitude) == 'n')
 	{
 		Hemisphere = 'n'; // Northern hemisphere
 	}
-	else if (isSouthernHemisphere(latitudeX) == 's')
+	else if (isSouthernHemisphere(latitude) == 's')
 	{
 		Hemisphere = 's'; // Southern hemisphere
 	}
@@ -54,14 +47,6 @@ int main(void)
 	{
 		Hemisphere = 'e'; // Equator
 	}
-
-	// Calculate the distance between the two sets of coordinates
-	distance = localDistanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
-	printf("The local distance between these two points is %.1lf km\n", distance);
-
-	// More accurately calculate the distance between the two sets of coordinates
-	distance = distanceKm(latitudeX, longitudeX, latitudeY, longitudeY);
-	printf("The global distance between these two points is %.1lf km\n", distance);
 
 	getchar();
 	return 0;
@@ -81,33 +66,4 @@ char isSouthernHemisphere(double latitude)
 	{
 		return 's';
 	}
-}
-
-double localDistanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY)
-{
-	double deltaX, deltaY;
-
-	// Calculate deltaY as 111.3 * | latitudeX - latitudeY |
-	deltaY = 111.3 * fabs(latitudeX - latitudeY);
-
-	// Calculate deltaX as 111.3 * cos((latitudeX + latitudeY) / 2) * | longitudeX - longitudeY |
-	deltaX = 111.3 * cos((latitudeX + latitudeY) * M_PI / 180.0 / 2) * fabs(longitudeX - longitudeY);
-
-	// Calculate and return the distance between the two points
-	return sqrt(pow(deltaX, 2) + pow(deltaY, 2));
-}
-
-double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY)
-{
-	double sinLatX, sinLatY, cosLatX, cosLatY, cosLong;
-
-	// Convert degrees into radians;
-	sinLatX = sin(latitudeX * M_PI / 180.0);
-	sinLatY = sin(latitudeY * M_PI / 180.0);
-	cosLatX = cos(latitudeX * M_PI / 180.0);
-	cosLatY = cos(latitudeY * M_PI / 180.0);
-	cosLong = cos((longitudeY - longitudeX) * M_PI / 180.0);
-
-	// Calculate and return the distance between two points
-	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong));
 }
