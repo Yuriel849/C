@@ -13,7 +13,7 @@
 		(v)   Surfer's Paradise - 16887.6 km - 19929.4 km
  */
 
-#define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE // Else MSVC++ prevents using scanf() (concern: buffer overflow)
 #define M_PI       3.14159265358979323846
 #include <stdio.h>
 #include <math.h>
