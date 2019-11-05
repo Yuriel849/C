@@ -3,7 +3,7 @@
 int max3(void);
 int max(int, int);
 
-void main(void)
+void Max3_main(void)
 {
 	return max3();
 }

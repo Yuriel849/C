@@ -2,7 +2,7 @@
 
 void cleanString(void);
 
-int main(void)
+int CS_main(void)
 {
 	cleanString();
 
