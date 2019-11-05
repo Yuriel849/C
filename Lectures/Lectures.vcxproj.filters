@@ -54,5 +54,8 @@
     <ClCompile Include="12_PascalTriangle.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="14_NoiseReduction.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

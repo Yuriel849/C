@@ -1,7 +1,12 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 
-int main(void)
+/*
+	To initialize an entire array with the same data
+	int a[1000] = { 0 } => all 1000 elements are initialized as "0"
+ */
+
+int Arr_main(void)
 {
 	// Declare and initialize array
 	float avgTempC[12] = { 2.7, 3.8, 7.2, 11.9, 17.9, 20.2, 21.4, 21.6, 18.0, 13.3, 7.6, 4.0 }; // To assign with braces and commas, MUST DO AT DECLARATION
