@@ -48,5 +48,11 @@
     <ClCompile Include="11_Max3.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="13_Array.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="12_PascalTriangle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

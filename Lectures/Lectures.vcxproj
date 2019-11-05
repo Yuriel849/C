@@ -134,6 +134,8 @@
     <ClCompile Include="09_While_AvgValue.c" />
     <ClCompile Include="10_CleanString.c" />
     <ClCompile Include="11_Max3.c" />
+    <ClCompile Include="13_Array.c" />
+    <ClCompile Include="12_PascalTriangle.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
