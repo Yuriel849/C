@@ -7,47 +7,34 @@
  */
 
 #define _CRT_SECURE_NO_DEPRECATE
-#define M_PI       3.14159265358979323846
-#include <stdio.h>
-#include <math.h>
 
-char isNorthernHemisphere(double);
-char isSouthernHemisphere(double);
+#include <stdio.h>
+
+int isNorthernHemisphere(double);
+int isSouthernHemisphere(double);
 
 int main(void)
 {
 	double latitude, longitude;
-	char Hemisphere = 'f'; // Default value is "false"
 
 	latitude = 53.557078;
 	longitude = 10.023109;
 
 	// Check which hemisphere the coordinates are in
-	Hemisphere = isNorthernHemisphere(latitude);
+	printf("In the northern hemisphere?: %d\n", isNorthernHemisphere(latitude)); // Northern hemisphere
+	printf("In the southern hemisphere?: %d\n", isSouthernHemisphere(latitude)); // Southern hemisphere
 
 	getchar();
 	return 0;
 }
 
-char isNorthernHemisphere(double latitude)
+// Functions do nothing but return true or false values => Any further actions done where functions were called
+int isNorthernHemisphere(double latitude)
 {
-	if (latitude > 0)
-	{
-		return 'n'; // Northern hemisphere
-	}
-	else {
-		isSouthernHemisphere(latitude);
-	}
+	return (latitude > 0.0 && latitude <= 90.0);
 }
 
-char isSouthernHemisphere(double latitude)
+int isSouthernHemisphere(double latitude)
 {
-	if (latitude < 0)
-	{
-		return 's'; // Southern hemisphere
-	}
-	else if
-	{
-		return 'e'; // Equator
-	}
+	return (latitude < 0.0 && latitude >= -90.0);
 }

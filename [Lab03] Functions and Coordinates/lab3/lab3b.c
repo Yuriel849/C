@@ -14,9 +14,9 @@
  */
 
 #define _CRT_SECURE_NO_DEPRECATE // Else MSVC++ prevents using scanf() (concern: buffer overflow)
-#define M_PI       3.14159265358979323846
 #include <stdio.h>
 #include <math.h>
+#include <corecrt_math_defines.h>
 
 double localDistanceKm(double, double, double, double);
 double distanceKm(double, double, double, double);
@@ -53,10 +53,11 @@ double localDistanceKm(double latitudeX, double longitudeX, double latitudeY, do
 	deltaY = 111.3 * fabs(latitudeX - latitudeY);
 
 	// Calculate deltaX as 111.3 * cos((latitudeX + latitudeY) / 2) * | longitudeX - longitudeY |
-	deltaX = 111.3 * cos((latitudeX + latitudeY) * M_PI / 180.0 / 2) * fabs(longitudeX - longitudeY);
+	deltaX = 111.3 * cos((latitudeX + latitudeY) * M_PI / 180.0 / 2.0) * fabs(longitudeX - longitudeY);
 
 	// Calculate and return the distance between the two points
-	return sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+	return sqrt(deltaX * deltaX + deltaY * deltaY); // Faster and more intuitive than using pow(base,exponent)
+//	return sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 }
 
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY)
@@ -73,3 +74,6 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 	// Calculate and return the distance between two points
 	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong));
 }
+
+// in industry, first write program to meet the requirements, then find if there is a problem, optimize that specific area... use profiler tool to chk if there is a place to make better
+// clear buffer... use while, putting in body with continue or even just a comment with NOP is better for readiability... may be better to put in separate function, function call is always slower but it is about user input anyways, user is not fast in any case so function call's low speed is not that big an issue
