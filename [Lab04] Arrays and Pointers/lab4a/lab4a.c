@@ -49,6 +49,9 @@ int main(void)
 	size = sizeof latitude / sizeof latitude[0]; // sizeof latitude is 8 bytes * 9 elements = 72
 	distance = totalDistance(latitude, longitude, size);
 	printf("The total distance travelled during this walk around the block is %.2f km.", distance);
+
+	getchar();
+	return 0;
 }
 
 // When passing a pointer to an array as a parameter, double *array == double array[]
