@@ -137,6 +137,7 @@
     <ClCompile Include="13_Array.c" />
     <ClCompile Include="12_PascalTriangle.c" />
     <ClCompile Include="14_NoiseReduction.c" />
+    <ClCompile Include="15_CartesianToPolar.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
