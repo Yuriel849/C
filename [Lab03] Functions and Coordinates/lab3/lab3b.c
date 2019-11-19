@@ -64,14 +64,14 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 {
 	double sinLatX, sinLatY, cosLatX, cosLatY, cosLong;
 
-	// Convert degrees into radians;
+	// Convert degrees into radians
 	sinLatX = sin(latitudeX * M_PI / 180.0);
 	sinLatY = sin(latitudeY * M_PI / 180.0);
 	cosLatX = cos(latitudeX * M_PI / 180.0);
 	cosLatY = cos(latitudeY * M_PI / 180.0);
 	cosLong = cos((longitudeY - longitudeX) * M_PI / 180.0);
 
-	// Calculate and return the distance between two points
+	// Calculate and return the distance between two points
 	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong));
 }
 
