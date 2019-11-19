@@ -5,7 +5,7 @@
 
 void convertPolar(double, double, double*, double*);
 
-int main(void)
+int cP_main(void)
 {
 	double x = 2.0, y = 3.75;
 	double r, phi;
