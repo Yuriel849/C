@@ -19,36 +19,22 @@ double distanceKm(double, double, double, double);
 
 int main(void)
 {
-	double distance = 0.0; // total distance
-	int size; // size of the array
+	int size; // Size of the array
 
 	double latitude[9] = {
-		53.557029
-		, 53.557166
-		, 53.557274
-		, 53.560288
-		, 53.561306
-		, 53.562015
-		, 53.558241
-		, 53.557900
-		, 53.557203
+		53.557029, 53.557166, 53.557274
+		, 53.560288, 53.561306, 53.562015
+		, 53.558241, 53.557900, 53.557203
 	};
 
 	double longitude[9] = {
-		10.022918
-		, 10.021343
-		, 10.021343
-		, 10.021343
-		, 10.021343
-		, 10.016568
-		, 10.023244
-		, 10.022142
-		, 10.022632
+		10.022918, 10.021343, 10.021343
+		, 10.021343, 10.021343, 10.016568
+		, 10.023244, 10.022142, 10.022632
 	};
 
 	size = sizeof latitude / sizeof latitude[0]; // sizeof latitude is 8 bytes * 9 elements = 72
-	distance = totalDistance(latitude, longitude, size);
-	printf("The total distance travelled during this walk around the block is %.2f km.", distance);
+	printf("The total distance travelled during this walk around the block is %.2f km.", totalDistance(latitude, longitude, size));
 
 	getchar();
 	return 0;
@@ -76,13 +62,11 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 {
 	double sinLatX, sinLatY, cosLatX, cosLatY, cosLong;
 
-	// Convert degrees into radians
-	sinLatX = sin(latitudeX * M_PI / 180.0);
+	sinLatX = sin(latitudeX * M_PI / 180.0); // Convert degrees into radians
 	sinLatY = sin(latitudeY * M_PI / 180.0);
 	cosLatX = cos(latitudeX * M_PI / 180.0);
 	cosLatY = cos(latitudeY * M_PI / 180.0);
 	cosLong = cos((longitudeY - longitudeX) * M_PI / 180.0);
 
-	// Calculate and return the distance between two points
-	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong));
+	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong)); // Calculate & return distance between two points
 }
