@@ -139,6 +139,7 @@
     <ClCompile Include="14_NoiseReduction.c" />
     <ClCompile Include="15_CartesianToPolar.c" />
     <ClCompile Include="16_MinimumAndMaximum.c" />
+    <ClCompile Include="17_2DArray.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

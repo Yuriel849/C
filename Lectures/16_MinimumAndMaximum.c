@@ -1,6 +1,6 @@
 void minMax(int*, int*, int*, int);
 
-int main(void)
+int minMax_main(void)
 {
 	int a[] = { 42, 7, 4, 52, 101, 501, 666, -34, 5 };
 	int size = sizeof a / sizeof a[0];
