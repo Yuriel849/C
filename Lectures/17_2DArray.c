@@ -6,7 +6,7 @@
 
 int sum(int *a, int rows, int columns); // passing pointer to a 1D array
 
-int main(void)
+int 2D_Arr_main(void)
 {
 	int a[ROWS][COLUMNS] = { 20, 37, 10, 16, 2, 14 }; // May add additional brackets to improve readability
 
