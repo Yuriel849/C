@@ -1,5 +1,6 @@
 /* Author	   : Myungjun Kim
-   Contents    : Approximate the value of an infinite series, where k is incremented from 0 to infinity, and 2 to the power of -k is added to the sum.
+   Contents    : Exercise 15.
+   Instructions: Approximate the value of an infinite series, where k is incremented from 0 to infinity, and 2 to the power of -k is added to the sum.
  */
 
 #define _CRT_SECURE_NO_DEPRECATE

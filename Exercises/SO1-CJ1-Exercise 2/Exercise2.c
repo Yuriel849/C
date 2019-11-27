@@ -1,5 +1,6 @@
 /* Author	   : Myungjun Kim
-   Contents    : Write and use a function printBinary() that prints the corresponding binary pattern of a positive integer.
+   Contents    : Exercise 17.
+   Instructinos: Write and use a function printBinary() that prints the corresponding binary pattern of a positive integer.
  */
 
 #define _CRT_SECURE_NO_DEPRECATE

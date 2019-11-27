@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{D5FBD2CD-0CF9-415C-9397-2FA954029AB9}</ProjectGuid>
-    <RootNamespace>Lectures</RootNamespace>
+    <ProjectGuid>{FF9D7B31-2F6C-468E-B0B9-621EB9BD29AB}</ProjectGuid>
+    <RootNamespace>SO1WBookExercise20</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
@@ -81,7 +81,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
@@ -123,24 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="01_Start.c" />
-    <ClCompile Include="02_Datatypes.c" />
-    <ClCompile Include="03_TypeConversion.c" />
-    <ClCompile Include="04_Integer.c" />
-    <ClCompile Include="05_FloatingPoint.c" />
-    <ClCompile Include="06_Char.c" />
-    <ClCompile Include="07_TypeCasting.c" />
-    <ClCompile Include="08_WhileLoop.c" />
-    <ClCompile Include="09_While_AvgValue.c" />
-    <ClCompile Include="10_CleanString.c" />
-    <ClCompile Include="11_Max3.c" />
-    <ClCompile Include="13_Array.c" />
-    <ClCompile Include="12_PascalTriangle.c" />
-    <ClCompile Include="14_NoiseReduction.c" />
-    <ClCompile Include="15_CartesianToPolar.c" />
-    <ClCompile Include="16_MinimumAndMaximum.c" />
-    <ClCompile Include="17_2DArray.c" />
-    <ClCompile Include="18_StringLength.c" />
+    <ClCompile Include="Exercise20.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

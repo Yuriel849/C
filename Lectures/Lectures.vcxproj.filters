@@ -66,5 +66,8 @@
     <ClCompile Include="17_2DArray.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="18_StringLength.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
