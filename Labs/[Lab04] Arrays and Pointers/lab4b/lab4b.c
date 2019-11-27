@@ -10,9 +10,10 @@
  */
 
 #define _CRT_SECURE_NO_DEPRECATE
+#define _USE_MATH_DEFINES
+
 #include <stdio.h>
 #include <math.h>
-#include <corecrt_math_defines.h>
 
 void maximumDistance(const double latLong[][2], int size, double* distance, int* rowA, int* rowB);
 double distanceKm(double, double, double, double);
@@ -50,13 +51,10 @@ void maximumDistance(const double latLong[][2], int size, double* distance, int*
 {
 	double tempDistance;
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size - 1; i++)
 	{
-		for (int j = 0; j < size; j++)
+		for (int j = i + 1; j < size; j++)
 		{
-			if (!(i < j)) // == (i == j || i > j)
-				continue;
-
 			tempDistance = distanceKm(latLong[i][0], latLong[i][1], latLong[j][0], latLong[j][1]);
 
 			if (*distance < tempDistance)

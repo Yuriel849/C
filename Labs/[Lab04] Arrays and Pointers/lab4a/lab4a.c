@@ -10,9 +10,10 @@
  */
 
 #define _CRT_SECURE_NO_DEPRECATE
+#define _USE_MATH_DEFINES
+
 #include <stdio.h>
 #include <math.h>
-#include <corecrt_math_defines.h>
 
 double totalDistance(const double*, const double*, int);
 double distanceKm(double, double, double, double);
