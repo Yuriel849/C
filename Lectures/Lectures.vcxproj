@@ -141,6 +141,8 @@
     <ClCompile Include="16_MinimumAndMaximum.c" />
     <ClCompile Include="17_2DArray.c" />
     <ClCompile Include="18_StringLength.c" />
+    <ClCompile Include="19_CartesianToPolar.c" />
+    <ClCompile Include="polar.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

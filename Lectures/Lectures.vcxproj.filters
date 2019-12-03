@@ -69,5 +69,11 @@
     <ClCompile Include="18_StringLength.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="polar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="19_CartesianToPolar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
