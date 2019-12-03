@@ -7,7 +7,7 @@
 extern const double PI;
 extern void toPolarCoords(double x, double y, double* r, double* phi);
 
-int main(void)
+int CarPol_main(void)
 {
 	double x = 2.0, y = 3.75; // Input: Cartesian coordinates
 	double r, phi; // Result: Polar coordinates

@@ -75,5 +75,8 @@
     <ClCompile Include="19_CartesianToPolar.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="20_memoryAndStrings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
