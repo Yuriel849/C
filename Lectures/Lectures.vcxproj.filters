@@ -78,5 +78,8 @@
     <ClCompile Include="20_memoryAndStrings.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="21_memoryAndArrays.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

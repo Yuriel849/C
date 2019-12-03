@@ -143,6 +143,7 @@
     <ClCompile Include="18_StringLength.c" />
     <ClCompile Include="19_CartesianToPolar.c" />
     <ClCompile Include="20_memoryAndStrings.c" />
+    <ClCompile Include="21_memoryAndArrays.c" />
     <ClCompile Include="polar.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

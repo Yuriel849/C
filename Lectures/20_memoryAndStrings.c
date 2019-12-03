@@ -4,7 +4,7 @@
 int size(char* toClone);
 char *cloneString(char* toClone);
 
-int main(void)
+int memoryStrings_ain(void)
 {
 	char* oldLady = "Watch it! I am crossing the road, stupid";
 	char* cloned = cloneString(oldLady);
