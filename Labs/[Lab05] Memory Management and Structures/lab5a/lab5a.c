@@ -15,17 +15,41 @@
 #define _USE_MATH_DEFINES			// to use math constants (i.e. PI)
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 
-
 int main(void)
 {
+	int waypointNumber; // Variable for the number of waypoints
+	double* waypntArr; // 1-D array to hold arrays
+	int totalDistance = 0; // Variable for the total distance between all waypoints
+
 	// User input: Request the number of waypoints
-	// Check that the user entered a number (min. +2) and nothing else (i.e. text)
+	printf("Enter number of waypoints : ");
+	// Check that the user entered a number and nothing else (i.e. text)
+	while (scanf("%d", &waypointNumber) != 1)
+		while (getchar() != '\0')
+			continue;
+		printf("Try again (expected number >= 0) : ");
+	// Create a 1-D array with as many elements as the number of waypoints
+	waypntArr = (double*)calloc(waypointNumber, sizeof(double*));
+	if (waypntArr == NULL)
+		exit(EXIT_FAILURE);
 	// User input: Request as many pairs of geographic coordinates as the number of waypoints
+	printf("Enter waypoints as \"<latitudes> <longitude>\" : \n");
+	for (int i = 0; i < waypointNumber; i++)
+	{
+		double* coordArr[2] = { 0, 0 };
+		printf("Waypoint %d : ", i);
+		while (scanf("%f %f", coordArr[0], coordArr[1]) != 1)
+			printf("Invalid input (expected \"<latitude> <longitude>\": \nTry again : ");
+	}
+
+
 	// Check that both coordinates are proper floating-point numbers and nothing else (i.e. text)
+	// Create a 1-D array to hold a pair of coordinates and assign to each element of the first array
 	// Run a loop to call a function determine the distance between two sets of coordinates, and sum up all distances
 	// Print the total distance between the coordinates
 	// Free memory allocated to arrays holding waypoint coordinates
