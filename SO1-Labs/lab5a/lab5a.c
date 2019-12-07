@@ -21,15 +21,41 @@
 #include <string.h>
 
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
+int getWaypntNumber(void);
+void getCoordinates(double *latArr, double *longArr, int waypntNumber);
 
 int main(void)
 {
-	char inputOne[6], inputTwo[6];	// Receive user input as strings
 	int waypntNumber;				// Number of waypoints
 	double *latArr, *longArr;		// 1-D arrays for latitudes and longitudes
 	double totalDistance = 0.0;		// Total distance between all waypoints
-	int strLength;					// Length of strings
-	int flagContinue = 0;			// Flag variable
+
+	waypntNumber = getWaypntNumber();
+
+	// Create two 1-D arrays with as many elements as the number of waypoints
+	latArr = (double *)calloc(waypntNumber, sizeof(double));
+	longArr = (double *)calloc(waypntNumber, sizeof(double));
+	if (latArr == NULL || longArr == NULL) // Check if memory allocation was successful
+		exit(EXIT_FAILURE);
+
+	getCoordinates(latArr, longArr, waypntNumber);
+
+	for (int i = 1; i < waypntNumber; i++) // Get and sum up distance between two sets of coordinates
+		totalDistance += distanceKm(latArr[i - 1], longArr[i - 1], latArr[i], longArr[i]);
+
+	printf("By taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
+
+	free(latArr); // Free memory allocated to arrays holding waypoint coordinates
+	free(longArr);
+
+	getchar();
+	return 0;
+}
+
+int getWaypntNumber(void)
+{
+	char inputOne[3];	// Receive user input as strings
+	int strLength;		// Length of strings
 
 	printf("Enter number of waypoints : ");
 	while (1)
@@ -40,18 +66,19 @@ int main(void)
 		strLength = strlen(inputOne); // Get length to know if input is one or two characters long
 		if ((strLength == 1 && isdigit(inputOne[0])) || (isdigit(inputOne[0]) && isdigit(inputOne[1])))
 		{
-			waypntNumber = atoi(inputOne); // Convert string into integer
-			break;
+			return atoi(inputOne); // Convert string into integer
 		}
 
 		printf("Try again (expected number >= 0) : ");
 	}
+}
 
-	// Create two 1-D arrays with as many elements as the number of waypoints
-	latArr = (double *)calloc(waypntNumber, sizeof(double));
-	longArr = (double *)calloc(waypntNumber, sizeof(double));
-	if (latArr == NULL || longArr == NULL) // Check if memory allocation was successful
-		exit(EXIT_FAILURE);
+void getCoordinates(double *latArr, double *longArr, int waypntNumber)
+{
+	char inputOne[6], inputTwo[6];	// Receive user input as strings
+	int strLength;					// Length of strings
+	int flagContinue = 0;			// Flag variable
+
 
 	printf("Enter waypoints as \"<latitudes> <longitude>\" : \n");
 	for (int i = 0; i < waypntNumber; i++)
@@ -108,17 +135,6 @@ int main(void)
 				break;
 		}
 	}
-
-	for (int i = 1; i < waypntNumber; i++) // Get and sum up distance between two sets of coordinates
-		totalDistance += distanceKm(latArr[i - 1], longArr[i - 1], latArr[i], longArr[i]);
-
-	printf("By taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
-
-	free(latArr); // Free memory allocated to arrays holding waypoint coordinates
-	free(longArr);
-
-	getchar();
-	return 0;
 }
 
 // REUSE CODE (Lab03 & Lab04) -- Determine the distance between two pairs of coordinates
