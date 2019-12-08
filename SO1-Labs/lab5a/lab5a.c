@@ -11,8 +11,8 @@
 		 Make sure to free dynamically allocated memory before the application exits.
  */
 
-#define _CRT_SECURE_NO_DEPRECATE	// to use scanf() without warnings
-#define _USE_MATH_DEFINES			// to use math constants (i.e. PI)
+#define _CRT_SECURE_NO_DEPRECATE	// To use scanf() without warnings
+#define _USE_MATH_DEFINES			// To use math constants (i.e. PI)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,7 +78,6 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 	char inputOne[6], inputTwo[6];	// Receive user input as strings
 	int strLength;					// Length of strings
 	int flagContinue = 0;			// Flag variable
-
 
 	printf("Enter waypoints as \"<latitudes> <longitude>\" : \n");
 	for (int i = 0; i < waypntNumber; i++)
