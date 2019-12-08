@@ -57,7 +57,7 @@ int getWaypntNumber(void)
 	char inputOne[3];	// Receive user input as strings
 	int strLength;		// Length of strings
 
-	printf("\nEnter number of waypoints : ");
+	printf("Enter number of waypoints : ");
 	while (1)
 	{
 		scanf("%2s", inputOne); // User input: String which is maximum two characters long
@@ -79,7 +79,7 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 	int strLength;					// Length of strings
 	int flagContinue = 0;			// Flag variable
 
-	printf("Enter waypoints as \"<latitudes> <longitude>\" : \n");
+	printf("\nEnter waypoints as \"<latitudes> <longitude>\" : \n");
 	for (int i = 0; i < waypntNumber; i++)
 	{
 		printf("Waypoint %d : ", i + 1);
