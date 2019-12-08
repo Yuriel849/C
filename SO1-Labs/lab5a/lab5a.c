@@ -18,11 +18,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include <ctype.h>
-#include <string.h>
 
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 int getWaypntNumber(void);
 void getCoordinates(double *latArr, double *longArr, int waypntNumber);
+double getTotalDistance(double *latArr, double *longArr, int waypntNumber);
 
 int main(void)
 {
@@ -30,18 +30,16 @@ int main(void)
 	double *latArr, *longArr;		// 1-D arrays for latitudes and longitudes
 	double totalDistance = 0.0;		// Total distance between all waypoints
 
-	waypntNumber = getWaypntNumber();
+	waypntNumber = getWaypntNumber(); // Get the number of waypoints from the user
 
-	// Create two 1-D arrays with as many elements as the number of waypoints
-	latArr = (double *)calloc(waypntNumber, sizeof(double));
-	longArr = (double *)calloc(waypntNumber, sizeof(double));
+	latArr = (double *)calloc(waypntNumber, sizeof(double)); // 1-D array to hold the latitudes
+	longArr = (double *)calloc(waypntNumber, sizeof(double)); // 1-D array to hold the longitudes
 	if (latArr == NULL || longArr == NULL) // Check if memory allocation was successful
 		exit(EXIT_FAILURE);
 
-	getCoordinates(latArr, longArr, waypntNumber);
+	getCoordinates(latArr, longArr, waypntNumber); // Get "waypntNumber" number of pairs of geographic coordinates
 
-	for (int i = 1; i < waypntNumber; i++) // Get and sum up distance between two sets of coordinates
-		totalDistance += distanceKm(latArr[i - 1], longArr[i - 1], latArr[i], longArr[i]);
+	totalDistance = getTotalDistance(latArr, longArr, waypntNumber); // Get and sum up distance between two sets of coordinates
 
 	printf("\nBy taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
 
@@ -76,7 +74,7 @@ int getWaypntNumber(void)
 void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 {
 	char inputOne[256], inputTwo[256];	// Receive user input as strings
-	int strLength;						// Length of strings
+	int column = 0;						// Length of strings
 	int flagContinue = 0;				// Flag variable
 
 	printf("\nEnter waypoints as \"<latitudes> <longitude>\" : \n");
@@ -91,35 +89,31 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 			//printf("CHECK PRINT STRINGS : %s %s\n", inputOne, inputTwo);
 			//printf("CHECK PRINT NUMBERS : %f %f\n", atof(inputOne), atof(inputTwo);
 
-			strLength = strlen(inputOne);
-			for (int j = 0; j < strLength; j++) // Loop through first input, check there are only numbers or period or dash (for negative numbers)
+			while (inputTwo[column] != '\0')
 			{
-				if (!(isdigit(inputOne[j]) || inputOne[j] == '.' || inputOne[j] == '-')) // If there is a character, break
+				if (!(isdigit(inputTwo[column]) || inputTwo[column] == '.' || inputTwo[column] == '-')) // If there is a character, break
+				{
+					flagContinue = 2;
+					break;
+				}
+				column++;
+			}
+			column = 0;
+			while (inputOne[column] != '\0')
+			{
+				if (!(isdigit(inputOne[column]) || inputOne[column] == '.' || inputOne[column] == '-')) // If there is a character, break
 				{
 					flagContinue = 1;
 					break;
 				}
+				column++;
 			}
-			if (flagContinue == 1)
-			{
-				flagContinue = 0;
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputOne);
-				continue;
-			}
+			column = 0;
 
-			strLength = strlen(inputTwo);
-			for (int j = 0; j < strLength; j++) // Loop through second input, check there are only numbers or period or dash (for negative numbers)
+			if (flagContinue != 0)
 			{
-				if (!(isdigit(inputTwo[j]) || inputTwo[j] == '.' || inputOne[j] == '-')) // If there is a character, break
-				{
-					flagContinue = 1;
-					break;
-				}
-			}
-			if (flagContinue == 1)
-			{
+				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flagContinue == 1) ? inputOne : inputTwo);
 				flagContinue = 0;
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputTwo);
 				continue;
 			}
 
@@ -136,14 +130,26 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 	}
 }
 
+double getTotalDistance(double *latArr, double *longArr, int waypntNumber)
+{
+	double totalDistance = 0.0;
+	
+	for (int i = 1; i < waypntNumber; i++)
+		totalDistance += distanceKm(latArr[i - 1], longArr[i - 1], latArr[i], longArr[i]);
+
+	return totalDistance;
+}
+
 // REUSE CODE (Lab03 & Lab04) -- Determine the distance between two pairs of coordinates
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY)
 {
-	double sinLatX, sinLatY, cosLatX, cosLatY, cosLong;
-	sinLatX = sin(latitudeX * M_PI / 180.0); // Convert degrees into radians
-	sinLatY = sin(latitudeY * M_PI / 180.0);
-	cosLatX = cos(latitudeX * M_PI / 180.0);
-	cosLatY = cos(latitudeY * M_PI / 180.0);
-	cosLong = cos((longitudeY - longitudeX) * M_PI / 180.0);
+	double sinLatX, sinLatY, cosLatX, cosLatY, cosLong, PI_over_180 = M_PI / 180.0; // Convert degrees into radians
+	
+	sinLatX = sin(latitudeX * PI_over_180);
+	sinLatY = sin(latitudeY * PI_over_180);
+	cosLatX = cos(latitudeX * PI_over_180);
+	cosLatY = cos(latitudeY * PI_over_180);
+	cosLong = cos((longitudeY - longitudeX) * PI_over_180);
+	
 	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong)); // Calculate & return distance between two points
 }
