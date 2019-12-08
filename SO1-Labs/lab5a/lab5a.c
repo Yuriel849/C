@@ -8,7 +8,7 @@
 	  Technical requirements :
 		 In case of invalid input, the application will repeat the request until users enter correct data.
 		 Dynamically allocate 1-D arrays to hold the latitudes and the longitudes of the waypoints.
-		 Make sure to free dynamically allocated memory before the application exits
+		 Make sure to free dynamically allocated memory before the application exits.
  */
 
 #define _CRT_SECURE_NO_DEPRECATE	// to use scanf() without warnings
@@ -43,7 +43,7 @@ int main(void)
 	for (int i = 1; i < waypntNumber; i++) // Get and sum up distance between two sets of coordinates
 		totalDistance += distanceKm(latArr[i - 1], longArr[i - 1], latArr[i], longArr[i]);
 
-	printf("By taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
+	printf("\nBy taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
 
 	free(latArr); // Free memory allocated to arrays holding waypoint coordinates
 	free(longArr);
@@ -57,7 +57,7 @@ int getWaypntNumber(void)
 	char inputOne[3];	// Receive user input as strings
 	int strLength;		// Length of strings
 
-	printf("Enter number of waypoints : ");
+	printf("\nEnter number of waypoints : ");
 	while (1)
 	{
 		scanf("%2s", inputOne); // User input: String which is maximum two characters long
