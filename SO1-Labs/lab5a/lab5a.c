@@ -16,19 +16,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include <ctype.h>
+#include <math.h>					// To use sin(), cos(), acos()
+#include <string.h>					// To use strlen()
 
-double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 int getWaypntNumber(void);
 void getCoordinates(double *latArr, double *longArr, int waypntNumber);
+void clearBuffer(void);
+int chkDigit(int digit);
 double getTotalDistance(double *latArr, double *longArr, int waypntNumber);
+double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 
 int main(void)
 {
 	int waypntNumber;				// Number of waypoints
 	double *latArr, *longArr;		// 1-D arrays for latitudes and longitudes
-	double totalDistance = 0.0;		// Total distance between all waypoints
 
 	waypntNumber = getWaypntNumber(); // Get the number of waypoints from the user
 
@@ -39,9 +40,7 @@ int main(void)
 
 	getCoordinates(latArr, longArr, waypntNumber); // Get "waypntNumber" number of pairs of geographic coordinates
 
-	totalDistance = getTotalDistance(latArr, longArr, waypntNumber); // Get and sum up distance between two sets of coordinates
-
-	printf("\nBy taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
+	printf("\nBy taking this route you will travel %.1f km.", getTotalDistance(latArr, longArr, waypntNumber));
 
 	free(latArr); // Free memory allocated to arrays holding waypoint coordinates
 	free(longArr);
@@ -59,14 +58,10 @@ int getWaypntNumber(void)
 	while (1)
 	{
 		scanf("%2s", inputOne); // User input: String which is maximum two characters long
-		while (getchar() != '\n') // Clear input buffer
-			continue;
+		clearBuffer();
 		strLength = strlen(inputOne); // Get length to know if input is one or two characters long
-		if ((strLength == 1 && isdigit(inputOne[0])) || (isdigit(inputOne[0]) && isdigit(inputOne[1])))
-		{
+		if ((strLength == 1 && chkDigit(inputOne[0])) || (chkDigit(inputOne[0]) && chkDigit(inputOne[1])))
 			return atoi(inputOne); // Convert string into integer
-		}
-
 		printf("Try again (expected number >= 0) : ");
 	}
 }
@@ -74,7 +69,7 @@ int getWaypntNumber(void)
 void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 {
 	char inputOne[256], inputTwo[256];	// Receive user input as strings
-	int column = 0;						// Length of strings
+	int counter = 0;						// Length of strings
 	int flagContinue = 0;				// Flag variable
 
 	printf("\nEnter waypoints as \"<latitudes> <longitude>\" : \n");
@@ -83,32 +78,29 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 		printf("Waypoint %d : ", i + 1);
 		while (1)
 		{
-			scanf("%s %s", inputOne, inputTwo); // Read two strings which are each maximum five characters long (excluding '\0')
-			while (getchar() != '\n') // Clear the input buffer
-				continue;
-			//printf("CHECK PRINT STRINGS : %s %s\n", inputOne, inputTwo);
-			//printf("CHECK PRINT NUMBERS : %f %f\n", atof(inputOne), atof(inputTwo);
+			scanf("%s %s", inputOne, inputTwo);
+			clearBuffer();
 
-			while (inputTwo[column] != '\0')
+			while (inputTwo[counter] != '\0')
 			{
-				if (!(isdigit(inputTwo[column]) || inputTwo[column] == '.' || inputTwo[column] == '-')) // If there is a character, break
+				if (!(inputTwo[0] == '-' || inputTwo[counter] == '.' || chkDigit(inputTwo[counter]))) // If there is a character, break
 				{
 					flagContinue = 2;
 					break;
 				}
-				column++;
+				counter++;
 			}
-			column = 0;
-			while (inputOne[column] != '\0')
+			counter = 0;
+			while (inputOne[counter] != '\0')
 			{
-				if (!(isdigit(inputOne[column]) || inputOne[column] == '.' || inputOne[column] == '-')) // If there is a character, break
+				if (!(inputOne[0] == '-' || inputOne[counter] == '.' || chkDigit(inputOne[counter]))) // If there is a character, break
 				{
 					flagContinue = 1;
 					break;
 				}
-				column++;
+				counter++;
 			}
-			column = 0;
+			counter = 0;
 
 			if (flagContinue != 0)
 			{
@@ -128,6 +120,23 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 				break;
 		}
 	}
+}
+
+void clearBuffer(void)
+{
+	while (getchar() != '\n')
+		continue;
+}
+
+int chkDigit(int digit)
+{
+	int flag = 0;
+	
+	if(digit == '0' || digit == '1' || digit == '2' || digit == '3' || digit == '4' ||
+	   digit == '5' || digit == '6' || digit == '7' || digit == '8' || digit == '9')
+		flag = 1;
+
+	return flag;
 }
 
 double getTotalDistance(double *latArr, double *longArr, int waypntNumber)
