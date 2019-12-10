@@ -28,22 +28,24 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 
 int main(void)
 {
-	int waypntNumber;				// Number of waypoints
-	double *latArr, *longArr;		// 1-D arrays for latitudes and longitudes
+	int waypntNumber, pointerBytes, dataBytes; // Number of waypoints, number of bytes for pointers, number of bytes for each array of latitudes and longitudes
+	double **coordArr, *latArr, *longArr;	   // 1-D arrays for latitudes and longitudes
 
 	waypntNumber = getWaypntNumber(); // Get the number of waypoints from the user
 
-	latArr = (double *)calloc(waypntNumber, sizeof(double)); // 1-D array to hold the latitudes
-	longArr = (double *)calloc(waypntNumber, sizeof(double)); // 1-D array to hold the longitudes
-	if (latArr == NULL || longArr == NULL) // Check if memory allocation was successful
+	pointerBytes = 2 * sizeof(double *);
+	dataBytes = 2 * waypntNumber * sizeof(double);
+	if((coordArr = (double **)malloc(pointerBytes + dataBytes)) == NULL)
 		exit(EXIT_FAILURE);
+
+	latArr = (double *)(coordArr + 2);
+	longArr = latArr + waypntNumber;
 
 	getCoordinates(latArr, longArr, waypntNumber); // Get "waypntNumber" number of pairs of geographic coordinates
 
 	printf("\nBy taking this route you will travel %.1f km.", getTotalDistance(latArr, longArr, waypntNumber));
 
-	free(latArr); // Free memory allocated to arrays holding waypoint coordinates
-	free(longArr);
+	free(coordArr); // Free memory
 
 	getchar();
 	return 0;
