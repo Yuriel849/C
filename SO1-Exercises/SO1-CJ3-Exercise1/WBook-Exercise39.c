@@ -1,7 +1,8 @@
 /* Author	   : Myungjun Kim
    Contents    : Exercise 37 ~ 39.
-   Instructions:
-   Note		   : 
+   Instructions: (37) Declare and apply a structure vector2D for a mathematical 2-D vector.
+				 (38) Write and apply a function to get the absolute value of a vector of type vector2D.
+				 (39) Write and apply a function that multiplies a vector of type vector2D with a 2 ¡¿ 2 matrix of type double[2][2].
  */
 
 #include <stdio.h>
