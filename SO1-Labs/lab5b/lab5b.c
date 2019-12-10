@@ -21,25 +21,25 @@
 #include <ctype.h>
 #include <string.h>
 
-double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
-int getWaypntNumber(void);
-void getCoordinates(struct geoCoord *coordinates, int waypntNumber);
-
-struct geoCoord {
+typedef struct {
 	double latArr;
 	double longArr;
-};
+} geoCoord;
+
+double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
+int getWaypntNumber(void);
+void getCoordinates(geoCoord *coordinates, int waypntNumber);
 
 int main(void)
 {
 	int waypntNumber;				// Number of waypoints
-	struct geoCoord *coordinates;	// 1-D array to hold geoCoord
+	geoCoord *coordinates;	// 1-D array to hold geoCoord
 	double totalDistance = 0.0;		// Total distance between all waypoints
 
 	waypntNumber = getWaypntNumber();
 
 	// Create 1-D array with as many elements as the number of waypoints
-	coordinates = (struct geoCoord *)calloc(waypntNumber, sizeof(struct geoCoord));
+	coordinates = (geoCoord *)calloc(waypntNumber, sizeof(geoCoord));
 	if (coordinates == NULL) // Check if memory allocation was successful
 		exit(EXIT_FAILURE);
 
@@ -77,7 +77,7 @@ int getWaypntNumber(void)
 	}
 }
 
-void getCoordinates(struct geoCoord *coordinates, int waypntNumber)
+void getCoordinates(geoCoord *coordinates, int waypntNumber)
 {
 	char inputOne[256], inputTwo[256];	// Receive user input as strings
 	int strLength;						// Length of strings
