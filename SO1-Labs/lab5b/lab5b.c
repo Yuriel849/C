@@ -22,8 +22,8 @@
 #include <string.h>
 
 typedef struct {
-	double latArr;
-	double longArr;
+	double latitude;
+	double longitude;
 } geoCoord;
 
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
@@ -46,7 +46,7 @@ int main(void)
 	getCoordinates(coordinates, waypntNumber);
 
 	for (int i = 1; i < waypntNumber; i++) // Get and sum up distance between two sets of coordinates
-		totalDistance += distanceKm(coordinates[i - 1].latArr, coordinates[i - 1].longArr, coordinates[i].latArr, coordinates[i].longArr);
+		totalDistance += distanceKm(coordinates[i - 1].latitude, coordinates[i - 1].longitude, coordinates[i].latitude, coordinates[i].longitude);
 
 	printf("\nBy taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
 
@@ -127,12 +127,12 @@ void getCoordinates(geoCoord *coordinates, int waypntNumber)
 				continue;
 			}
 
-			coordinates[i].latArr = atof(inputOne); // Convert string into double
-			coordinates[i].longArr = atof(inputTwo);
+			coordinates[i].latitude = atof(inputOne); // Convert string into double
+			coordinates[i].longitude = atof(inputTwo);
 			// Check that latitude coordinate is between +90 & -90 degrees and longitude coordinate is between + 180 & -180 degrees
-			if (!(coordinates[i].latArr >= -90. && coordinates[i].latArr <= 90.))
+			if (!(coordinates[i].latitude >= -90. && coordinates[i].latitude <= 90.))
 				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputOne);
-			else if (!(coordinates[i].longArr >= -180. && coordinates[i].longArr <= 180.))
+			else if (!(coordinates[i].longitude >= -180. && coordinates[i].longitude <= 180.))
 				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputTwo);
 			else
 				break;
