@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <ctype.h>
 #include <string.h>
 
 typedef struct {
@@ -26,9 +25,12 @@ typedef struct {
 	double longitude;
 } geoCoord;
 
-double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 int getWaypntNumber(void);
 void getCoordinates(geoCoord *coordinates, int waypntNumber);
+void clearBuffer(void);
+int chkDigit(int digit);
+int chkFloat(char* string, int flag);
+double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 
 int main(void)
 {
@@ -65,14 +67,10 @@ int getWaypntNumber(void)
 	while (1)
 	{
 		scanf("%2s", inputOne); // User input: String which is maximum two characters long
-		while (getchar() != '\n') // Clear input buffer
-			continue;
+		clearBuffer();
 		strLength = strlen(inputOne); // Get length to know if input is one or two characters long
-		if ((strLength == 1 && isdigit(inputOne[0])) || (isdigit(inputOne[0]) && isdigit(inputOne[1])))
-		{
+		if ((strLength == 1 && chkDigit(inputOne[0])) || (chkDigit(inputOne[0]) && chkDigit(inputOne[1])))
 			return atoi(inputOne); // Convert string into integer
-		}
-
 		printf("Try again (expected number >= 0) : ");
 	}
 }
@@ -80,50 +78,20 @@ int getWaypntNumber(void)
 void getCoordinates(geoCoord *coordinates, int waypntNumber)
 {
 	char inputOne[256], inputTwo[256];	// Receive user input as strings
-	int strLength;						// Length of strings
-	int flagContinue = 0;				// Flag variable
+	int flag = 0;						// Flag variable
 
-	printf("Enter waypoints as \"<latitudes> <longitude>\" : \n");
+	printf("\nEnter waypoints as \"<latitudes> <longitude>\" : \n");
 	for (int i = 0; i < waypntNumber; i++)
 	{
 		printf("Waypoint %d : ", i + 1);
 		while (1)
 		{
-			scanf("%s %s", inputOne, inputTwo); // Read two strings which are each maximum five characters long (excluding '\0')
-			while (getchar() != '\n') // Clear the input buffer
-				continue;
-			//printf("CHECK PRINT STRINGS : %s %s\n", inputOne, inputTwo);
-			//printf("CHECK PRINT NUMBERS : %f %f\n", atof(inputOne), atof(inputTwo);
+			scanf("%s %s", inputOne, inputTwo);
+			clearBuffer();
 
-			strLength = strlen(inputOne);
-			for (int j = 0; j < strLength; j++) // Loop through first input, check there are only numbers or period or dash (for negative numbers)
+			if (((flag = chkFloat(inputOne, 1)) != 0) || ((flag = chkFloat(inputTwo, 2)) != 0))
 			{
-				if (!(isdigit(inputOne[j]) || inputOne[j] == '.' || inputOne[j] == '-')) // If there is a character, break
-				{
-					flagContinue = 1;
-					break;
-				}
-			}
-			if (flagContinue == 1)
-			{
-				flagContinue = 0;
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputOne);
-				continue;
-			}
-
-			strLength = strlen(inputTwo);
-			for (int j = 0; j < strLength; j++) // Loop through second input, check there are only numbers or period or dash (for negative numbers)
-			{
-				if (!(isdigit(inputTwo[j]) || inputTwo[j] == '.' || inputOne[j] == '-')) // If there is a character, break
-				{
-					flagContinue = 1;
-					break;
-				}
-			}
-			if (flagContinue == 1)
-			{
-				flagContinue = 0;
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputTwo);
+				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flag == 1) ? inputOne : inputTwo);
 				continue;
 			}
 
@@ -138,6 +106,41 @@ void getCoordinates(geoCoord *coordinates, int waypntNumber)
 				break;
 		}
 	}
+}
+
+void clearBuffer(void)
+{
+	while (getchar() != '\n')
+		continue;
+}
+
+int chkDigit(int digit)
+{
+	int flag = 0;
+
+	if (digit == '0' || digit == '1' || digit == '2' || digit == '3' || digit == '4' ||
+		digit == '5' || digit == '6' || digit == '7' || digit == '8' || digit == '9')
+		flag = 1;
+
+	return flag;
+}
+
+int chkFloat(char* string, int arrIdx)
+{
+	int counter = 0;
+	int flag = 0;
+
+	while (string[counter] != '\0')
+	{
+		if (!(string[0] == '-' || string[counter] == '.' || chkDigit(string[counter]))) // If there is a character, break
+		{
+			flag = arrIdx;
+			break;
+		}
+		counter++;
+	}
+
+	return flag;
 }
 
 // REUSE CODE (Lab03 & Lab04) -- Determine the distance between two pairs of coordinates
