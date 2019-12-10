@@ -23,7 +23,8 @@ int getWaypntNumber(void);
 void getCoordinates(double *latArr, double *longArr, int waypntNumber);
 void clearBuffer(void);
 int chkDigit(int digit);
-double getTotalDistance(double *latArr, double *longArr, int waypntNumber);
+int chkFloat(char* string, int flag);
+double getTotalDistance(const double *latArr, const double *longArr, int waypntNumber);
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 
 int main(void)
@@ -71,8 +72,7 @@ int getWaypntNumber(void)
 void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 {
 	char inputOne[256], inputTwo[256];	// Receive user input as strings
-	int counter = 0;						// Length of strings
-	int flagContinue = 0;				// Flag variable
+	int flag = 0;						// Flag variable
 
 	printf("\nEnter waypoints as \"<latitudes> <longitude>\" : \n");
 	for (int i = 0; i < waypntNumber; i++)
@@ -83,31 +83,9 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 			scanf("%s %s", inputOne, inputTwo);
 			clearBuffer();
 
-			while (inputTwo[counter] != '\0')
+			if (((flag = chkFloat(inputOne, 1)) != 0) || ((flag = chkFloat(inputTwo, 2)) != 0))
 			{
-				if (!(inputTwo[0] == '-' || inputTwo[counter] == '.' || chkDigit(inputTwo[counter]))) // If there is a character, break
-				{
-					flagContinue = 2;
-					break;
-				}
-				counter++;
-			}
-			counter = 0;
-			while (inputOne[counter] != '\0')
-			{
-				if (!(inputOne[0] == '-' || inputOne[counter] == '.' || chkDigit(inputOne[counter]))) // If there is a character, break
-				{
-					flagContinue = 1;
-					break;
-				}
-				counter++;
-			}
-			counter = 0;
-
-			if (flagContinue != 0)
-			{
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flagContinue == 1) ? inputOne : inputTwo);
-				flagContinue = 0;
+				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flag == 1) ? inputOne : inputTwo);
 				continue;
 			}
 
@@ -141,7 +119,25 @@ int chkDigit(int digit)
 	return flag;
 }
 
-double getTotalDistance(double *latArr, double *longArr, int waypntNumber)
+int chkFloat(char* string, int arrIdx)
+{
+	int counter = 0;
+	int flag = 0;
+
+	while (string[counter] != '\0')
+	{
+		if (!(string[0] == '-' || string[counter] == '.' || chkDigit(string[counter]))) // If there is a character, break
+		{
+			flag = arrIdx;
+			break;
+		}
+		counter++;
+	}
+
+	return flag;
+}
+
+double getTotalDistance(const double *latArr, const double *longArr, int waypntNumber)
 {
 	double totalDistance = 0.0;
 	
