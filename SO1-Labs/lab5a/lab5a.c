@@ -29,7 +29,7 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 
 int main(void)
 {
-	int waypntNumber, pointerBytes, dataBytes; // Number of waypoints, number of bytes for pointers, number of bytes for each array of latitudes and longitudes
+	int waypntNumber, pointerBytes, dataBytes; // Nr. of waypoints, nr. of bytes for pointers, nr. of bytes for each array
 	double **coordArr, *latArr, *longArr;	   // 1-D arrays for latitudes and longitudes
 
 	waypntNumber = getWaypntNumber(); // Get the number of waypoints from the user
@@ -42,7 +42,7 @@ int main(void)
 	latArr = (double *)(coordArr + 2);
 	longArr = latArr + waypntNumber;
 
-	getCoordinates(latArr, longArr, waypntNumber); // Get "waypntNumber" number of pairs of geographic coordinates
+	getCoordinates(latArr, longArr, waypntNumber); // Get "waypntNumber" pairs of geographic coordinates from the user
 
 	printf("\nBy taking this route you will travel %.1f km.", getTotalDistance(latArr, longArr, waypntNumber));
 
