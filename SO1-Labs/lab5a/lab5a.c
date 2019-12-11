@@ -29,24 +29,24 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 
 int main(void)
 {
-	int waypntNumber, pointerBytes, dataBytes; // Nr. of waypoints, nr. of bytes for pointers, nr. of bytes for each array
-	double **coordArr, *latArr, *longArr;	   // 1-D arrays for latitudes and longitudes
+	int waypointNumber, pointerBytes, dataBytes; // Nr. of waypoints, nr. of bytes for pointers, nr. of bytes for each array
+	double **coordinates, *latitudes, *longitudes;	   // 1-D arrays for latitudes and longitudes
 
-	waypntNumber = getWaypntNumber(); // Get the number of waypoints from the user
+	waypointNumber = getWaypntNumber(); // Get the number of waypoints from the user
 
 	pointerBytes = 2 * sizeof(double *);
-	dataBytes = 2 * waypntNumber * sizeof(double);
-	if((coordArr = (double **)malloc(pointerBytes + dataBytes)) == NULL)
+	dataBytes = 2 * waypointNumber * sizeof(double);
+	if ((coordinates = (double **)malloc(pointerBytes + dataBytes)) == NULL)
 		exit(EXIT_FAILURE);
 
-	latArr = (double *)(coordArr + 2);
-	longArr = latArr + waypntNumber;
+	latitudes = (double *)(coordinates + 2);
+	longitudes = latitudes + waypointNumber;
 
-	getCoordinates(latArr, longArr, waypntNumber); // Get "waypntNumber" pairs of geographic coordinates from the user
+	getCoordinates(latitudes, longitudes, waypointNumber); // Get "waypntNumber" pairs of geographic coordinates from the user
 
-	printf("\nBy taking this route you will travel %.1f km.", getTotalDistance(latArr, longArr, waypntNumber));
+	printf("\nBy taking this route you will travel %.1f km.", getTotalDistance(latitudes, longitudes, waypointNumber));
 
-	free(coordArr); // Free memory
+	free(coordinates); // Free memory
 
 	getchar();
 	return 0;
@@ -62,7 +62,7 @@ int getWaypntNumber(void)
 	{
 		scanf("%2s", inputOne); // User input: String which is maximum two characters long
 		clearBuffer();
-		strLength = strlen(inputOne); // Get length to know if input is one or two characters long
+		strLength = (int)strlen(inputOne); // Get length to know if input is one or two characters long
 		if ((strLength == 1 && chkDigit(inputOne[0])) || (chkDigit(inputOne[0]) && chkDigit(inputOne[1])))
 			return atoi(inputOne); // Convert string into integer
 		printf("Try again (expected number >= 0) : ");
@@ -83,7 +83,12 @@ void getCoordinates(double *latArr, double *longArr, int waypntNumber)
 			scanf("%s %s", inputOne, inputTwo);
 			clearBuffer();
 
-			if (((flag = chkFloat(inputOne, 1)) != 0) || ((flag = chkFloat(inputTwo, 2)) != 0))
+			if (((flag = chkFloat(inputOne, 1)) != 0) && ((flag = chkFloat(inputTwo, 2)) != 0))
+			{
+				printf("Invalid input (expected \"<latitude> <longitude>\": %s %s\nTry again : ", inputOne, inputTwo);
+				continue;
+			}
+			else if (((flag = chkFloat(inputOne, 1)) != 0) || ((flag = chkFloat(inputTwo, 2)) != 0))
 			{
 				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flag == 1) ? inputOne : inputTwo);
 				continue;
@@ -111,9 +116,9 @@ void clearBuffer(void)
 int chkDigit(int digit)
 {
 	int flag = 0;
-	
-	if(digit == '0' || digit == '1' || digit == '2' || digit == '3' || digit == '4' ||
-	   digit == '5' || digit == '6' || digit == '7' || digit == '8' || digit == '9')
+
+	if (digit == '0' || digit == '1' || digit == '2' || digit == '3' || digit == '4' ||
+		digit == '5' || digit == '6' || digit == '7' || digit == '8' || digit == '9')
 		flag = 1;
 
 	return flag;
@@ -140,7 +145,7 @@ int chkFloat(char* string, int arrIdx)
 double getTotalDistance(const double *latArr, const double *longArr, int waypntNumber)
 {
 	double totalDistance = 0.0;
-	
+
 	for (int i = 1; i < waypntNumber; i++)
 		totalDistance += distanceKm(latArr[i - 1], longArr[i - 1], latArr[i], longArr[i]);
 
@@ -151,12 +156,12 @@ double getTotalDistance(const double *latArr, const double *longArr, int waypntN
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY)
 {
 	double sinLatX, sinLatY, cosLatX, cosLatY, cosLong, PI_over_180 = M_PI / 180.0; // Convert degrees into radians
-	
+
 	sinLatX = sin(latitudeX * PI_over_180);
 	sinLatY = sin(latitudeY * PI_over_180);
 	cosLatX = cos(latitudeX * PI_over_180);
 	cosLatY = cos(latitudeY * PI_over_180);
 	cosLong = cos((longitudeY - longitudeX) * PI_over_180);
-	
+
 	return 6378.388 * acos((sinLatX * sinLatY) + (cosLatX * cosLatY * cosLong)); // Calculate & return distance between two points
 }
