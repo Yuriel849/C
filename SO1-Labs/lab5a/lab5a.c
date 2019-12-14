@@ -19,12 +19,12 @@
 #include <math.h>					// To use sin(), cos(), acos()
 #include <string.h>					// To use strlen()
 
-int getWaypntNumber(void);
-void getCoordinates(double *latArr, double *longArr, int waypntNumber);
+int getWaypointNumber(void);
+void getCoordinates(double *latitudes, double *longitudes, int waypointNumber);
 void clearBuffer(void);
 int chkDigit(int digit);
 int chkFloat(char* string, int flag);
-double getTotalDistance(const double *latArr, const double *longArr, int waypntNumber);
+double getTotalDistance(const double *latitudes, const double *longitudes, int waypointNumber);
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 
 int main(void)
@@ -32,7 +32,7 @@ int main(void)
 	int waypointNumber, pointerBytes, dataBytes; // Nr. of waypoints, nr. of bytes for pointers, nr. of bytes for each array
 	double **coordinates, *latitudes, *longitudes;	   // 1-D arrays for latitudes and longitudes
 
-	waypointNumber = getWaypntNumber(); // Get the number of waypoints from the user
+	waypointNumber = getWaypointNumber(); // Get the number of waypoints from the user
 
 	pointerBytes = 2 * sizeof(double *);
 	dataBytes = 2 * waypointNumber * sizeof(double);
@@ -42,7 +42,7 @@ int main(void)
 	latitudes = (double *)(coordinates + 2);
 	longitudes = latitudes + waypointNumber;
 
-	getCoordinates(latitudes, longitudes, waypointNumber); // Get "waypntNumber" pairs of geographic coordinates from the user
+	getCoordinates(latitudes, longitudes, waypointNumber); // Get "waypointNumber" pairs of geographic coordinates from the user
 
 	printf("\nBy taking this route you will travel %.1f km.", getTotalDistance(latitudes, longitudes, waypointNumber));
 
@@ -52,35 +52,30 @@ int main(void)
 	return 0;
 }
 
-int getWaypntNumber(void)
+int getWaypointNumber(void)
 {
-	char inputOne[3];	// Receive user input as strings
-	int strLength;		// Length of strings
+	int input;
 
 	printf("Enter number of waypoints : ");
 	while (1)
 	{
-		scanf("%2s", inputOne); // User input: String which is maximum two characters long
-		clearBuffer();
-		strLength = (int)strlen(inputOne); // Get length to know if input is one or two characters long
-		if ((strLength == 1 && chkDigit(inputOne[0])) || (chkDigit(inputOne[0]) && chkDigit(inputOne[1])))
-			return atoi(inputOne); // Convert string into integer
+		if ((scanf("%d", &input) == 1) && (input >= 0))
+			return input;
 		printf("Try again (expected number >= 0) : ");
 	}
 }
 
-void getCoordinates(double *latArr, double *longArr, int waypntNumber)
+void getCoordinates(double *latitudes, double *longitudes, int waypointNumber)
 {
-	char inputOne[256], inputTwo[256];	// Receive user input as strings
-	int flag = 0;						// Flag variable
+	double latitude, longitude;
 
 	printf("\nEnter waypoints as \"<latitudes> <longitude>\" : \n");
-	for (int i = 0; i < waypntNumber; i++)
+	for (int i = 0; i < waypointNumber; i++)
 	{
 		printf("Waypoint %d : ", i + 1);
 		while (1)
 		{
-			scanf("%s %s", inputOne, inputTwo);
+			scanf("%lf %lf", latitude, longitude);
 			clearBuffer();
 
 			if (((flag = chkFloat(inputOne, 1)) != 0) && ((flag = chkFloat(inputTwo, 2)) != 0))
@@ -113,15 +108,9 @@ void clearBuffer(void)
 		continue;
 }
 
-int chkDigit(int digit)
+void printfBuffer(void)
 {
-	int flag = 0;
 
-	if (digit == '0' || digit == '1' || digit == '2' || digit == '3' || digit == '4' ||
-		digit == '5' || digit == '6' || digit == '7' || digit == '8' || digit == '9')
-		flag = 1;
-
-	return flag;
 }
 
 int chkFloat(char* string, int arrIdx)
@@ -142,12 +131,12 @@ int chkFloat(char* string, int arrIdx)
 	return flag;
 }
 
-double getTotalDistance(const double *latArr, const double *longArr, int waypntNumber)
+double getTotalDistance(const double *latitudes, const double *longitudes, int waypointNumber)
 {
 	double totalDistance = 0.0;
 
-	for (int i = 1; i < waypntNumber; i++)
-		totalDistance += distanceKm(latArr[i - 1], longArr[i - 1], latArr[i], longArr[i]);
+	for (int i = 1; i < waypointNumber; i++)
+		totalDistance += distanceKm(latitudes[i - 1], longitudes[i - 1], latitudes[i], longitudes[i]);
 
 	return totalDistance;
 }
