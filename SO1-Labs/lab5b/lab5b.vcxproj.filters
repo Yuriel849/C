@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lab5b_inputStrings.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lab5b.c">
       <Filter>Source Files</Filter>
     </ClCompile>
