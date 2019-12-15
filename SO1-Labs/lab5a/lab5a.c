@@ -22,8 +22,7 @@
 int getWaypointNumber(void);
 void getCoordinates(double *latitudes, double *longitudes, int waypointNumber);
 void clearBuffer(void);
-int chkDigit(int digit);
-int chkFloat(char* string, int flag);
+void printBuffer(void);
 double getTotalDistance(const double *latitudes, const double *longitudes, int waypointNumber);
 double distanceKm(double latitudeX, double longitudeX, double latitudeY, double longitudeY);
 
@@ -60,7 +59,11 @@ int getWaypointNumber(void)
 	while (1)
 	{
 		if ((scanf("%d", &input) == 1) && (input >= 0))
+		{
+			clearBuffer();
 			return input;
+		}
+		clearBuffer();
 		printf("Try again (expected number >= 0) : ");
 	}
 }
@@ -75,29 +78,22 @@ void getCoordinates(double *latitudes, double *longitudes, int waypointNumber)
 		printf("Waypoint %d : ", i + 1);
 		while (1)
 		{
-			scanf("%lf %lf", latitude, longitude);
-			clearBuffer();
+			scanf("%lf %lf", &latitude, &longitude);
 
-			if (((flag = chkFloat(inputOne, 1)) != 0) && ((flag = chkFloat(inputTwo, 2)) != 0))
+			if ((latitude >= -90. && latitude <= 90.) && (longitude >= -180. && longitude <= 180.))
 			{
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s %s\nTry again : ", inputOne, inputTwo);
-				continue;
-			}
-			else if (((flag = chkFloat(inputOne, 1)) != 0) || ((flag = chkFloat(inputTwo, 2)) != 0))
-			{
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flag == 1) ? inputOne : inputTwo);
-				continue;
-			}
-
-			latArr[i] = atof(inputOne); // Convert string into double
-			longArr[i] = atof(inputTwo);
-			// Check that latitude coordinate is between +90 & -90 degrees and longitude coordinate is between + 180 & -180 degrees
-			if (!(latArr[i] >= -90. && latArr[i] <= 90.))
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputOne);
-			else if (!(longArr[i] >= -180. && longArr[i] <= 180.))
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", inputTwo);
-			else
+				latitudes[i] = latitude;
+				longitudes[i] = longitude;
+				clearBuffer();
 				break;
+			}
+			else
+			{
+				printf("Invalid input (expected \"<latitude> <longitude>\": ");
+				printBuffer();
+				printf("\nTry again : ");
+				clearBuffer();
+			}
 		}
 	}
 }
@@ -108,27 +104,12 @@ void clearBuffer(void)
 		continue;
 }
 
-void printfBuffer(void)
+void printBuffer(void)
 {
+	char input;
 
-}
-
-int chkFloat(char* string, int arrIdx)
-{
-	int counter = 0;
-	int flag = 0;
-
-	while (string[counter] != '\0')
-	{
-		if (!(string[0] == '-' || string[counter] == '.' || chkDigit(string[counter]))) // If there is a character, break
-		{
-			flag = arrIdx;
-			break;
-		}
-		counter++;
-	}
-
-	return flag;
+	while ((input = getchar()) != '\n')
+		fputc(input, stdout);
 }
 
 double getTotalDistance(const double *latitudes, const double *longitudes, int waypointNumber)
