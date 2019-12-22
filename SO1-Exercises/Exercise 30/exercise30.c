@@ -7,50 +7,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int transposeNxN(int *matrix, int rows, int columns);
+int transposeNxN(int *matrix, int size);
+void clearBuffer(void);
 
 int main(void)
 {
-	int rows = 0, columns = 0;
-	int *matrix;
+	int size = 0, elements, *matrix, counter = 0;
 
-	printf("Please enter the size of the matrix as : rows, columns");
-	scanf("%d, %d", &rows, &columns);
-	matrix = (int *)calloc(rows * columns, sizeof(int));
-	printf("Please enter the elements of the matrix one at a time and hit enter");
-	for (int row = 0; row < rows; row++)
-	{
-		for (int column = 0; column < columns; column++)
-		{
-			scanf("%d", );
-		}
-	}
+	printf("Please enter the size of the NxN matrix as : ");
+	scanf("%d", &size);
+	clearBuffer();
+	elements = size * size;
+	matrix = (int *)calloc(elements, sizeof(int));
+	printf("Please enter each element of the %dx%d matrix one at a time and hit enter", size, size);
+	for (int element = 0; element < elements; element++)
+		scanf("%d", matrix + element);
 
-	transposeNxN(matrix, 3, 3);
+	transposeNxN(matrix, size);
 
 	getchar();
 	return 0;
 }
 
-int transposeNxN(int *matrix, int rows, int columns)
+int transposeNxN(int *matrix, int size)
 {
 	// Print the original matrix
-	for (int row = 0; row < rows; row++)
+	/*for (int row = 0; row < size; row++)
 	{
-		for (int column = 0; column < columns; column++)
+		for (int column = 0; column < size; column++)
 		{
-			printf("%2d", *(matrix + (row*columns) + column));
+			printf("%2d", *(matrix + (row * size) + column));
 		}
 		printf("\n");
-	}
+	}*/
 
 	// Print the transposed matrix
-	for (int column = 0; column < columns; column++)
+	for (int column = 0; column < size; column++)
 	{
-		for (int row = 0; row < rows; row++)
+		for (int row = 0; row < size; row++)
 		{
-			printf("%2d", *(matrix + (row*columns) + column));
+			printf("%2d", *(matrix + (row * size) + column));
 		}
 		printf("\n");
 	}
+}
+
+void clearBuffer(void)
+{
+	while (getchar() != '\n')
+		continue;
 }
