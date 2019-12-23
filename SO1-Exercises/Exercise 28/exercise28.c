@@ -31,5 +31,5 @@ void rotate2D(double *vector, double *rotatedVector, double angle)
 {
 	double rotationMatrix[4] = { cos(angle), -sin(angle), sin(angle), cos(angle) };
 	rotatedVector[0] = (rotationMatrix[0] * vector[0]) + (rotationMatrix[1] * vector[1]);
-	rotatedVector[1] = (rotationMatrix[3] * vector[0]) + (rotationMatrix[4] * vector[1]);
+	rotatedVector[1] = (rotationMatrix[2] * vector[0]) + (rotationMatrix[3] * vector[1]);
 }
