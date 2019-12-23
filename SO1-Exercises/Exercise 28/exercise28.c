@@ -2,6 +2,7 @@
    Contents    : Exercise 28.
    Instructions: Write a function rotate2D() that rotates a 2-dimensional vector x by an angle ¥á.
 				 The rotated vector x¡Ç is given by multiplying Rotation matrix and vector x: x¡Ç = Rx
+   Note		   : The functions cos(), sin(), etc. take radian angles as arguments.
  */
 
 #define _CRT_SECURE_NO_DEPRECATE_
@@ -16,9 +17,11 @@ void rotate2D(double *vector, double *rotatedVector, double angle);
 int main(void)
 {
 	double vector[2] = { 2, 3 }, rotatedVector[2];
-	double angle = M_PI / 3;
+	double angle = M_PI / 3; // Arbitrary angle, 60 degrees
 
+	printf("The original vector is { %.2f %.2f }\n", vector[0], vector[1]);
 	rotate2D(vector, rotatedVector, angle);
+	printf("The rotated vector is { %.2f %.2f }", rotatedVector[0], rotatedVector[1]);
 
 	getchar();
 	return 0;
@@ -26,5 +29,7 @@ int main(void)
 
 void rotate2D(double *vector, double *rotatedVector, double angle)
 {
-
+	double rotationMatrix[4] = { cos(angle), -sin(angle), sin(angle), cos(angle) };
+	rotatedVector[0] = (rotationMatrix[0] * vector[0]) + (rotationMatrix[1] * vector[1]);
+	rotatedVector[1] = (rotationMatrix[3] * vector[0]) + (rotationMatrix[4] * vector[1]);
 }
