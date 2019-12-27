@@ -31,9 +31,8 @@ void cleanString(char *origin, char *destination)
 	while (origin[counter] != '\0')
 	{
 		if((origin[counter] != ' ' || index != 0) && !(origin[counter] == ' ' && origin[counter + 1] == ' ') && !(origin[counter] == ' ' && origin[counter + 1] == '.'))
-		{
 			destination[index++] = origin[counter];
-		}
+
 		counter++;
 	}
 }
