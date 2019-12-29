@@ -41,27 +41,30 @@ void reserveSeat(int *seats)
 {
 	int toReserve = 0;
 	
-	printSeatPlan(seats);
+	printSeatPlan(seats); // Initially print seating plan for user to see.
+	printf("\n");
 
 	while(1)
 	{
-		printf("\nReserve seat(s) (q to quit):");
+		printf("Reserve seat(s) (q to quit):");
 
-		if (scanf("%d", &toReserve) != 1 || !(toReserve > 0 && toReserve <= 50))
+		if (scanf("%d", &toReserve) != 1) // For all non-integer input
 		{
 			if (getchar() == 'q') // If 'q' was entered, scanf() returns 0 and 'q' remains in the input buffer
 				break;
 			printf("Please enter a valid seat number.\n");
 		}
-		else if (seats[toReserve - 1] > 0 && seats[toReserve - 1] <= 50)   // If the value of the desired seat is positive, it is vacant.
+		else if (!(toReserve > 0 && toReserve <= 50)) // For integers outside the range of 1-50
+			printf("Please enter a valid seat number.\n");
+		else if (seats[toReserve - 1] > 0 && seats[toReserve - 1] <= 50) // If the value of the desired seat is positive, it is vacant.
 		{
 			seats[toReserve - 1] *= -1; // Multiply -1 to the value of the desired seat, indicating it is now reserved.
 			printSeatPlan(seats);
 		}
 		else
 			printf("Unfortunately, this seat is already reserved, please choose another seat.\n");
-		
-		clearBuffer(); // Whatever happens, clear the input buffer
+
+		clearBuffer();
 	}
 }
 
