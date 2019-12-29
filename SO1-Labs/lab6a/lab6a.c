@@ -14,27 +14,53 @@ Requirements:
  */
 
 #define _CRT_SECURE_NO_DEPRECATE	// To use scanf() without warnings
+#define size 50						// The number of seats in the CRJ-200 aircraft
 
 #include <stdio.h>
 #include <stdlib.h>
 
 // Function prototypes
-void reserveSeat();
-void printSeatPlan();
+void reserveSeat(int *seats);
+void printSeatPlan(int *seats);
 
 int main(void)
 {
+	int *seats = (int*)malloc(sizeof(int) * size);
+	for (int seat = 0; seat < size; seat++)
+		*(seats + seat) = seat + 1;
 
+	reserveSeat(seats);
+
+	free(seats);
 	getchar();
 	return 0;
 }
 
-void reserveSeat()
+void reserveSeat(int *seats)
 {
+	int toReserve = 0;
+	
+	do
+	{
+		printf("Reserve seat(s) (q to quit):");
+		scanf("%d", &toReserve);
 
+		if (seats[toReserve - 1] > 0)   // If the value of the desired seat is positive, it is vacant.
+		{
+			seats[toReserve - 1] *= -1; // Multiply -1 to the value of the desired seat, indicating it is now reserved.
+			printSeatPlan(seats);
+		}
+		else
+		{
+			printf("Unfortunately, this seat is already reserved, please choose another seat.\n");
+			continue;
+		}
+	} while (getchar() != 'q'); // Infinite loop unless 'q' is entered.
 }
 
-void printSeatPlan()
+void printSeatPlan(int *seats)
 {
-
+	system("cls");
+	for (int seat = 0; seat < size; seat++)
+		printf("Seat %d : pointer %d\n", seat + 1, *(seats + seat));
 }
