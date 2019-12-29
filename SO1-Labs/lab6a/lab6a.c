@@ -22,6 +22,7 @@ Requirements:
 // Function prototypes
 void reserveSeat(int *seats);
 void printSeatPlan(int *seats);
+void clearBuffer(void);
 
 int main(void)
 {
@@ -40,27 +41,62 @@ void reserveSeat(int *seats)
 {
 	int toReserve = 0;
 	
-	do
-	{
-		printf("Reserve seat(s) (q to quit):");
-		scanf("%d", &toReserve);
+	printSeatPlan(seats);
 
-		if (seats[toReserve - 1] > 0)   // If the value of the desired seat is positive, it is vacant.
+	while(1)
+	{
+		printf("\nReserve seat(s) (q to quit):");
+
+		if (scanf("%d", &toReserve) != 1 || !(toReserve > 0 && toReserve <= 50))
+		{
+			if (getchar() == 'q') // If 'q' was entered, scanf() returns 0 and 'q' remains in the input buffer
+				break;
+			printf("Please enter a valid seat number.\n");
+		}
+		else if (seats[toReserve - 1] > 0 && seats[toReserve - 1] <= 50)   // If the value of the desired seat is positive, it is vacant.
 		{
 			seats[toReserve - 1] *= -1; // Multiply -1 to the value of the desired seat, indicating it is now reserved.
 			printSeatPlan(seats);
 		}
 		else
-		{
 			printf("Unfortunately, this seat is already reserved, please choose another seat.\n");
-			continue;
-		}
-	} while (getchar() != 'q'); // Infinite loop unless 'q' is entered.
+		
+		clearBuffer(); // Whatever happens, clear the input buffer
+	}
 }
 
 void printSeatPlan(int *seats)
 {
+	int flag = 0, counter = 0;
+
 	system("cls");
-	for (int seat = 0; seat < size; seat++)
-		printf("Seat %d : pointer %d\n", seat + 1, *(seats + seat));
+	printf("Seating plan Bombardier CRJ-200\n   /                \\   \n  /                  \\  \n +                    + \n");
+	for (int seat = 0; seat < 50; seat += 4)
+	{
+		printf(" |  ");
+		for (int column = 0; column < 4; column++)
+		{
+			if (seat + column == 50)
+			{
+				printf("        ");
+				break;
+			}
+			if (*(seats + seat + column) < 0)
+			{
+				flag = 1;
+				counter++;
+			}
+			printf("%3d%c", (flag == 1) ? *(seats + seat + column) * -1 : *(seats + seat + column), (flag == 1) ? ' ' : '*');
+			flag = 0;
+		}
+
+		printf("  | \n");
+	}
+	printf(" | %2d reserved, %2d vacant*  \n", counter, size - counter);
+}
+
+void clearBuffer(void)
+{
+	while (getchar() != '\n')
+		continue;
 }
