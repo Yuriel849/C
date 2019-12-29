@@ -26,7 +26,8 @@ int main(void)
 
 	createRandomArray(randomArray, size, minimum, maximum);
 	printArray(randomArray, size);
-
+	
+	free(randomArray);
 	getchar();
 	return 0;
 }

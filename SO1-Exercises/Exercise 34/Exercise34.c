@@ -30,6 +30,7 @@ int main(void)
 	newSubstring(origin, substring, start, end);
 	printf("This is the new substring cut out from the original string : %s", substring);
 
+	free(substring);
 	getchar();
 	return 0;
 }
