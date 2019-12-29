@@ -10,7 +10,6 @@
 
 void createRandomArray(int *randomArray, int size, int minimum, int maximum);
 void printArray(int *randomArray, int size);
-int getStringLength(char *string);
 
 int main(void)
 {
@@ -42,12 +41,4 @@ void printArray(int *randomArray, int size)
 {
 	for (int i = 0; i < size; i++)
 		printf("%d", randomArray[i]);
-}
-
-int getStringLength(char *string)
-{
-	int counter = 0;
-	while (string[counter] != '\0')
-		counter++;
-	return counter;
 }
