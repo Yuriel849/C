@@ -15,19 +15,18 @@ int getStringLength(char *string);
 int main(void)
 {
 	int size = 0, minimum = 0, maximum = 0;
-	int *randomArray = 0;
+	int **randomArray;
 
 	printf("Please help us create an array of integers filled with random numbers.\nFirst, please choose the size of the array.\n");
 	scanf("%d", &size);
 	printf("Next, please choose the minimum and maximum values of the random numbers. Enter as z.B. \"4, 25\"");
 	scanf("%d, %d", &minimum, &maximum);
 
+	if ((randomArray = (int *)malloc(sizeof(int) * size)) == NULL)
+		exit(EXIT_FAILURE);
+
 	createRandomArray(randomArray, size, minimum, maximum);
-	/*for (int i = 0; i < size; i++)
-	{
-		printf("i : %d\n", i);
-		printf("%d", randomArray[i]);
-	}*/
+	printArray(randomArray, size);
 
 	getchar();
 	return 0;
@@ -35,9 +34,6 @@ int main(void)
 
 void createRandomArray(int *randomArray, int size, int minimum, int maximum)
 {
-	if((randomArray = (int *)malloc(sizeof(int) * size)) == NULL)
-		exit(EXIT_FAILURE);
-
 	for (int i = 0; i < size; i++)
 		randomArray[i] = rand() % (maximum - minimum + 1) + minimum;
 }
@@ -45,10 +41,7 @@ void createRandomArray(int *randomArray, int size, int minimum, int maximum)
 void printArray(int *randomArray, int size)
 {
 	for (int i = 0; i < size; i++)
-	{
-		printf("i : %d\n", i);
 		printf("%d", randomArray[i]);
-	}
 }
 
 int getStringLength(char *string)
