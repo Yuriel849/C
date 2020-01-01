@@ -106,31 +106,44 @@ void reserveSeat(seatInfo *seats)
 void printSeatPlan(seatInfo *seats)
 {
 	int counter = 0;
+	FILE *file = fopen("flightPlan.txt", "w");
 
 	system("cls");
-	printf(" Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
-	for (int row = 0; row < size / 4 + 1; row++)
-	{
-		printf("  | ");
-	
-		for (int position = 0; position < 4; position++)
-		{
-			if (4 * row + position < 50)
-			{
-				printf("%3d%c%c", seats[(4 * row) + position].rowNumber, seats[(4 * row) + position].position, seats[(4 * row) + position].status);
-				if ((seats[(4 * row) + position].status == ' '))
-					counter++;
-			}
-			else
-			{
-				printf("          ");
-				break;
-			}
-		}
 
-		printf("  | \n");
+	if (file != NULL)
+	{
+		fprintf(stdout, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
+		fprintf(file, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
+		for (int row = 0; row < size / 4 + 1; row++)
+		{
+			fprintf(stdout, "  | ");
+			fprintf(file, "  | ");
+	
+			for (int position = 0; position < 4; position++)
+			{
+				if (4 * row + position < 50)
+				{
+					fprintf(stdout, "%3d%c%c", seats[(4 * row) + position].rowNumber, seats[(4 * row) + position].position, seats[(4 * row) + position].status);
+					fprintf(file, "%3d%c%c", seats[(4 * row) + position].rowNumber, seats[(4 * row) + position].position, seats[(4 * row) + position].status);
+					if ((seats[(4 * row) + position].status == ' '))
+						counter++;
+				}
+				else
+				{
+					fprintf(stdout, "          ");
+					fprintf(file, "          ");
+					break;
+				}
+			}
+
+			fprintf(stdout, "  | \n");
+			fprintf(file, "  | \n");
+		}
+		fprintf(stdout, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
+		fprintf(file, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
 	}
-	printf("  | %2d reserved, %2d vacant*  \n", counter, size - counter);
+
+	fclose(file);
 }
 
 void clearBuffer(void)
