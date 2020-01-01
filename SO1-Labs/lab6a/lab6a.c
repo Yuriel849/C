@@ -112,62 +112,50 @@ void reserveSeat(seatInfo *seats)
 
 void printSeatPlan(seatInfo *seats, char printMode)
 {
-	int counter = 0, index = 0; // counter is for counting number of reserved seats, index is for using the seatInfo array
+	int counter = 0; // counter to count the number of reserved seats
 	FILE *file = fopen("flightPlan.txt", "w");
 
 	if (printMode == 's')		// stdout, print to console
 	{
 		system("cls");			// Clear the console before printing
 		fprintf(stdout, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
-		for (int row = 0; row < size / 4 + 1; row++)
+		for (int row = 0; row < size - 4; row += 4)
 		{
-			fprintf(stdout, "  | ");
-	
-			for (int position = 0; position < 4; position++)
-			{
-				index = 4 * row + position;
-				if (index < 50)
-				{
-					fprintf(stdout, "%3d%c%c", seats[index].rowNumber, seats[index].position, seats[index].status);
-					if ((seats[index].status == ' '))
-						counter++;
-				}
-				else // For the 13th row, where there are only two seats
-				{
-					fprintf(stdout, "          ");
-					break;
-				}
-			}
-
-			fprintf(stdout, "  | \n");
+			fprintf(stdout, "  | %3d%c%c%3d%c%c%3d%c%c%3d%c%c  | \n",
+				seats[row].rowNumber, seats[row].position, seats[row].status,
+				seats[row + 1].rowNumber, seats[row + 1].position, seats[row + 1].status,
+				seats[row + 2].rowNumber, seats[row + 2].position, seats[row + 2].status,
+				seats[row + 3].rowNumber, seats[row + 3].position, seats[row + 3].status);
 		}
+		fprintf(stdout, "  | %3d%c%c%3d%c%c            | \n",
+			seats[size - 2].rowNumber, seats[size - 2].position, seats[size - 2].status,
+			seats[size - 1].rowNumber, seats[size - 1].position, seats[size - 1].status);
+
+		for(int index = 0; index < size; index++)
+			if ((seats[index].status == ' '))
+				counter++;
+
 		fprintf(stdout, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
 	}
 	else if (file != NULL)		// write to file, prior to exiting program
 	{
 		fprintf(file, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
-		for (int row = 0; row < size / 4 + 1; row++)
+		for (int row = 0; row < size - 4; row += 4)
 		{
-			fprintf(file, "  | ");
-	
-			for (int position = 0; position < 4; position++)
-			{
-				index = 4 * row + position;
-				if (index < 50)
-				{
-					fprintf(file, "%3d%c%c", seats[index].rowNumber, seats[index].position, seats[index].status);
-					if ((seats[index].status == ' '))
-						counter++;
-				}
-				else // For the 13th row, where there are only two seats
-				{
-					fprintf(file, "          ");
-					break;
-				}
-			}
-
-			fprintf(file, "  | \n");
+			fprintf(file, "  | %3d%c%c%3d%c%c%3d%c%c%3d%c%c  | \n",
+				seats[row].rowNumber, seats[row].position, seats[row].status,
+				seats[row + 1].rowNumber, seats[row + 1].position, seats[row + 1].status,
+				seats[row + 2].rowNumber, seats[row + 2].position, seats[row + 2].status,
+				seats[row + 3].rowNumber, seats[row + 3].position, seats[row + 3].status);
 		}
+		fprintf(file, "  | %3d%c%c%3d%c%c            | \n",
+			seats[size - 2].rowNumber, seats[size - 2].position, seats[size - 2].status,
+			seats[size - 1].rowNumber, seats[size - 1].position, seats[size - 1].status);
+
+		for (int index = 0; index < size; index++)
+			if ((seats[index].status == ' '))
+				counter++;
+
 		fprintf(file, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
 	}
 
