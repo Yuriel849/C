@@ -34,7 +34,7 @@ typedef struct {
 
 // Function prototypes
 void reserveSeat(seatInfo *seats);
-void printSeatPlan(seatInfo *seats, char printMode);
+void printSeatPlan(seatInfo *seats, FILE *file);
 void clearBuffer(void);
 
 int main(void)
@@ -64,7 +64,7 @@ void reserveSeat(seatInfo *seats)
 	char bufferValue = ' ';		// Value of the input buffer (Exit the program if 'q' or 'Q')
 	int index = 0;				// Value of the chosen row and position as a number between 0 ~ 49
 	
-	printSeatPlan(seats, 's');  // Initially print seating plan for user to see.
+	printSeatPlan(seats, NULL);  // Initially print seating plan for user to see.
 	printf("\n");
 	
 	while(1)
@@ -84,7 +84,9 @@ void reserveSeat(seatInfo *seats)
 			if (bufferValue == 'q' || bufferValue == 'Q')	  // User desires to exit the program
 			{
 				printf("\nThank you for utilizing our services. Auf Wiedersehen!\n");
-				printSeatPlan(seats, 'q');					  // Write to file "flightPlan.txt" before exiting program
+				FILE *file = fopen("flightPlan.txt", "w");
+				printSeatPlan(seats, file);					  // Write to file "flightPlan.txt" before exiting program
+				fclose(file);
 				break;
 			}
 			else
@@ -96,12 +98,12 @@ void reserveSeat(seatInfo *seats)
 		else if (rowReserve == 14 && (seats[index - 4].status == '*'))
 		{
 			seats[index - 4].status = ' ';
-			printSeatPlan(seats, 's');
+			printSeatPlan(seats, NULL);
 		}
 		else if (seats[index].status == '*')
 		{
 			seats[index].status = ' ';
-			printSeatPlan(seats, 's');
+			printSeatPlan(seats, NULL);
 		}
 		else
 			printf("Unfortunately, this seat is already reserved, please choose another seat.\n");
@@ -110,56 +112,30 @@ void reserveSeat(seatInfo *seats)
 	}
 }
 
-void printSeatPlan(seatInfo *seats, char printMode)
+void printSeatPlan(seatInfo *seats, FILE *file)
 {
 	int counter = 0; // counter to count the number of reserved seats
-	FILE *file = fopen("flightPlan.txt", "w");
+//		system("cls");			// Clear the console before printing
 
-	if (printMode == 's')		// stdout, print to console
+
+	fprintf((file == NULL) ? stdout : file, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
+	for (int row = 0; row < size - 4; row += 4)
 	{
-		system("cls");			// Clear the console before printing
-		fprintf(stdout, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
-		for (int row = 0; row < size - 4; row += 4)
-		{
-			fprintf(stdout, "  | %3d%c%c%3d%c%c%3d%c%c%3d%c%c  | \n",
-				seats[row].rowNumber, seats[row].position, seats[row].status,
-				seats[row + 1].rowNumber, seats[row + 1].position, seats[row + 1].status,
-				seats[row + 2].rowNumber, seats[row + 2].position, seats[row + 2].status,
-				seats[row + 3].rowNumber, seats[row + 3].position, seats[row + 3].status);
-		}
-		fprintf(stdout, "  | %3d%c%c%3d%c%c            | \n",
-			seats[size - 2].rowNumber, seats[size - 2].position, seats[size - 2].status,
-			seats[size - 1].rowNumber, seats[size - 1].position, seats[size - 1].status);
-
-		for(int index = 0; index < size; index++)
-			if ((seats[index].status == ' '))
-				counter++;
-
-		fprintf(stdout, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
+		fprintf((file == NULL) ? stdout : file, "  | %3d%c%c%3d%c%c%3d%c%c%3d%c%c  | \n",
+			seats[row].rowNumber, seats[row].position, seats[row].status,
+			seats[row + 1].rowNumber, seats[row + 1].position, seats[row + 1].status,
+			seats[row + 2].rowNumber, seats[row + 2].position, seats[row + 2].status,
+			seats[row + 3].rowNumber, seats[row + 3].position, seats[row + 3].status);
 	}
-	else if (file != NULL)		// write to file, prior to exiting program
-	{
-		fprintf(file, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
-		for (int row = 0; row < size - 4; row += 4)
-		{
-			fprintf(file, "  | %3d%c%c%3d%c%c%3d%c%c%3d%c%c  | \n",
-				seats[row].rowNumber, seats[row].position, seats[row].status,
-				seats[row + 1].rowNumber, seats[row + 1].position, seats[row + 1].status,
-				seats[row + 2].rowNumber, seats[row + 2].position, seats[row + 2].status,
-				seats[row + 3].rowNumber, seats[row + 3].position, seats[row + 3].status);
-		}
-		fprintf(file, "  | %3d%c%c%3d%c%c            | \n",
-			seats[size - 2].rowNumber, seats[size - 2].position, seats[size - 2].status,
-			seats[size - 1].rowNumber, seats[size - 1].position, seats[size - 1].status);
+	fprintf((file == NULL) ? stdout : file, "  | %3d%c%c%3d%c%c            | \n",
+		seats[size - 2].rowNumber, seats[size - 2].position, seats[size - 2].status,
+		seats[size - 1].rowNumber, seats[size - 1].position, seats[size - 1].status);
 
-		for (int index = 0; index < size; index++)
-			if ((seats[index].status == ' '))
-				counter++;
+	for(int index = 0; index < size; index++)
+		if ((seats[index].status == ' '))
+			counter++;
 
-		fprintf(file, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
-	}
-
-	fclose(file);
+	fprintf((file == NULL) ? stdout : file, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
 }
 
 void clearBuffer(void)
