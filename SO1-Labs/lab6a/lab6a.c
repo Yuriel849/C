@@ -84,7 +84,7 @@ void reserveSeat(seatInfo *seats)
 			if (bufferValue == 'q' || bufferValue == 'Q')	  // User desires to exit the program
 			{
 				printf("\nThank you for utilizing our services. Auf Wiedersehen!\n");
-				FILE *file = fopen("flightPlan.txt", "w");
+				FILE *file = fopen("flightPlan.txt", "w");	  // Open the file "flightPlan.txt" for writing
 				printSeatPlan(seats, file);					  // Write to file "flightPlan.txt" before exiting program
 				fclose(file);
 				break;
@@ -115,8 +115,7 @@ void reserveSeat(seatInfo *seats)
 void printSeatPlan(seatInfo *seats, FILE *file)
 {
 	int counter = 0; // counter to count the number of reserved seats
-//		system("cls");			// Clear the console before printing
-
+	system("cls");	 // Clear the console before printing
 
 	fprintf((file == NULL) ? stdout : file, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
 	for (int row = 0; row < size - 4; row += 4)
