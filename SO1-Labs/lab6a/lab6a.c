@@ -41,7 +41,7 @@ int main(void)
 {
 	seatInfo *seats;
 	
-	if((seatInfo*)malloc(sizeof(seatInfo) * size) == NULL)
+	if((seats = (seatInfo*)malloc(sizeof(seatInfo) * size)) == NULL)
 		exit(EXIT_FAILURE);
 
 	for (int row = 0; row < size / 4 + 1; row++)		 // row		 == 0 ~ 12
@@ -49,36 +49,51 @@ int main(void)
 			if(4 * row + position < 50) // Because the last row has only two seats 
 				*(seats + (4 * row) + position) = (seatInfo) { (row == 12) ? 14 : row + 1, 'A' + position, '*' };
 
-	printSeatPlan(seats);
-	//reserveSeat(seats);
+	//printSeatPlan(seats);
+	reserveSeat(seats);
 
 	free(seats);
 	getchar();
 	return 0;
 }
 
-void reserveSeat(int *seats)
+void reserveSeat(seatInfo *seats)
 {
-	int toReserve = 0;
+	int rowReserve = 0;
+	char positionReserve = ' ';
+	int scanReturn = 0;
+	int bufferValue;
 	
 	printSeatPlan(seats); // Initially print seating plan for user to see.
 	printf("\n");
-
+	
 	while(1)
 	{
 		printf("Reserve seat(s) (q to quit):");
+		scanReturn = scanf("%d%c", &rowReserve, &positionReserve);
+		if (positionReserve >= 'a' && positionReserve <= 'z') // If the user entered a lowercase letter, change to capital letter
+			positionReserve -= 32;
 
-		if (scanf("%d", &toReserve) != 1)				// For all non-integer input
+		if (scanReturn != 2) // If the row number and position letter are not properly scanned
 		{
-			if (getchar() == 'q')
+			bufferValue = getchar();
+			if (bufferValue == 'q' || bufferValue == 'Q') // User desires to exit the program
+			{
+				printf("Thank you for utilizing our services. Auf Wiedersehen!");
 				break;
+			}
 			printf("Please enter a valid seat number.\n");
 		}
-		else if (!(toReserve > 0 && toReserve <= 50))	// For integers outside the range of 1-50
+		else if (!((rowReserve > 0 && rowReserve <= 12) || rowReserve == 14) || !(positionReserve >= 'A' && positionReserve <= 'D') || (rowReserve == 14 && !(positionReserve >= 'A' && positionReserve <= 'B')))
 			printf("Please enter a valid seat number.\n");
-		else if (seats[toReserve - 1] > 0 && seats[toReserve - 1] <= 50) // If the value of the desired seat is positive, it is vacant.
+		else if (rowReserve == 14 && (seats[(rowReserve - 2) * 4 + (positionReserve - 'A')].status == '*'))
 		{
-			seats[toReserve - 1] *= -1; // Negative integer indicates reserved seat.
+			seats[(rowReserve - 2) * 4 + (positionReserve - 'A')].status = ' ';
+			printSeatPlan(seats);
+		}
+		else if (seats[(rowReserve - 1) * 4 + (positionReserve - 'A')].status == '*')
+		{
+			seats[(rowReserve - 1) * 4 + (positionReserve - 'A')].status = ' ';
 			printSeatPlan(seats);
 		}
 		else
