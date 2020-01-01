@@ -39,7 +39,11 @@ void clearBuffer(void);
 
 int main(void)
 {
-	seatInfo *seats = (seatInfo*)malloc(sizeof(seatInfo) * size);
+	seatInfo *seats;
+	
+	if((seatInfo*)malloc(sizeof(seatInfo) * size) == NULL)
+		exit(EXIT_FAILURE);
+
 	for (int row = 0; row < size / 4 + 1; row++)		 // row		 == 0 ~ 12
 		for (int position = 0; position < 4; position++) // position == 0 ~ 3
 			if(4 * row + position < 50) // Because the last row has only two seats 
