@@ -34,7 +34,7 @@ typedef struct {
 
 // Function prototypes
 void reserveSeat(seatInfo *seats);
-void printSeatPlan(seatInfo *seats);
+void printSeatPlan(seatInfo *seats, char printMode);
 void clearBuffer(void);
 
 int main(void)
@@ -64,7 +64,7 @@ void reserveSeat(seatInfo *seats)
 	int scanReturn = 0;
 	int bufferValue;
 	
-	printSeatPlan(seats); // Initially print seating plan for user to see.
+	printSeatPlan(seats, 's'); // Initially print seating plan for user to see.
 	printf("\n");
 	
 	while(1)
@@ -80,6 +80,7 @@ void reserveSeat(seatInfo *seats)
 			if (bufferValue == 'q' || bufferValue == 'Q') // User desires to exit the program
 			{
 				printf("Thank you for utilizing our services. Auf Wiedersehen!");
+				printSeatPlan(seats, 'q');
 				break;
 			}
 			printf("Please enter a valid seat number.\n");
@@ -89,12 +90,12 @@ void reserveSeat(seatInfo *seats)
 		else if (rowReserve == 14 && (seats[(rowReserve - 2) * 4 + (positionReserve - 'A')].status == '*'))
 		{
 			seats[(rowReserve - 2) * 4 + (positionReserve - 'A')].status = ' ';
-			printSeatPlan(seats);
+			printSeatPlan(seats, 's');
 		}
 		else if (seats[(rowReserve - 1) * 4 + (positionReserve - 'A')].status == '*')
 		{
 			seats[(rowReserve - 1) * 4 + (positionReserve - 'A')].status = ' ';
-			printSeatPlan(seats);
+			printSeatPlan(seats, 's');
 		}
 		else
 			printf("Unfortunately, this seat is already reserved, please choose another seat.\n");
@@ -103,43 +104,62 @@ void reserveSeat(seatInfo *seats)
 	}
 }
 
-void printSeatPlan(seatInfo *seats)
+void printSeatPlan(seatInfo *seats, char printMode)
 {
 	int counter = 0;
 	FILE *file = fopen("flightPlan.txt", "w");
 
-	system("cls");
-
-	if (file != NULL)
+	if (printMode == 's') // stdout
 	{
+		system("cls");
 		fprintf(stdout, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
-		fprintf(file, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
 		for (int row = 0; row < size / 4 + 1; row++)
 		{
 			fprintf(stdout, "  | ");
-			fprintf(file, "  | ");
 	
 			for (int position = 0; position < 4; position++)
 			{
 				if (4 * row + position < 50)
 				{
 					fprintf(stdout, "%3d%c%c", seats[(4 * row) + position].rowNumber, seats[(4 * row) + position].position, seats[(4 * row) + position].status);
-					fprintf(file, "%3d%c%c", seats[(4 * row) + position].rowNumber, seats[(4 * row) + position].position, seats[(4 * row) + position].status);
 					if ((seats[(4 * row) + position].status == ' '))
 						counter++;
 				}
 				else
 				{
 					fprintf(stdout, "          ");
-					fprintf(file, "          ");
 					break;
 				}
 			}
 
 			fprintf(stdout, "  | \n");
-			fprintf(file, "  | \n");
 		}
 		fprintf(stdout, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
+	}
+	else if (file != NULL) // print to file
+	{
+		fprintf(file, " Seating plan Bombardier CRJ-200\n    /                   \\   \n   /                     \\  \n  +                       + \n");
+		for (int row = 0; row < size / 4 + 1; row++)
+		{
+			fprintf(file, "  | ");
+	
+			for (int position = 0; position < 4; position++)
+			{
+				if (4 * row + position < 50)
+				{
+					fprintf(file, "%3d%c%c", seats[(4 * row) + position].rowNumber, seats[(4 * row) + position].position, seats[(4 * row) + position].status);
+					if ((seats[(4 * row) + position].status == ' '))
+						counter++;
+				}
+				else
+				{
+					fprintf(file, "          ");
+					break;
+				}
+			}
+
+			fprintf(file, "  | \n");
+		}
 		fprintf(file, "  | %2d reserved, %2d vacant*  \n", counter, size - counter);
 	}
 
