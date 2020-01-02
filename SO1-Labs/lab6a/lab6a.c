@@ -1,6 +1,6 @@
 /*
 Author	    : Myungjun Kim
-Contents    : Implementation of the seating plan for the Bombardier CRJ-200 aircraft.
+Contents    : Full implementation of the seating plan for the Bombardier CRJ-200 aircraft.
 Instructions:
 	The CRJ-200 has 50 seats and every row, except for the last one, has 4 seats. The last row consists of only 2 seats.
 	Every seat is either vacant or reserved.
