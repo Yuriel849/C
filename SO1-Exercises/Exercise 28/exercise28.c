@@ -1,7 +1,7 @@
 /* Author	   : Myungjun Kim
    Contents    : Exercise 28.
-   Instructions: Write a function rotate2D() that rotates a 2-dimensional vector x by an angle ¥á.
-				 The rotated vector x¡Ç is given by multiplying Rotation matrix and vector x: x¡Ç = Rx
+   Instructions: Write a function rotate2D() that rotates a 2-dimensional vector x by an angle a.
+				 The rotated vector x' is given by multiplying Rotation matrix and vector x: x' = Rx
    Note		   : The functions cos(), sin(), etc. take radian angles as arguments.
  */
 
