@@ -1,10 +1,8 @@
 /* Author	   : Myungjun Kim
    Contents    : Exercise 36.
    Instructions: Write a function createRandomMatrix() that allocates a 2-D int array and initializes it with random numbers.
-				 The function shall invoke malloc() only once, allocating memory for the row pointers and matrix data
-				 at the same time, and initialize the row pointers appropriately. Users shall enter the matrix size
-				 as well as the minimum and maximum random value in the main().
-function.
+				 The function shall invoke malloc() only once, allocating memory for the row pointers and matrix data at the same time,
+				 and initialize the row pointers appropriately. Users enter the matrix size and the minimum and maximum random value.
  */
 
 #define _CRT_SECURE_NO_DEPRECATE
