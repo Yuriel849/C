@@ -23,14 +23,18 @@ int main(void)
 	return 0;
 }
 
+// Sort array of size with quicksort
+
+
 // Sort array of size with bubble sort
 void bubbleSort(int *array, int size)
 {
 	int isSwapped; // Flag variable to control do-while loop
+	int lastIndex = size - 1;
 
 	do {
 		isSwapped = 0;
-		for (int index = 1; index < size; index++)
+		for (int index = 1; index < lastIndex; index++)
 		{
 			if (array[index - 1] > array[index])
 			{
@@ -38,7 +42,7 @@ void bubbleSort(int *array, int size)
 				isSwapped = 1;
 			}
 		}
-		size--;
+		lastIndex--;
 	} while (isSwapped);
 }
 
