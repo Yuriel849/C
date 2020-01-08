@@ -13,10 +13,13 @@ int countChar(const char*, const char);
 int main(void)
 {
 	char *originalString = "Willkommen in Hamburg!";
+	char *returnedString = invertString(originalString);
 
 	printf("Original : %s\n", originalString);
-	printf("Inverted : %s\n", invertString(originalString));
-	printf("Count 'e': %d", countChar(originalString, 'e'));
+	printf("Inverted : %s\n", returnedString);
+	printf("Count 'm': %d", countChar(originalString, 'm'));
+
+	free(returnedString); /*Free allocated memory before terminating*/
 
 	getchar();
 	return 0;
