@@ -7,8 +7,8 @@ Contents    : Special exercise 02 - Implement a function to invert a given strin
 #include <stdlib.h>
 #include <stdio.h>
 
-char *invertString(char*);
-int countChar(char*, char);
+char *invertString(const char*);
+int countChar(const char*, const char);
 
 int main(void)
 {
