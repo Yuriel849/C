@@ -15,11 +15,9 @@ void invertArray(int a[], int size); // Reverses the order of values stored in a
 
 int main(void)
 {
-	// Declare an int array of size 9 and initialize its values in ascending order 1, 2, …, 9.
 	int size, array[9] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	int *clone;
 
-	// Define a variable which stores the number of elements in the array.
 	size = sizeof array / sizeof array[0];
 
 	// Print the array to the console using printArray().
@@ -28,10 +26,12 @@ int main(void)
 
 	// Create a clone using cloneArray() and print it to the console.
 	clone = cloneArray(array, size);
+	printf("Clone   : ");
 	printArray(clone, size);
 
 	// For the cloned array, invert the order of the elements using invertArray() and print the array to the console.
 	invertArray(clone, size);
+	printf("Inverted: ");
 	printArray(clone, size);
 
 	// Ensure that no memory leaks exist.
@@ -47,7 +47,7 @@ void printArray(int a[], int size)  // Prints the elements of an int array to th
 	for (int i = 0; i < size; i++)
 	{
 		printf("%d", a[i]);
-		if (i != 8)
+		if (i != size - 1)
 			printf(", ");
 	}
 	printf("]\n");
@@ -55,12 +55,12 @@ void printArray(int a[], int size)  // Prints the elements of an int array to th
 
 int* cloneArray(int a[], int size)  // Create and return a copy of an existing int array, which is passed to the function as argument
 {
-	int *clone = 0;
+	int *clone = 0; // Pointer for cloned int array
 
-	if((clone = (int *)malloc(sizeof(int) * size)) == NULL)
-		exit(EXIT_FAILURE);
+	if((clone = (int *)malloc(sizeof(int) * size)) == NULL) // Allocate memory to the int pointer
+		exit(EXIT_FAILURE);	// If memory allocation fails, exit the program
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) // Directly copy the original array to the clone, element by element
 		clone[i] = a[i];
 
 	return clone;
