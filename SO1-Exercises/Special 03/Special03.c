@@ -1,6 +1,6 @@
 /*
 Author	    : Myungjun Kim
-Contents    : Special exercise 03 - Print an 
+Contents    : Special exercise 03 - Print an array, clone an array, and invert an array
 */
 
 /* Include files */
