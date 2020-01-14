@@ -21,13 +21,18 @@
 #include <math.h>
 #include <string.h>
 
+enum {
+	FALSE, TRUE
+};
+
 typedef struct {
 	double latitude;
 	double longitude;
 } geoCoord;
 
-int getWaypntNumber(void);
-void getCoordinates(geoCoord *coordinates, int waypntNumber);
+int getWaypointNumber(void);
+void getCoordinates(geoCoord *coordinates, int waypointNumber);
+double getTotalDistance(geoCoord *coordinates, int waypointNumber);
 void clearBuffer(void);
 int chkDigit(int digit);
 int chkFloat(char* string, int flag);
@@ -35,21 +40,19 @@ double distanceKm(double latitudeX, double longitudeX, double latitudeY, double 
 
 int main(void)
 {
-	int waypntNumber;				// Number of waypoints
+	int waypointNumber;				// Number of waypoints
 	geoCoord *coordinates;	// 1-D array to hold geoCoord
 	double totalDistance = 0.0;		// Total distance between all waypoints
 
-	waypntNumber = getWaypntNumber();
+	waypointNumber = getWaypointNumber();
 
 	// Create 1-D array with as many elements as the number of waypoints
-	coordinates = (geoCoord *)calloc(waypntNumber, sizeof(geoCoord));
+	coordinates = (geoCoord *)calloc(waypointNumber, sizeof(geoCoord));
 	if (coordinates == NULL) // Check if memory allocation was successful
 		exit(EXIT_FAILURE);
 
-	getCoordinates(coordinates, waypntNumber);
-
-	for (int i = 1; i < waypntNumber; i++) // Get and sum up distance between two sets of coordinates
-		totalDistance += distanceKm(coordinates[i - 1].latitude, coordinates[i - 1].longitude, coordinates[i].latitude, coordinates[i].longitude);
+	getCoordinates(coordinates, waypointNumber);
+	totalDistance = getTotalDistance(coordinates, waypointNumber); // Get and sum up distance between two sets of coordinates
 
 	printf("\nBy taking this route you will travel %.1f km.", totalDistance); // Print the total distance between the coordinates
 
@@ -59,13 +62,13 @@ int main(void)
 	return 0;
 }
 
-int getWaypntNumber(void)
+int getWaypointNumber(void)
 {
 	char inputOne[3];	// Receive user input as strings
 	int strLength;		// Length of strings
 
 	printf("Enter number of waypoints : ");
-	while (1)
+	while (TRUE)
 	{
 		scanf("%2s", inputOne); // User input: String which is maximum two characters long
 		clearBuffer();
@@ -76,23 +79,23 @@ int getWaypntNumber(void)
 	}
 }
 
-void getCoordinates(geoCoord *coordinates, int waypntNumber)
+void getCoordinates(geoCoord *coordinates, int waypointNumber)
 {
 	char inputOne[256], inputTwo[256];	// Receive user input as strings
 	int flag = 0;						// Flag variable
 
 	printf("\nEnter waypoints as \"<latitudes> <longitude>\" : \n");
-	for (int i = 0; i < waypntNumber; i++)
+	for (int i = 0; i < waypointNumber; i++)
 	{
 		printf("Waypoint %d : ", i + 1);
-		while (1)
+		while (TRUE)
 		{
 			scanf("%s %s", inputOne, inputTwo);
 			clearBuffer();
 
-			if (((flag = chkFloat(inputOne, 1)) != 0) || ((flag = chkFloat(inputTwo, 2)) != 0))
+			if (((flag = chkFloat(inputOne, 1)) != FALSE) || ((flag = chkFloat(inputTwo, 2)) != FALSE))
 			{
-				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flag == 1) ? inputOne : inputTwo);
+				printf("Invalid input (expected \"<latitude> <longitude>\": %s\nTry again : ", (flag == TRUE) ? inputOne : inputTwo);
 				continue;
 			}
 
@@ -109,6 +112,16 @@ void getCoordinates(geoCoord *coordinates, int waypntNumber)
 	}
 }
 
+double getTotalDistance(geoCoord *coordinates, int waypointNumber)
+{
+	double totalDistance = 0.0;
+
+	for (int i = 1; i < waypointNumber; i++)
+		totalDistance += distanceKm(coordinates[i - 1].latitude, coordinates[i - 1].longitude, coordinates[i].latitude, coordinates[i].longitude);
+
+	return totalDistance;
+}
+
 void clearBuffer(void)
 {
 	while (getchar() != '\n')
@@ -117,11 +130,11 @@ void clearBuffer(void)
 
 int chkDigit(int digit)
 {
-	int flag = 0;
+	int flag = FALSE;
 
 	if (digit == '0' || digit == '1' || digit == '2' || digit == '3' || digit == '4' ||
 		digit == '5' || digit == '6' || digit == '7' || digit == '8' || digit == '9')
-		flag = 1;
+		flag = TRUE;
 
 	return flag;
 }
