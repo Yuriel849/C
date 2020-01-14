@@ -19,6 +19,10 @@
 #include <math.h>					// To use sin(), cos(), acos()
 #include <string.h>					// To use strlen()
 
+enum {
+	FALSE, TRUE
+};
+
 int getWaypointNumber(void);
 void getCoordinates(double *latitudes, double *longitudes, int waypointNumber);
 void clearBuffer(void);
@@ -56,7 +60,7 @@ int getWaypointNumber(void)
 	int input;
 
 	printf("Enter number of waypoints : ");
-	while (1)
+	while (TRUE)
 	{
 		if ((scanf("%d", &input) == 1) && (input >= 0))
 		{
@@ -76,7 +80,7 @@ void getCoordinates(double *latitudes, double *longitudes, int waypointNumber)
 	for (int i = 0; i < waypointNumber; i++)
 	{
 		printf("Waypoint %d : ", i + 1);
-		while (1)
+		while (TRUE)
 		{
 			scanf("%lf %lf", &latitude, &longitude);
 
