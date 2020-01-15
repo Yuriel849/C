@@ -5,6 +5,7 @@ Contents    : Special exercise 06 - Determine the divisors and greatest common d
 
 #define _CRT_SECURE_NO_DEPRECATE	// Else MSVC++ prevents using functions with potential buffer overflow
 #include <stdio.h>
+#include <stdlib.h>
 
 /* Function prototypes (provided by examiner) */
 void sortDescending(int *a, int *b); // Sorts two integer values in descending order; a >= b.
@@ -44,12 +45,12 @@ int main(void)
 
 	// Print the divisors of the first number entered by the user to the console.
 	numberOfDivisors = getNumberOfDivisors(inputOne);
-	printf("Divisors of %d:", inputOne);
+	printf("Divisors of %d: ", inputOne);
 	for (int i = 0; i < numberOfDivisors; i++)
-		printf("%-3d", divisorArray[i]);
+		printf("%-2d", divisorArray[i]);
 
 	// Prints the greatest common divisor of the numbers entered by the user to the console.
-	printf("Greatest common divisor: gcd(%d, %d) = ", inputOne, inputTwo, greatestCommonDivisor(inputOne, inputTwo));
+	//printf("Greatest common divisor: gcd(%d, %d) = ", inputOne, inputTwo, greatestCommonDivisor(inputOne, inputTwo));
 
 	free(divisorArray); // Ensure that no memory leaks exist when the program terminates.
 }
@@ -80,12 +81,27 @@ int greatestCommonDivisor(int m, int n) // Returns the gcd of two integer variab
 
 int getNumberOfDivisors(int m)		 // Returns the number of devisors (e.g. 5 for m = 18) of a natural number m.
 {
+	int counter = 0;
 
+	for (int index = 1; index <= m; index++)
+		if ((m % index) == 0)
+			counter++;
+	
+	return counter;
 }
 
 int* newArrayOfDivisors(int m)		 // Allocates and returns an integer array containing all divisors of a natural number m.
 {
+	int *divisorArray;
 
+	if((divisorArray = (int *)malloc(sizeof(int) * getNumberOfDivisors(m))) == NULL)
+		exit(EXIT_FAILURE);
+
+	for (int index = 1, counter = 0; index <= m; index++)
+		if ((m % index) == 0)
+			divisorArray[counter++] = index;
+
+	return divisorArray;
 }
 
 void clearBuffer(void)
