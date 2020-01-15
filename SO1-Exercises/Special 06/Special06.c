@@ -8,14 +8,13 @@ Contents    : Special exercise 06 - Determine the divisors and greatest common d
 #include <stdlib.h>
 
 /* Function prototypes (provided by examiner) */
+void clearBuffer(void);
 void sortDescending(int *a, int *b); // Sorts two integer values in descending order; a >= b.
 int greatestCommonDivisor(int, int); // Returns the gcd of two integer variables m and n.
 int getNumberOfDivisors(int m);		 // Returns the number of devisors (e.g. 5 for m = 18) of a natural number m.
-int* newArrayOfDivisors(int m);		 /* Allocates and returns an integer array containing all divisors
-										(e.g., 1, 2, 3, 6, 9, 18 for m = 18) of a natural number m.
+int* newArrayOfDivisors(int m);		 /* Allocates and returns an integer array containing all divisors of a natural number m.
 										The allocated memory must have the correct size.
 										The divisors must be sorted in ascending order. */
-void clearBuffer(void);
 
 /*
 Expected output
@@ -40,6 +39,7 @@ int main(void)
 		clearBuffer(); // The keyboard line buffer is emptied after each user input.
 		printf("Invalid input. Retry: ");
 	}
+	clearBuffer();
 
 	divisorArray = newArrayOfDivisors(inputOne); // Allocate an array containing the divisors of the first number entered by the user.
 
@@ -50,7 +50,7 @@ int main(void)
 		printf("%-2d", divisorArray[i]);
 
 	// Prints the greatest common divisor of the numbers entered by the user to the console.
-	//printf("Greatest common divisor: gcd(%d, %d) = ", inputOne, inputTwo, greatestCommonDivisor(inputOne, inputTwo));
+	printf("\nGreatest common divisor: gcd(%d, %d) = %d", inputOne, inputTwo, greatestCommonDivisor(inputOne, inputTwo));
 
 	free(divisorArray); // Ensure that no memory leaks exist when the program terminates.
 }
@@ -59,7 +59,7 @@ void sortDescending(int *a, int *b) // Sorts two integer values in descending or
 {
 	int temp;
 
-	if (b > a)
+	if (*b > *a)
 	{
 		temp = *a;
 		*a = *b;
@@ -69,6 +69,7 @@ void sortDescending(int *a, int *b) // Sorts two integer values in descending or
 
 int greatestCommonDivisor(int m, int n) // Returns the gcd of two integer variables m and n.
 {
+	int gcd = 0, r = 0, counter = 0;
 	/*
 	Greatest Common Divisor
 	1. Use the function sortDescending() so that m contains the larger of the two numbers m and n(i.e., m >= n).
@@ -76,7 +77,20 @@ int greatestCommonDivisor(int m, int n) // Returns the gcd of two integer variab
 	3. Return the smaller number n, if the remainder r is 0.
 	4. Else repeat steps 1 to 3 with the values of the smaller number n and the remainder r.
 	*/
+	do
+	{
+		sortDescending(&m, &n);
+	
+		if ((r = m % n) == 0)
+			gcd = n;
+		else
+		{
+			m = n;
+			n = r;
+		}
+	} while (r != 0);
 
+	return gcd;
 }
 
 int getNumberOfDivisors(int m)		 // Returns the number of devisors (e.g. 5 for m = 18) of a natural number m.
