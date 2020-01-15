@@ -16,15 +16,6 @@ int* newArrayOfDivisors(int m);		 /* Allocates and returns an integer array cont
 										The allocated memory must have the correct size.
 										The divisors must be sorted in ascending order. */
 
-/*
-Expected output
-Enter two positive integer numbers (comma-separated): 12 eighteen
-Invalid input. Retry: 12 and 18
-Invalid input. Retry: 12,18
-Divisors of 12: 1 2 3 4 6
-Greatest common devisor: gcd(12, 18) = 6
-*/
-
 int main(void)
 {
 	int inputOne, inputTwo, numberOfDivisors;
@@ -69,7 +60,7 @@ void sortDescending(int *a, int *b) // Sorts two integer values in descending or
 
 int greatestCommonDivisor(int m, int n) // Returns the gcd of two integer variables m and n.
 {
-	int gcd = 0, r = 0, counter = 0;
+	int gcd = 0, r = 0;
 	/*
 	Greatest Common Divisor
 	1. Use the function sortDescending() so that m contains the larger of the two numbers m and n(i.e., m >= n).
