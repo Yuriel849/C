@@ -7,7 +7,7 @@ Contents    : Special exercise 06 - Determine the divisors and greatest common d
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Function prototypes (provided by examiner) */
+/* Function prototypes */
 void clearBuffer(void);
 void sortDescending(int *a, int *b); // Sorts two integer values in descending order; a >= b.
 int greatestCommonDivisor(int, int); // Returns the gcd of two integer variables m and n.
@@ -32,12 +32,10 @@ int main(void)
 	}
 	clearBuffer();
 
-	divisorArray = newArrayOfDivisors(inputOne); // Allocate an array containing the divisors of the first number entered by the user.
-
 	// Print the divisors of the first number entered by the user to the console.
-	numberOfDivisors = getNumberOfDivisors(inputOne);
+	divisorArray = newArrayOfDivisors(inputOne); // Allocate an array containing the divisors of the first number entered by the user.
 	printf("Divisors of %d: ", inputOne);
-	for (int i = 0; i < numberOfDivisors; i++)
+	for (int i = 0; i < getNumberOfDivisors(inputOne); i++)
 		printf("%-2d", divisorArray[i]);
 
 	// Prints the greatest common divisor of the numbers entered by the user to the console.
@@ -61,14 +59,8 @@ void sortDescending(int *a, int *b) // Sorts two integer values in descending or
 int greatestCommonDivisor(int m, int n) // Returns the gcd of two integer variables m and n.
 {
 	int gcd = 0, r = 0;
-	/*
-	Greatest Common Divisor
-	1. Use the function sortDescending() so that m contains the larger of the two numbers m and n(i.e., m >= n).
-	2. Calculate the remainder r of the division m / n.
-	3. Return the smaller number n, if the remainder r is 0.
-	4. Else repeat steps 1 to 3 with the values of the smaller number n and the remainder r.
-	*/
-	do
+
+	do // Calculate the greatest common divisor with the Euclidean algorithm
 	{
 		sortDescending(&m, &n);
 	
