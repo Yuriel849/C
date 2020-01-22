@@ -26,7 +26,8 @@ int main(void)
 		{
 			clearBuffer();
 			printf("Press any key to quit.");
-			break; // If the user input is not an integer, the program terminates.
+			getchar();
+			exit(EXIT_FAILURE);
 		}
 
 		clearBuffer();
@@ -42,7 +43,6 @@ int main(void)
 		printf("%d^%d = %d\nEnter n: ", 2, input, 1 << input); // Calculate the value 2^n by bit operation(s).
 	}
 
-	getchar();
 	return 0;
 }
 
