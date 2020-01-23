@@ -19,7 +19,7 @@ int main(void)
 	printf("Inverted : %s\n", returnedString);
 	printf("Count 'm': %d", countChar(originalString, 'm'));
 
-	free(returnedString); /*Free allocated memory before terminating*/
+	free(returnedString); // Memory explicitly allocated in invertString(), so not freed automatically at end of function
 
 	getchar();
 	return 0;
@@ -30,7 +30,7 @@ char *invertString(const char* originalString)
 	char *returnString;
 	int size = 0, counter = 0;
 
-	while (originalString[counter++] != '\0') /*Get size of the parameter string*/
+	while (originalString[counter++] != '\0') // Get size of the parameter string.
 		size++;
 
 	if ((returnString = (char *)malloc(sizeof(char) * (size + 1))) == NULL)
