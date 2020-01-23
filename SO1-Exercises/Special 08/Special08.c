@@ -9,7 +9,6 @@ Contents    : Special exercise 08 - Find and print all prime numbers in a given 
 
 enum boolean { FALSE, TRUE };
 
-/* Function prototypes */
 int isEven(int);
 enum boolean isPrimeNumber(int);
 void clearBuffer(void);
@@ -19,7 +18,7 @@ int main(void)
 	int input = 0, counter = 0;
 
 	printf("Enter maximum number to test: "); // Users are asked to enter a positive integer number.
-	while (1) // While the user input is not valid, users are asked to retry.
+	while (1) // Users are asked to retry so long as the input is invalid.
 	{
 		if (scanf("%d", &input) == 1 && input > 0 && getchar() == '\n')
 			break;
@@ -28,12 +27,17 @@ int main(void)
 		clearBuffer(); // The keyboard line buffer is emptied after each user input.
 	}
 
+	/*
+		clearBuffer() is not required after the while loop,
+		because the break condition already uses getchar() to remove the single linebreak in the buffer.
+	*/
+
 	printf("Prime numbers in [1, %d]:\n", input);
 	for (int iteration = 1; iteration <= input; iteration++)
 	{
 		if (isPrimeNumber(iteration))
 		{
-			printf("%4d ", iteration); // The numbers are aligned to the right in each column.
+			printf("%4d ", iteration);
 			counter++;
 			
 			if (counter % 10 == 0) // The prime numbers are printed in rows of 10 numbers each.
@@ -41,7 +45,7 @@ int main(void)
 		}
 
 	}
-	printf("\nThere are %d prime numbers in [1, %d]", counter, input); // The number of prime numbers within the range is printed to the console.
+	printf("\nThere are %d prime numbers in [1, %d]", counter, input); // Print the number of prime numbers within the range.
 }
 
 int isEven(int a)
