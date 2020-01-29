@@ -14,17 +14,23 @@ int main(void)
 {
 	int intArray[3];
 
+	// Ask users to enter 3 comma-separated integer numbers.
 	printf("Enter three integers formatted x,y,z: ");
 
-	while (1)
+	// Use a single call of scanf() to read all three comma-separated int values from the keyboard into an array of size 3.
+	while (1) // Infinite loop => Only break when user input is valid.
 	{
+		// User input is only valid when three comma-separated int values are scanned and followed by 'enter'
 		if (scanf("%d,%d,%d", &intArray[0], &intArray[1], &intArray[2]) == 3 && getchar() == '\n')
 			break;
 
-		printf("Invalid input. Retry: ");
-		clearKeyboardBuffer();
+		printf("Invalid input. Retry: "); // While the user input is invalid, users are asked to retry.
+		clearKeyboardBuffer(); // The keyboard input is emptied after every user input.
 	}
 
+	// For valid user input, getchar() was called so keyboard buffer is already empty.
+
+	// Calculate the sum of all elements in the array and print the result to the console.
 	printf("Sum = %d", arraySum(intArray, 3));
 
 	getchar();
