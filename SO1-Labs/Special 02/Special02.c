@@ -28,7 +28,7 @@ int main(void)
 		clearKeyboardBuffer(); // The keyboard input is emptied after every user input.
 	}
 
-	// For valid user input, getchar() was called so keyboard buffer is already empty.
+	clearKeyboardBuffer(); // The keyboard input is emptied after every user input.
 
 	// Calculate the sum of all elements in the array and print the result to the console.
 	printf("Sum = %d", arraySum(intArray, 3));
