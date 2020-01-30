@@ -115,31 +115,27 @@ int getNumberOfSentences(const char *text)
 }
 
 // Return an estimation of the number of syllables in a word.
-int getNumberOfSyllablesInWord(char *word)
+int getNumberOfSyllablesInWord(const char *word)
 {
 	int size = 0, index = 0, numberOfSyllables = 0;
-
-	while (word[index] != '\0')
-	{
-		size++; // Size must be known to calculate the number of syllables
-
-		if (word[index] >= 'A' && word[index] <= 'Z') // If the letter is a capital letter, change to lowercase letter
-			word[index] += 32;						  // 'A' ~ 'Z' == 65 ~ 90, 'a' ~ 'z' == 97 ~ 122
-
-		index++;
-	}
 
 	// Words containing less than or exactly 3 characters have 1 syllable.
 	if (size <= 3)
 		numberOfSyllables = 1;
-	// For words containing more than 3 characters, the number of syllables corresponds to the number of vowels (a, e, i, o, u) in the word.
+	// For words with more than 3 characters, number of syllables corresponds to the number of vowels (a, e, i, o, u) in the word.
 	else
 	{
-		numberOfSyllables += getCharacterCount(word, 'a');
+		numberOfSyllables += getCharacterCount(word, 'a'); // Check number of lowercase vowels
 		numberOfSyllables += getCharacterCount(word, 'e');
 		numberOfSyllables += getCharacterCount(word, 'i');
 		numberOfSyllables += getCharacterCount(word, 'o');
 		numberOfSyllables += getCharacterCount(word, 'u');
+		numberOfSyllables += getCharacterCount(word, 'A'); // Check number of uppercase vowels
+		numberOfSyllables += getCharacterCount(word, 'E');
+		numberOfSyllables += getCharacterCount(word, 'I');
+		numberOfSyllables += getCharacterCount(word, 'O');
+		numberOfSyllables += getCharacterCount(word, 'U');
+
 	}
 
 	return numberOfSyllables;
@@ -167,7 +163,7 @@ int getNumberOfSyllables(const char *text)
 		word = strtok(copy, " ");
 		syllables += getNumberOfSyllablesInWord(word);
 
-		// Get pointers to the next words by repeatedly calling strtok(NULL, " "). The function returns NULL when there is no further word.
+		// Get pointers to the next words by repeatedly calling strtok(NULL, " "). NULL is returned when there is no further word.
 		while ((word = strtok(NULL, " ")) != NULL)
 			syllables += getNumberOfSyllablesInWord(word);
 
@@ -190,7 +186,9 @@ properties getTextProperties(const char *text)
 	textProperties.words = getNumberOfWords(text);
 	textProperties.sentences = getNumberOfSentences(text);
 	textProperties.syllables = getNumberOfSyllables(text);
-	textProperties.readability = 206.835 - (1.015 * textProperties.words / textProperties.sentences) - (84.6 * textProperties.syllables / textProperties.words);
+	textProperties.readability = 206.835
+		- (1.015 * textProperties.words / textProperties.sentences)
+		- (84.6 * textProperties.syllables / textProperties.words);
 
 	return textProperties;
 }
