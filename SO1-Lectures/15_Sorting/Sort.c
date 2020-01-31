@@ -1,3 +1,7 @@
+/*
+Sorting incomplete, does not quite work...
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -25,7 +29,7 @@ int main(void)
 	printf("Time taken (bubble sort) : %u ms\n", timeInMs);
 	for (int index = 0; index < SIZE; index++)
 		printf("%5d", toSort[index]);
-	
+
 	getchar();
 	return 0;
 }
