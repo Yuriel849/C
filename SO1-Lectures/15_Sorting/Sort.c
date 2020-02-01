@@ -10,7 +10,6 @@ Sorting incomplete, does not quite work...
 
 void bubbleSort(int *array, int size);
 void swap(int *first, int *second);
-void singlePassSort(int *array, int size);
 
 int main(void)
 {
@@ -32,14 +31,6 @@ int main(void)
 
 	getchar();
 	return 0;
-}
-
-// Sort array of size with quicksort
-
-// Sort array of size with single-pass sort
-void singlePassSort(int *array, int size)
-{
-
 }
 
 // Sort array of size with bubble sort
