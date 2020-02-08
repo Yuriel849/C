@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 char* concatString(char* first, char*second, int firstSize, int secondSize);
+int getStringSize(char* string);
 
 int main(void)
 {
@@ -15,16 +16,11 @@ int main(void)
 	char* firstString = "Hochschule fur Angewandte";
 	char* secondString = "Wissenschaften Hamburg";
 	char *combinedString;
-	int firstSize, secondSize, counter = 0;
+	int firstSize, secondSize;
 
 	// Calculate sizes of two strings
-	while (firstString[counter++] != '\0')
-		continue;
-	firstSize = counter;
-	counter = 0;
-	while (secondString[counter++] != '\0')
-		continue;
-	secondSize = counter;
+	firstSize = getStringSize(firstString);
+	secondSize = getStringSize(secondString);
 
 	// Pass two strings to a function
 	combinedString = concatString(firstString, secondString, firstSize, secondSize);
@@ -47,12 +43,6 @@ char* concatString(char* first, char* second, int firstSize, int secondSize)
 		combinedString[i] = first[i];
 	}
 	combinedString[firstSize - 1] = ' ';
-	printf("%c ", combinedString[firstSize - 1] = ' ');
-	printf("%c ", combinedString[firstSize - 1] = "A");
-	printf("%c ", combinedString[firstSize - 1] = "B");
-	printf("%c ", combinedString[firstSize - 1] = 'A');
-	printf("%c\n", combinedString[firstSize - 1] = 65);
-
 
 	// Add second string to combined string and put period after first string
 	for (int i = 0; i < secondSize; i++)
@@ -63,4 +53,14 @@ char* concatString(char* first, char* second, int firstSize, int secondSize)
 
 	// Return combined String
 	return combinedString;
+}
+
+int getStringSize(char* string)
+{
+	int counter = 0;
+
+	while (string[counter++] != '\0')
+		continue;
+
+	return counter;
 }
