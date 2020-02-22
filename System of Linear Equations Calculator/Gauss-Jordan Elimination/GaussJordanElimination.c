@@ -30,10 +30,16 @@ void createSystem(double** system)
 	int size, pointerBytes, dataBytes;
 	size = getSizeOfSystem();
 
-	pointerBytes = size * sizeof(double *);  // Rows of extended coefficient matrix
-	dataBytes = (size + 1) * sizeof(double); // Columns of extended coefficient matrix
+	pointerBytes = size * sizeof(double *);			// Rows of extended coefficient matrix
+	dataBytes = size * (size + 1) * sizeof(double); // Rows * Columns of extended coefficient matrix
 	if ((system = (double **)malloc(pointerBytes + dataBytes)) == NULL)
 		exit(EXIT_FAILURE); // Exit if memory allocation fails
+
+	for (int i = 1; i < size + 1; i++)
+	{
+		system = (double*)(system + (size * i));
+		system++;
+	}
 
 	getValuesOfSystem(system, size);
 }
