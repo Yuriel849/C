@@ -13,6 +13,7 @@ Contents : Solve a system of linear equations using Gauss-Jordan Elimination, an
 void createSystem(double* system);
 int getSizeOfSystem(void);
 void getValuesOfSystem(double* system, int size);
+void printMatrix(double* system, int size);
 
 /* Main function */
 int main(void)
@@ -27,7 +28,7 @@ int main(void)
 /* Create system of linear equations */
 void createSystem(double* system)
 {
-	int size, pointerBytes, dataBytes;
+	int size, dataBytes;
 	size = getSizeOfSystem();
 
 	dataBytes = size * (size + 1) * sizeof(double); // Rows * Columns of extended coefficient matrix
@@ -60,6 +61,10 @@ int getSizeOfSystem(void)
 void getValuesOfSystem(double* system, int size)
 {
 	printf("Please enter the coefficients of each equation one at a time and hit Enter.\n");
+	for (int i = 0; i < size * (size + 1); i++)
+	{
+		scanf("%lf", &system[i]);
+	}
 }
 
 /* Find rref form of extended coefficient matrix */
@@ -70,4 +75,15 @@ void getValuesOfSystem(double* system, int size)
 /* Find solution from rref form of extended coefficient matrix */
 
 /* Print extended coefficient matrix */
+void printMatrix(double* system, int size)
+{
+	for (int i = 0; i < size * (size + 1); i++)
+	{
+		printf("%3.0f", system[i]);
+
+		if (i != 0 && ((i + 1) % (size + 1) == 0))
+			printf("\n");
+	}
+}
+
 /* Print solution to system */
