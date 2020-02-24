@@ -10,14 +10,14 @@ Contents : Solve a system of linear equations using Gauss-Jordan Elimination, an
 #include <stdlib.h>
 
 /* Function prototypes */
-void createSystem(double** system);
+void createSystem(double* system);
 int getSizeOfSystem(void);
-void getValuesOfSystem(double** system, int size);
+void getValuesOfSystem(double* system, int size);
 
 /* Main function */
 int main(void)
 {
-	double** system = NULL;
+	double* system = NULL;
 
 	createSystem(system);
 
@@ -25,21 +25,14 @@ int main(void)
 }
 
 /* Create system of linear equations */
-void createSystem(double** system)
+void createSystem(double* system)
 {
 	int size, pointerBytes, dataBytes;
 	size = getSizeOfSystem();
 
-	pointerBytes = size * sizeof(double *);			// Rows of extended coefficient matrix
 	dataBytes = size * (size + 1) * sizeof(double); // Rows * Columns of extended coefficient matrix
-	if ((system = (double **)malloc(pointerBytes + dataBytes)) == NULL)
+	if ((system = (double *)malloc(dataBytes)) == NULL)
 		exit(EXIT_FAILURE); // Exit if memory allocation fails
-
-	for (int i = 1; i < size + 1; i++)
-	{
-		system[i - 1] = (double*)(system + (size * i)); // Assign a pointer to each row
-		system++;
-	}
 
 	getValuesOfSystem(system, size);
 }
@@ -64,18 +57,9 @@ int getSizeOfSystem(void)
 }
 
 /* Enter coefficients and solution values (user input) */
-void getValuesOfSystem(double** system, int size)
+void getValuesOfSystem(double* system, int size)
 {
 	printf("Please enter the coefficients of each equation one at a time and hit Enter.\n");
-
-	for (int i = 0; i < size; i++)
-	{
-		for (int j = 0; j < size + 1; j++)
-		{
-			scanf("%lf", *(system + (size * (i + 1)) + j));
-		}
-	}
-
 }
 
 /* Find rref form of extended coefficient matrix */
