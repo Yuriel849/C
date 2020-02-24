@@ -17,7 +17,7 @@ void getValuesOfSystem(double** system, int size);
 /* Main function */
 int main(void)
 {
-	double** system;
+	double** system = NULL;
 
 	createSystem(system);
 
@@ -37,7 +37,7 @@ void createSystem(double** system)
 
 	for (int i = 1; i < size + 1; i++)
 	{
-		system = (double*)(system + (size * i));
+		system[i - 1] = (double*)(system + (size * i)); // Assign a pointer to each row
 		system++;
 	}
 
@@ -66,12 +66,14 @@ int getSizeOfSystem(void)
 /* Enter coefficients and solution values (user input) */
 void getValuesOfSystem(double** system, int size)
 {
-	printf("Please enter the coefficients of each equation as comma-separated numbers, then hit enter."
-		"Consult the following example as to format. If the equation is 2x^2 + 3x + 4 = 5, type 2,3,4,5 and hit enter.\n");
+	printf("Please enter the coefficients of each equation one at a time and hit Enter.\n");
 
 	for (int i = 0; i < size; i++)
 	{
-
+		for (int j = 0; j < size + 1; j++)
+		{
+			scanf("%lf", *(system + (size * (i + 1)) + j));
+		}
 	}
 
 }
