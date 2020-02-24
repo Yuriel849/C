@@ -10,25 +10,32 @@ Contents : Solve a system of linear equations using Gauss-Jordan Elimination, an
 #include <stdlib.h>
 
 /* Function prototypes */
-void createSystem(double* system);
+void createSystem(double* system, int size);
 int getSizeOfSystem(void);
 void getValuesOfSystem(double* system, int size);
 void printMatrix(double* system, int size);
+void getRrefForm(double* system, int size);
+void rowMultiplication(double* system, int start, int size, int multiplier);
+void rowAddition(double* system, int firstRowStart, int secondRowStart, int size);
+void rowExchange(double* system, int firstRowStart, int secondRowStart, int size);
 
 /* Main function */
 int main(void)
 {
 	double* system = NULL;
+	int size;
 
-	createSystem(system);
+	createSystem(system, size);
+
+	getRrefForm(system, size);
 
 	free(system);
 }
 
 /* Create system of linear equations */
-void createSystem(double* system)
+void createSystem(double* system, int size)
 {
-	int size, dataBytes;
+	int dataBytes;
 	size = getSizeOfSystem();
 
 	dataBytes = size * (size + 1) * sizeof(double); // Rows * Columns of extended coefficient matrix
@@ -68,9 +75,41 @@ void getValuesOfSystem(double* system, int size)
 }
 
 /* Find rref form of extended coefficient matrix */
+void getRrefForm(double* system, int size)
+{
+
+}
+
 /* Row multiplication with scalar (pointers) */
+void rowMultiplication(double* system, int start, int size, int multiplier)
+{
+	for (; start < start + size; start++)
+	{
+		system[start] *= multiplier;
+	}
+}
+
 /* Row addition (pointers) */
+void rowAddition(double* system, int firstRowStart, int secondRowStart, int size)
+{
+	for (; firstRowStart < firstRowStart + size; firstRowStart++, secondRowStart++)
+	{
+		system[firstRowStart] -= system[secondRowStart];
+	}
+}
+
 /* Row exchange (pointers) */
+void rowExchange(double* system, int firstRowStart, int secondRowStart, int size)
+{
+	int temp = 0; // Variable to use when swapping values
+
+	for (; firstRowStart < firstRowStart + size; firstRowStart++, secondRowStart++)
+	{
+		temp = system[firstRowStart];
+		system[firstRowStart] = system[secondRowStart];
+		system[secondRowStart] = temp;
+	}
+}
 
 /* Find solution from rref form of extended coefficient matrix */
 
