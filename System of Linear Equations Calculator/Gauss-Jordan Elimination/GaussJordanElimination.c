@@ -15,9 +15,9 @@ int getSizeOfSystem(void);
 void getValuesOfSystem(double* system, int size);
 void printMatrix(double* system, int size);
 void getRrefForm(double* system, int size);
-void rowMultiplication(double* system, int start, int size, int multiplier);
-void rowAddition(double* system, int firstRowStart, int secondRowStart, int size);
-void rowExchange(double* system, int firstRowStart, int secondRowStart, int size);
+void rowMultiplication(double* system, int size, int start, int multiplier);
+void rowAddition(double* system, int size, int firstRowStart, int secondRowStart);
+void rowExchange(double* system, int size, int firstRowStart, int secondRowStart);
 
 /* Main function */
 int main(void)
@@ -81,7 +81,7 @@ void getRrefForm(double* system, int size)
 }
 
 /* Row multiplication with scalar (pointers) */
-void rowMultiplication(double* system, int start, int size, int multiplier)
+void rowMultiplication(double* system, int size, int start, int multiplier)
 {
 	for (; start < start + size; start++)
 	{
@@ -90,7 +90,7 @@ void rowMultiplication(double* system, int start, int size, int multiplier)
 }
 
 /* Row addition (pointers) */
-void rowAddition(double* system, int firstRowStart, int secondRowStart, int size)
+void rowAddition(double* system, int size, int firstRowStart, int secondRowStart)
 {
 	for (; firstRowStart < firstRowStart + size; firstRowStart++, secondRowStart++)
 	{
@@ -99,7 +99,7 @@ void rowAddition(double* system, int firstRowStart, int secondRowStart, int size
 }
 
 /* Row exchange (pointers) */
-void rowExchange(double* system, int firstRowStart, int secondRowStart, int size)
+void rowExchange(double* system, int size, int firstRowStart, int secondRowStart)
 {
 	int temp = 0; // Variable to use when swapping values
 
