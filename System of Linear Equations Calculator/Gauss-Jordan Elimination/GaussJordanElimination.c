@@ -10,7 +10,7 @@ Contents : Solve a system of linear equations using Gauss-Jordan Elimination, an
 #include <stdlib.h>
 
 /* Function prototypes */
-void createSystem(double* system, int size);
+double* createSystem(int size);
 int getSizeOfSystem(void);
 void getValuesOfSystem(double* system, int size);
 void printMatrix(double* system, int size);
@@ -22,27 +22,28 @@ void rowExchange(double* system, int size, int firstRowStart, int secondRowStart
 /* Main function */
 int main(void)
 {
-	double* system = NULL;
-	int size;
+	int size = getSizeOfSystem();
+	double* system = createSystem(size);
 
-	createSystem(system, size);
-
-	getRrefForm(system, size);
+	printMatrix(system, size);
+	//getRrefForm(system, size);
 
 	free(system);
 }
 
 /* Create system of linear equations */
-void createSystem(double* system, int size)
+double* createSystem(int size)
 {
 	int dataBytes;
-	size = getSizeOfSystem();
+	double* system;
 
 	dataBytes = size * (size + 1) * sizeof(double); // Rows * Columns of extended coefficient matrix
 	if ((system = (double *)malloc(dataBytes)) == NULL)
 		exit(EXIT_FAILURE); // Exit if memory allocation fails
 
 	getValuesOfSystem(system, size);
+	
+	return system;
 }
 
 /* Designate size of system (user input) */
@@ -70,14 +71,25 @@ void getValuesOfSystem(double* system, int size)
 	printf("Please enter the coefficients of each equation one at a time and hit Enter.\n");
 	for (int i = 0; i < size * (size + 1); i++)
 	{
-		scanf("%lf", &system[i]);
+		scanf("%lf", (system + i));
 	}
 }
 
 /* Find rref form of extended coefficient matrix */
 void getRrefForm(double* system, int size)
 {
+	printMatrix(system, size);
+	rowMultiplication(system, size, 0, 3);
 
+	printMatrix(system, size);
+	rowAddition(system, size, 4, 8);
+
+	printMatrix(system, size);
+	rowExchange(system, size, 0, 4);
+
+	printMatrix(system, size);
+
+	getchar();
 }
 
 /* Row multiplication with scalar (pointers) */
@@ -101,7 +113,7 @@ void rowAddition(double* system, int size, int firstRowStart, int secondRowStart
 /* Row exchange (pointers) */
 void rowExchange(double* system, int size, int firstRowStart, int secondRowStart)
 {
-	int temp = 0; // Variable to use when swapping values
+	double temp = 0; // Variable to use when swapping values
 
 	for (; firstRowStart < firstRowStart + size; firstRowStart++, secondRowStart++)
 	{
@@ -116,9 +128,9 @@ void rowExchange(double* system, int size, int firstRowStart, int secondRowStart
 /* Print extended coefficient matrix */
 void printMatrix(double* system, int size)
 {
-	for (int i = 0; i < size * (size + 1); i++)
+	for (int i = 0; i < (size * (size + 1)); i++)
 	{
-		printf("%3.0f", system[i]);
+		printf("%3.0lf", *(system + i));
 
 		if (i != 0 && ((i + 1) % (size + 1) == 0))
 			printf("\n");
