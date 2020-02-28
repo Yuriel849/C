@@ -26,7 +26,7 @@ int main(void)
 	double* system = createSystem(size);
 
 	printMatrix(system, size);
-	//getRrefForm(system, size);
+	getRrefForm(system, size);
 
 	free(system);
 }
