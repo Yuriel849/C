@@ -19,8 +19,6 @@ void rowMultiplication(double* system, int size, int start, int multiplier);
 void rowAddition(double* system, int size, int firstRowStart, int secondRowStart);
 void rowExchange(double* system, int size, int firstRowStart, int secondRowStart);
 
-// test commit
-
 /* Main function */
 int main(void)
 {
