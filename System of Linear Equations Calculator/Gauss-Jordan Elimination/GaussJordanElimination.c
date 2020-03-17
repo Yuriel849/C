@@ -28,7 +28,6 @@ int main(void)
 	printMatrix(system, size);
 	getRrefForm(system, size);
 
-	printf("FINALLY");
 	free(system);
 }
 
