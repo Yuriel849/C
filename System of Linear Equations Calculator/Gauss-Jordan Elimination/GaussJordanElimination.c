@@ -78,16 +78,16 @@ void getValuesOfSystem(double* system, int size)
 /* Find rref form of extended coefficient matrix */
 void getRrefForm(double* system, int size)
 {
-	printMatrix(system, size);
-	rowMultiplication(system, size, 0, 3);
+	//printMatrix(system, size);
+	//rowMultiplication(system, size, 0, 3);
 
-	printMatrix(system, size);
-	rowAddition(system, size, 4, 8);
+	//printMatrix(system, size);
+	//rowAddition(system, size, 4, 8);
 
-	printMatrix(system, size);
-	rowExchange(system, size, 0, 4);
+	//printMatrix(system, size);
+	//rowExchange(system, size, 0, 4);
 
-	printMatrix(system, size);
+	//printMatrix(system, size);
 
 	getchar();
 }
