@@ -18,6 +18,7 @@ void getRrefForm(double* system, int size);
 void rowMultiplication(double* system, int size, int start, int multiplier);
 void rowAddition(double* system, int size, int firstRowStart, int secondRowStart);
 void rowExchange(double* system, int size, int firstRowStart, int secondRowStart);
+void testRowOperations(double* system, int size);
 
 /* Main function */
 int main(void)
@@ -78,18 +79,26 @@ void getValuesOfSystem(double* system, int size)
 /* Find rref form of extended coefficient matrix */
 void getRrefForm(double* system, int size)
 {
-	//printMatrix(system, size);
-	//rowMultiplication(system, size, 0, 3);
+	// Test the proper operation of row operation functions
+	//testRowOperations(system, size);
 
-	//printMatrix(system, size);
-	//rowAddition(system, size, 4, 8);
 
-	//printMatrix(system, size);
-	//rowExchange(system, size, 0, 4);
-
-	//printMatrix(system, size);
 
 	getchar();
+}
+
+/* Test the row operation functions (multiplication, addition, exchange) */
+void testRowOperations(double* system, int size) {
+	printMatrix(system, size);
+	rowMultiplication(system, size, 0, 3);
+
+	printMatrix(system, size);
+	rowAddition(system, size, 4, 8);
+
+	printMatrix(system, size);
+	rowExchange(system, size, 0, 4);
+
+	printMatrix(system, size);
 }
 
 /* Row multiplication with scalar (pointers) */
