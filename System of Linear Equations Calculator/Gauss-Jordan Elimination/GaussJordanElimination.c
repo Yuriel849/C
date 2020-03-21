@@ -82,13 +82,21 @@ void getRrefForm(double* system, int size)
 	// Test the proper operation of row operation functions
 	//testRowOperations(system, size);
 
+	// Start at first row
 	for (int i = 0; i < size; i++)
 	{
-
+		// If first element in first row is 0, switch first row with another row where the first row is not zero
+		if (system[i] == 0)
+		{
+			rowExchange(system, size, i, i + size + 1);
+			i--;
+			continue;
+		}
+		// If first element in first row is not 0, divide entire row by that value
+		else
+			rowMultiplication(system, size, i, (1 / system[i]));
 	}
-	// Start at first row
-	// If first element in first row is 0, switch first row with another row where the first row is not zero
-	// If first element in first row is not 0, divide entire row by that value
+
 	// If any other row below the first row has a first element that is not 0, subtract from that row a multiple of the first row such that the first element becomes 0
 	// Move on to the second row
 	// After the last row has been processed, proceed upwards
