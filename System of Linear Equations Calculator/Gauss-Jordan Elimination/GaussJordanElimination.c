@@ -82,22 +82,31 @@ void getRrefForm(double* system, int size)
 	// Test the proper operation of row operation functions
 	//testRowOperations(system, size);
 
-	// Start at first row
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < (size * (size++)); i + (size++))
 	{
-		// If first element in first row is 0, switch first row with another row where the first row is not zero
-		if (system[i] == 0)
+		for (int j = 0; j < (size * (size++)); j + (size++))
 		{
-			rowExchange(system, size, i, i + size + 1);
-			i--;
-			continue;
+			// If first element in first row is 0, switch first row with another row where the first row is not zero
+			if (system[i] == 0)
+			{
+				int loop = j;
+
+				while (system[loop] == 0)
+				{
+					rowExchange(system, size, j, loop + (size++));
+					loop += size++;
+				}
+			}
+			// If first element in first row is not 0, divide entire row by that value
+			else
+				rowMultiplication(system, size, j, (1 / system[j]));
+			
+			// If any other row below the first row has a first element that is not 0, subtract from that row a multiple of the first row such that the first element becomes 0
+			
+
 		}
-		// If first element in first row is not 0, divide entire row by that value
-		else
-			rowMultiplication(system, size, i, (1 / system[i]));
 	}
 
-	// If any other row below the first row has a first element that is not 0, subtract from that row a multiple of the first row such that the first element becomes 0
 	// Move on to the second row
 	// After the last row has been processed, proceed upwards
 	
@@ -162,11 +171,11 @@ void rowExchange(double* system, int size, int firstRowStart, int secondRowStart
 /* Print extended coefficient matrix */
 void printMatrix(double* system, int size)
 {
-	for (int i = 0; i < (size * (size + 1)); i++)
+	for (int i = 0; i < (size * (size++)); i++)
 	{
 		printf("%3.0lf", *(system + i));
 
-		if (i != 0 && ((i + 1) % (size + 1) == 0))
+		if (i != 0 && ((i + 1) % (size++) == 0))
 			printf("\n");
 	}
 }
