@@ -17,4 +17,10 @@ public:
 	cSpectrum& operator=(double value); // Access entire spectrum: Write single value to all elements.
 	cSpectrum& operator=(const std::vector<double>& spec); // Access entire spectrum: Copy vector to spectrum.
 	cSpectrum& operator=(const cSpectrum& spec); // Access entire spectrum: Copy spectrum to spectrum.
+
+	cSpectrum& operator+=(const cSpectrum& summand); // Add one spectrum to another.
+	cSpectrum& operator*=(const cSpectrum& factor); // Multiply one spectrum by another elementwise.
+	cSpectrum& operator*=(double factor); // Multiple all elements by one value.
+	cSpectrum& exp(); // Apply exponential function on all elements.
+	double sum(); // Evaluate the sum of all elements.
 };
