@@ -2,6 +2,7 @@
 #pragma once
 
 #include <vector>
+#include <>
 
 class cSpectrum {
 private:
@@ -23,4 +24,6 @@ public:
 	cSpectrum& operator*=(double factor); // Multiple all elements by one value.
 	cSpectrum& exp(); // Apply exponential function on all elements.
 	double sum(); // Evaluate the sum of all elements.
+
+	void readSpectrum(const std::string& filename, double tubeVoltage, double& minEnergy, std::string& spectrumName);
 };

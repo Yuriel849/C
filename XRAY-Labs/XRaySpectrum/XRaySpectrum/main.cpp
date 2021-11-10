@@ -51,4 +51,16 @@ void testSpectrum() {
 	for(unsigned i = 0; i < 25; i++)
 		spec[i] = 0;
 	cout << "    finished" << endl;
+
+	// Check access of whole spectrum
+	// 1. Write one value to all elements.
+	// 2. Copy vector to spectrum.
+	// 3. Copy spectrum to spectrum.
+
+	// Check calculation functions
+	// 1. Add spectrum to spectrum elementwise.
+	// 2. Multiply spectrum by spectrum elementwise.
+	// 3. Multiply all elements by one value.
+	// 4. Apply exponential function to all elements.
+	// 5. Evaluate sum of all elements.
 }
