@@ -39,3 +39,16 @@ cSpectrum& cSpectrum::operator=(const cSpectrum& spec) {
 
 	return *this;
 }
+
+cSpectrum& cSpectrum::exp() {
+	for (unsigned i = 0; i < size(); i++)
+		data[i] = std::exp(data[i]);
+	return *this;
+}
+
+double cSpectrum::sum() {
+	double sum = 0;
+	for (unsigned i = 0; i < size(); i++)
+		sum += data[i];
+	return sum;
+}
