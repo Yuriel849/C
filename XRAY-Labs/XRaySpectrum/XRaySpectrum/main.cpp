@@ -63,4 +63,14 @@ void testSpectrum() {
 	// 3. Multiply all elements by one value.
 	// 4. Apply exponential function to all elements.
 	// 5. Evaluate sum of all elements.
+
+	// Check readSpectrum function
+	cout << "  check readSpectrum()" << endl;
+	string filename = "SRO33100ROT350.dat";
+	double tubeVoltage = 75.0;
+	double minEnergy = 10.0;
+	string spectrum = "SRO33100-ROT350";
+	spec.readSpectrum(filename, tubeVoltage, minEnergy, spectrum);
+	cout << "    finished" << endl;
+
 }
