@@ -92,6 +92,10 @@ void cSpectrum::readSpectrum(const std::string& filename, double tubeVoltage, do
 	uint32_t specNameLength = 0;
 	char* specName;
 	uint32_t specNumber = 0;
+	float loopTubeVoltage = -10.0;
+	float loopMinEnergy = 0.0;
+	uint32_t loopTableLength = 0;
+	float* table;
 
 	// Use ifstream object for file interaction.
 	ifstream input;
@@ -107,17 +111,33 @@ void cSpectrum::readSpectrum(const std::string& filename, double tubeVoltage, do
 	title[14] = '\0';
 	// Read string length, string itself, and number of spectra.
 	input.read((char*) &specNameLength, sizeof(specNameLength));
-	cout << specNameLength << endl;
 	specName = new char[specNameLength];
 	input.read(specName, specNameLength);
-	cout << specName << endl;
 	input.read((char*) &specNumber, sizeof(specNumber));
-	cout << specNumber << endl;
-	// LOOP
-	// Read tube voltage, minimum energy, and table length.
-	// If tube voltage matches parameter, read the whole table.
-	// If no match, skip with seekg()
-	// Break loop if tube voltage matches or all available spectra read
-	// Throw exception if matching tube voltage not found
 
+	// LOOP
+	do {
+		// Read tube voltage, minimum energy, and table length.
+		input.read((char*) &loopTubeVoltage, sizeof(loopTubeVoltage));
+		// If tube voltage matches parameter, read the whole table; else, skip with seekg().
+		if (!(abs(tubeVoltage - loopTubeVoltage) < 0.001))
+			continue;
+			/*
+			input.seekg(
+				(sizeof(loopMinEnergy) + sizeof(loopTableLength) + (sizeof(loopMinEnergy) * loopTableLength)),
+				input.cur);
+			*/
+		input.read((char*) &loopMinEnergy, sizeof(loopMinEnergy));
+		input.read((char*) &loopTableLength, sizeof(loopTableLength));
+		table = new float[loopTableLength];
+		cout << "      Voltage : " << loopTubeVoltage << " Energy : " << loopMinEnergy << " Length : " << loopTableLength << endl;
+		for (unsigned i = 0; i << loopTableLength; i++)
+			input.read((char*)&table[i], sizeof(loopTableLength));
+		break; // Break loop if tube voltage matches
+	} while (input.peek() != EOF);
+	// Break loop if tube voltage matches or all available spectra read
+	
+	// Throw exception if matching tube voltage not found
+	if (loopTubeVoltage == -10.0)
+		throw runtime_error("Target tube voltage not found.");
 }
