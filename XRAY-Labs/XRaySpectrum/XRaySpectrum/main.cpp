@@ -74,4 +74,8 @@ void testSpectrum() {
 	spec.printData();
 	cout << "    finished" << endl;
 
+	// Check the writeCsv function
+	cout << "  check writeCsv()" << endl;
+	spec.writeCsv("TubeVoltage_75kV_MinEnergy_10keV_spectrum.csv", minEnergy, tubeVoltage);
+	cout << "    finished" << endl;
 }

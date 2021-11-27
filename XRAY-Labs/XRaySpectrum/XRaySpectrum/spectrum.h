@@ -29,4 +29,6 @@ public:
 
 	void printData();
 
+	void writeCsv(const std::string& filename, double minEnergy, double tubeVoltage);
+
 };

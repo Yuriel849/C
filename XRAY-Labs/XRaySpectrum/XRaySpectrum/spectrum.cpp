@@ -149,3 +149,18 @@ void cSpectrum::printData() {
 	for (unsigned i = 0; i < data.size(); i++)
 		cout << "      IDX " << i << " : " << data[i] << endl;
 }
+
+void cSpectrum::writeCsv(const std::string& filename, double minEnergy, double tubeVoltage) {
+	ofstream out;
+	double increment = (tubeVoltage - minEnergy) / data.size();
+
+	out.open(filename); // Default is text output mode
+
+	out << "energy,intensity" << endl;
+
+	// Add all spectrum elements in separate rows of energy, intensity
+	for (unsigned i = 0; i < data.size(); i++)
+		out << minEnergy + (increment * i) << "," << data[i] << endl;
+
+	out << tubeVoltage << ", 0" << endl; // Add last line with tube voltage as energy and zero intensity
+}
