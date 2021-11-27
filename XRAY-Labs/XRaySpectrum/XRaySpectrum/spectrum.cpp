@@ -131,7 +131,7 @@ void cSpectrum::readSpectrum(const std::string& filename, double tubeVoltage, do
 		input.read((char*) &loopTableLength, sizeof(loopTableLength));
 
 		cout << "      Voltage : " << loopTubeVoltage << " Energy : " << loopMinEnergy << " Length : " << loopTableLength << endl;
-		data.resize(0);
+		data.clear();
 		for (unsigned i = 0; i < loopTableLength; i++) {
 			input.read((char*)&temp, sizeof(loopTableLength));
 			data.push_back(temp);

@@ -76,6 +76,13 @@ void testSpectrum() {
 
 	// Check the writeCsv function
 	cout << "  check writeCsv()" << endl;
+	spec.readSpectrum(filename, 40.0, minEnergy, spectrum);
+	spec.writeCsv("TubeVoltage_40kV_MinEnergy_10keV_spectrum.csv", minEnergy, 40.0);
+	spec.readSpectrum(filename, tubeVoltage, minEnergy, spectrum);
 	spec.writeCsv("TubeVoltage_75kV_MinEnergy_10keV_spectrum.csv", minEnergy, tubeVoltage);
+	spec.readSpectrum(filename, 100.0, minEnergy, spectrum);
+	spec.writeCsv("TubeVoltage_100kV_MinEnergy_10keV_spectrum.csv", minEnergy, 100.0);
+	spec.readSpectrum(filename, 150.0, minEnergy, spectrum);
+	spec.writeCsv("TubeVoltage_150kV_MinEnergy_10keV_spectrum.csv", minEnergy, 150.0);
 	cout << "    finished" << endl;
 }
