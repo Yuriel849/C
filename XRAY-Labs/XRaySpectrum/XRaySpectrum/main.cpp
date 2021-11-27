@@ -71,6 +71,7 @@ void testSpectrum() {
 	double minEnergy = 10.0;
 	string spectrum = "SRO33100-ROT350";
 	spec.readSpectrum(filename, tubeVoltage, minEnergy, spectrum);
+	spec.printData();
 	cout << "    finished" << endl;
 
 }

@@ -95,7 +95,7 @@ void cSpectrum::readSpectrum(const std::string& filename, double tubeVoltage, do
 	float loopTubeVoltage = -10.0;
 	float loopMinEnergy = 0.0;
 	uint32_t loopTableLength = 0;
-	float* table;
+	float temp;
 
 	// Use ifstream object for file interaction.
 	ifstream input;
@@ -129,15 +129,23 @@ void cSpectrum::readSpectrum(const std::string& filename, double tubeVoltage, do
 			*/
 		input.read((char*) &loopMinEnergy, sizeof(loopMinEnergy));
 		input.read((char*) &loopTableLength, sizeof(loopTableLength));
-		table = new float[loopTableLength];
+
 		cout << "      Voltage : " << loopTubeVoltage << " Energy : " << loopMinEnergy << " Length : " << loopTableLength << endl;
-		for (unsigned i = 0; i << loopTableLength; i++)
-			input.read((char*)&table[i], sizeof(loopTableLength));
+		data.resize(0);
+		for (unsigned i = 0; i < loopTableLength; i++) {
+			input.read((char*)&temp, sizeof(loopTableLength));
+			data.push_back(temp);
+		}
 		break; // Break loop if tube voltage matches
 	} while (input.peek() != EOF);
 	// Break loop if tube voltage matches or all available spectra read
 	
 	// Throw exception if matching tube voltage not found
-	if (loopTubeVoltage == -10.0)
+	if (loopTubeVoltage != tubeVoltage)
 		throw runtime_error("Target tube voltage not found.");
+}
+
+void cSpectrum::printData() {
+	for (unsigned i = 0; i < data.size(); i++)
+		cout << "      IDX " << i << " : " << data[i] << endl;
 }

@@ -26,4 +26,7 @@ public:
 	double sum(); // Evaluate the sum of all elements.
 
 	void readSpectrum(const std::string& filename, double tubeVoltage, double& minEnergy, std::string& spectrumName);
+
+	void printData();
+
 };
