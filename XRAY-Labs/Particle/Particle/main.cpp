@@ -55,5 +55,13 @@ void testParticle() {
 	particle.getDirection(out);
 	if (out[0] != 4 && out[1] != 5 && out[2] != 6)
 		throw runtime_error("Error: get/setDirection(vector) not working.");
+	cout << "    Finished" << endl;
+
+	cout << "    Test minDis2Origin " << endl;
+	cout << "    Finished " << endl;
+
+	cout << "    Test minDis2Point " << endl;
+	cout << "    Finished " << endl;
+
 
 }

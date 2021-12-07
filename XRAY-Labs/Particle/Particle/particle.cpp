@@ -56,3 +56,7 @@ void cParticle::setDirection(double d[3]) {
 	dir[1] = d[1];
 	dir[2] = d[2];
 }
+
+double cParticle::minDist2Point(double p[3]) {
+	return minDist2Point(p[0], p[1], p[2]);
+}

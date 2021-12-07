@@ -17,4 +17,9 @@ public:
 	void setPosition(double p[3]); // Take new values from vector "p".
 	void setDirection(double d[3]);
 
+	double minDist2Origin(); // Evaluates minimum distance between current position of x-ray pencil beam and origin.
+	double minDist2Point(double x, double y, double z); // Evaluates minimum distance betwee current position and given point (x,y,z).
+	double minDist2Point(double p[3]);
+
+	friend void testParticle(); // "friend" gives this function access to private attributes in this class.
 };
