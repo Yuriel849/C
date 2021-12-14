@@ -72,7 +72,7 @@ double cParticle::minDist2Point(double x, double y, double z) const {
 	// Calculate minimum distance between the intersection point to point (x, y, z) from function parameters
 
 	double d = 0;
-	if ((x != 0) && (y != 0) && (z != 0)) d = sqrt((x * x) + (y * y) + (z * z));
+	if ((x != 0) || (y != 0) || (z != 0)) d = sqrt((x * x) + (y * y) + (z * z));
 	double lambda = (d - ((dir[0] * pos[0]) + (dir[1] * pos[1]) + (dir[2] * pos[2]))) / ((dir[0] * dir[0]) + (dir[1] * dir[1]) + (dir[2] * dir[2]));
 	double intersect[3] = { (dir[0] * lambda + pos[0]), (dir[1] * lambda + pos[1]), (dir[2] * lambda + pos[2]) };
 	return sqrt(((intersect[0] - x) * (intersect[0] - x)) + ((intersect[1] - y) * (intersect[1] - y)) + ((intersect[2] - z) * (intersect[2] - z)));

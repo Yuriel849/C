@@ -58,6 +58,15 @@ void testParticle() {
 	cout << "    Finished" << endl;
 
 	cout << "    Test minDist2Origin " << endl;
+	particle.setPosition(1, -1, 0);
+	particle.setDirection(1, 0, 0);
+	cout << particle.minDist2Origin() << endl; // must be 1
+
+	particle.setPosition(-1, 2, 0);
+	particle.setDirection(1 / sqrt(2), -1 / sqrt(2), 0);
+	cout << particle.minDist2Origin() << endl; // must 1/sqrt(2)
+	cout << particle.minDist2Point(1, 1, 0) << endl;
+
 	cout << "    Finished " << endl;
 
 	cout << "    Test minDist2Point " << endl;

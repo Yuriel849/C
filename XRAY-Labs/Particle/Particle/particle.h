@@ -2,8 +2,8 @@
 
 class cParticle {
 private:
-	double pos[3] = { 0, 0, 0 }; // Current position of the x-ray pencil beam (Unit: meter)
-	double dir[3] = { 0, 0, 0 }; // Current direction of the x-ray pencil beam (Unit: radian)
+	double pos[3]; // Current position of the x-ray pencil beam (Unit: meter)
+	double dir[3]; // Current direction of the x-ray pencil beam (Unit: radian)
 public:
 	cParticle() {};
 	cParticle(const cParticle &original);
