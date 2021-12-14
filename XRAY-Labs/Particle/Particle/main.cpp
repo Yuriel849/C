@@ -57,10 +57,10 @@ void testParticle() {
 		throw runtime_error("Error: get/setDirection(vector) not working.");
 	cout << "    Finished" << endl;
 
-	cout << "    Test minDis2Origin " << endl;
+	cout << "    Test minDist2Origin " << endl;
 	cout << "    Finished " << endl;
 
-	cout << "    Test minDis2Point " << endl;
+	cout << "    Test minDist2Point " << endl;
 	cout << "    Finished " << endl;
 
 
