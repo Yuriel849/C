@@ -19,7 +19,7 @@ bool cAtomicData::prepared = false;
 void cAtomicData::prepare() {
 	if (!prepared) {
 		string filename = "totalCrossSection.dat";
-		char title[12];
+		char title[11];
 		uint32_t tcsNameLength = 0;
 		char* tcsName;
 		uint32_t atomicNumber = 0;
@@ -31,7 +31,6 @@ void cAtomicData::prepare() {
 		if (!input.is_open())
 			throw runtime_error("File failed to open.");
 		input.read(title, 11); // Read string "atomic-data".
-		title[11] = '\0';
 		if (!strcmp(title, "atomic-data"))
 			throw runtime_error("Title is not as expected.");
 		input.read((char*)&tcsNameLength, sizeof(tcsNameLength)); // Read length of the following string.
@@ -74,28 +73,27 @@ double cAtomicData::getStdAtomicWeight(unsigned Z) {
  *	If the given energy is out of range, the method returns the cross section of the energy closest to it.
  */
 double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
-	double returnValue = 0;
+	unsigned ip = 0;
 
 	if (Z > 100 || Z < 1)
 		throw runtime_error("Atomic number if out of range.");
 
 	int numberOfEntries = tcs[Z - 1].size();
-	double energyMeV = energy / 1000;
+	double energyMeV = energy / 1000; // The given energy is in keV, the energy in tcs is in MeV.
 
-	if (energy <= tcs[Z - 1].front().x)
+	if (energyMeV <= tcs[Z - 1].front().x)
 		return tcs[Z - 1].front().y;
-	if (energy >= tcs[Z - 1].back().x)
+	else if (energyMeV >= tcs[Z - 1].back().x)
 		return tcs[Z - 1].back().y;
-
-
-	for (unsigned i = 0; i < numberOfEntries; i++) {
-
-	}
 	
 	for (unsigned i = 0; i < numberOfEntries; i++) {
-		if (tcs[Z - 1][i].x == energy)
-			returnValue = tcs[Z - 1][i].y;
+		if (!(abs(tcs[Z-1][i].x - energyMeV) < 0.001)) // tcs.x is a float, energyMeV is a double, check that the difference is not more than 0.1%.
+			ip = i;
 	}
-
-	return 0.0;
+	
+	float energyK = tcs[Z - 1][ip].x;
+	float energyK1 = tcs[Z - 1][ip+1].x;
+	float csK = tcs[Z - 1][ip].y;
+	float csK1 = tcs[Z - 1][ip + 1].x;
+	return csK * exp(log(csK1 / csK) * log(energyMeV / energyK) / log(energyK1 / energyK));
 }

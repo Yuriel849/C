@@ -1,4 +1,6 @@
 #include <iostream>
+#include "atomicData.h"
+#include "material.h"
 
 // Access 'std' namespace where all standard C++ libraries are.
 using namespace std;
@@ -32,6 +34,8 @@ int main() {
 }
 
 void testAtomicData() {
+	cAtomicData atomic;
+	atomic.prepare();
 }
 
 void testMaterial() {
