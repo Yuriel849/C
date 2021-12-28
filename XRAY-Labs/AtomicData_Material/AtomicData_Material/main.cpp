@@ -11,6 +11,10 @@ int main() {
 	try {
 		cout << "Test atomicData and material" << endl;
 
+		testAtomicData();
+
+		testMaterial();
+
 		cout << "successful run" << endl;
 	}
 	// Error that throws an object of class exception.
