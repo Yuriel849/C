@@ -27,3 +27,28 @@ void cMaterial::setName(const std::string& newName) {
 const std::string& cMaterial::getName() {
 	return name;
 }
+
+void cMaterial::addElement(unsigned newZ, double newFraction) {
+	Z.push_back(newZ);
+	fraction.push_back(newFraction);
+}
+
+unsigned cMaterial::getNoOfElements() {
+	return Z.size();
+}
+
+unsigned cMaterial::getAtomicNumber(unsigned i) {
+	return Z.at(i);
+}
+
+double cMaterial::getFraction(unsigned i) {
+	return fraction.at(i);
+}
+
+void cMaterial::setDensity(double newDensity) {
+	density = newDensity;
+}
+
+double cMaterial::getDensity() {
+	return density;
+}
