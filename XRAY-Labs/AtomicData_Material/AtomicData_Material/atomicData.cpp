@@ -47,6 +47,7 @@ void cAtomicData::prepare() {
 		input.read(tcsName, tcsNameLength); // Read string "totalCrossSection".
 		title[tcsNameLength] = '\0';
 
+		// Loop through and store the entries for the photon energy in MeV and the cross section data in barn.
 		for (unsigned i = 0; i < 100; i++) {
 			input.read((char*)&atomicNumber, sizeof(atomicNumber)); // Read atomic number Z.
 			input.read((char*)&A[i], sizeof(float)); // Read standard atomic weight and save to array "A".
@@ -59,8 +60,9 @@ void cAtomicData::prepare() {
 				tcs[i][j].y = temp;
 			}
 		}
+
+		prepared = true;
 	}
-	prepared = true;
 }
 
 //===========================================================================================================================================
@@ -68,6 +70,7 @@ void cAtomicData::prepare() {
  * If the given atomic number is out of range, the method throws an exception.
  */
 double cAtomicData::getStdAtomicWeight(unsigned Z) {
+	// Check if the given atomic number is within range (between 1 and 100).
 	if (Z > 100 || Z < 1)
 		throw runtime_error("Atomic number is out of range.");
 	return A[Z-1];
@@ -80,24 +83,28 @@ double cAtomicData::getStdAtomicWeight(unsigned Z) {
  * If the given energy is out of range, the method returns the cross section of the energy closest to it.
  */
 double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
-	unsigned ip = 0;
+	unsigned ip = 0; // Variable for the index of the correct entry for interpolation.
 
+	// Check if the given atomic number is within range (between 1 and 100).
 	if (Z > 100 || Z < 1)
 		throw runtime_error("Atomic number if out of range.");
 
-	int numberOfEntries = tcs[Z - 1].size();
-	double energyMeV = energy / 1000; // The given energy is in keV, the energy in tcs is in MeV.
+	int numberOfEntries = tcs[Z - 1].size(); // Number of entries in the tcs vector for the given atomic number.
+	double energyMeV = energy / 1000;		 // The given energy is in keV, the energy in tcs is in MeV.
 
+	// Check if the given energy is out of range and if yes, return the closest value (the first or last cross section in barn).
 	if (energyMeV <= tcs[Z - 1].front().x)
 		return tcs[Z - 1].front().y;
 	else if (energyMeV >= tcs[Z - 1].back().x)
 		return tcs[Z - 1].back().y;
 	
+	// Loop through the stored entries in the tcs vector to find the energy that most closely matches the given energy.
 	for (unsigned i = 0; i < numberOfEntries; i++) {
 		if (!(abs(tcs[Z-1][i].x - energyMeV) < 0.001)) // tcs.x is a float, energyMeV is a double, check that the difference is not more than 0.1%.
 			ip = i;
 	}
 	
+	// Calculate the linear interpolation on a log-log scale.
 	float energyK = tcs[Z - 1][ip].x;
 	float energyK1 = tcs[Z - 1][ip+1].x;
 	float csK = tcs[Z - 1][ip].y;
