@@ -34,7 +34,8 @@ void cAtomicData::prepare() {
 		uint32_t entries = 0;					   // Variable to store the number of entries to read from the file.
 		float temp;								   // Variable for temporary storage of float values inside a loop.
 
-		ifstream input; // Use ifstream object for file interaction.
+		// Use ifstream object for file interaction.
+		ifstream input;
 		input.open(filename, ios::binary);
 		if (!input.is_open())
 			throw runtime_error("File failed to open.");
