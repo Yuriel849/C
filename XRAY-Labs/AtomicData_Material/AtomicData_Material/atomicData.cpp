@@ -19,21 +19,20 @@ float cAtomicData::A[100]; // Atomic weights.
 bool cAtomicData::prepared = false;
 
 //===========================================================================================================================================
-/*
- * prepare()
- *	Opens the file "totalCrossSection.dat" and stores the content in the attributes "tcs" and "A".
- *	If completed successfully, set the attribute "prepared" to "true".
- *	If "prepared" is already "true", this method does nothing.
+/* Opens the file "totalCrossSection.dat" and stores the content in the attributes "tcs" and "A".
+ * If completed successfully, set the attribute "prepared" to "true".
+ * If "prepared" is already "true", this method does nothing.
  */
 void cAtomicData::prepare() {
+	// Execute if data is not already prepared.
 	if (!prepared) {
-		string filename = "totalCrossSection.dat";
-		char title[11];
-		uint32_t tcsNameLength = 0;
-		char* tcsName;
-		uint32_t atomicNumber = 0;
-		uint32_t entries = 0;
-		float temp;
+		string filename = "totalCrossSection.dat"; // Name of the file to read.
+		char title[11];							   // Char array to hold the title "atomic-data" read from the file "filename".
+		uint32_t tcsNameLength = 0;				   // Length of the table name (no. of characters) to read from the file.
+		char* tcsName;							   // Char pointer to hold the table name "totalCrossSection" read from the file.
+		uint32_t atomicNumber = 0;				   // Variable to store the atomic number read from the file.
+		uint32_t entries = 0;					   // Variable to store the number of entries to read from the file.
+		float temp;								   // Variable for temporary storage of float values inside a loop.
 
 		ifstream input; // Use ifstream object for file interaction.
 		input.open(filename, ios::binary);
@@ -64,10 +63,8 @@ void cAtomicData::prepare() {
 }
 
 //===========================================================================================================================================
-/*
- * getStdAtomicWeight(Z)
- *	Return the atomic weight for the element of the given atomic number "Z".
- *	If the given atomic number is out of range, the method throws an exception.
+/* Return the atomic weight for the element of the given atomic number "Z".
+ * If the given atomic number is out of range, the method throws an exception.
  */
 double cAtomicData::getStdAtomicWeight(unsigned Z) {
 	if (Z > 100 || Z < 1)
@@ -76,12 +73,10 @@ double cAtomicData::getStdAtomicWeight(unsigned Z) {
 }
 
 //===========================================================================================================================================
-/*
- * getTotalCrossSection(Z, energy)
- *	Return the cross section in barn for the given atomic number "Z" and the given energy in keV "energy".
- *	Linear interpolation on a log-log scale is applied to the cross section.
- *	If the given atomic number is out of range, the method throws an exception.
- *	If the given energy is out of range, the method returns the cross section of the energy closest to it.
+/* Return the cross section in barn for the given atomic number "Z" and the given energy in keV "energy".
+ * Linear interpolation on a log-log scale is applied to the cross section.
+ * If the given atomic number is out of range, the method throws an exception.
+ * If the given energy is out of range, the method returns the cross section of the energy closest to it.
  */
 double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
 	unsigned ip = 0;

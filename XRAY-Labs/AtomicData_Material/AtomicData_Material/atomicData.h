@@ -20,7 +20,7 @@ public:
 	} tPoint2d;
 private:
 	static std::vector<tPoint2d> tcs[100]; // 100-size array of vectors of tPoint2d objects.
-	static float A[100]; // Atomic weights.
+	static float A[100]; // 100-size array of atomic weights.
 	static bool prepared; // Indicator, is data prepared or not?
 public:
 	cAtomicData() {};
