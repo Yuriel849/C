@@ -1,3 +1,11 @@
+/*
+ * Filename: atomicData.h
+ * Author: Myungjun Kim
+ * Version: 1.0
+ * Date: 31.12.2021
+ * Description: Header file for the cMaterial class.
+ */
+
 #pragma once
 
 #include <vector>

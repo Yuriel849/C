@@ -1,12 +1,22 @@
+/*
+ * Filename: atomicData.cpp
+ * Author: Myungjun Kim
+ * Version: 1.0
+ * Date: 31.12.2021
+ * Description: Source code file for the cMaterial class.
+ */
+
 #include "material.h"
 #include "atomicData.h"
 
 using namespace std;
 
+//===========================================================================================================================================
 cMaterial::cMaterial() {
 	clear();
 }
 
+//===========================================================================================================================================
 cMaterial::cMaterial(const cMaterial& material) {
 	Z = material.Z;
 	fraction = material.fraction;
@@ -14,6 +24,7 @@ cMaterial::cMaterial(const cMaterial& material) {
 	name = material.name;
 }
 
+//===========================================================================================================================================
 void cMaterial::clear() {
 	name = "new material";
 	density = 1.0;
@@ -21,39 +32,48 @@ void cMaterial::clear() {
 	fraction.clear();
 }
 
+//===========================================================================================================================================
 void cMaterial::setName(const std::string& newName) {
 	name = newName;
 }
 
+//===========================================================================================================================================
 const std::string& cMaterial::getName() {
 	return name;
 }
 
+//===========================================================================================================================================
 void cMaterial::addElement(unsigned newZ, double newFraction) {
 	Z.push_back(newZ);
 	fraction.push_back(newFraction);
 }
 
+//===========================================================================================================================================
 unsigned cMaterial::getNoOfElements() {
 	return Z.size();
 }
 
+//===========================================================================================================================================
 unsigned cMaterial::getAtomicNumber(unsigned i) {
 	return Z.at(i);
 }
 
+//===========================================================================================================================================
 double cMaterial::getFraction(unsigned i) {
 	return fraction.at(i);
 }
 
+//===========================================================================================================================================
 void cMaterial::setDensity(double newDensity) {
 	density = newDensity;
 }
 
+//===========================================================================================================================================
 double cMaterial::getDensity() {
 	return density;
 }
 
+//===========================================================================================================================================
 /*
  * getAttCoeff(energy)
  *	Evaulate the total attenuation coefficient.
@@ -76,6 +96,7 @@ double cMaterial::getAttCoeff(double energy) {
 	return density * avogadro * (numerator / denominator);
 }
 
+//===========================================================================================================================================
 /*
  * getAttSpec(spec, minEnergy, tubeVoltage, energySteps)
  *	Divides the energy interval of "minEnergy" <= interval < "tubeVoltage" into "energySteps"-sized equal steps.
@@ -88,6 +109,7 @@ void cMaterial::getAttSpec(std::vector<double>& spec, double minEnergy, double t
 		spec.push_back(getAttCoeff(i));
 }
 
+//===========================================================================================================================================
 /*
  * getMeanFreePath(energy)
  *	Returns the reciprocal of the attenuation coefficient.

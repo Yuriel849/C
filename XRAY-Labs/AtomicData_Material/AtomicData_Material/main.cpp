@@ -1,3 +1,11 @@
+/*
+ * Filename: main.cpp
+ * Author: Myungjun Kim
+ * Version: 1.0
+ * Date: 31.12.2021
+ * Description: Source code file to test the cAtomicData and cMaterial classes.
+ */
+
 #include <iostream>
 #include "atomicData.h"
 #include "material.h"

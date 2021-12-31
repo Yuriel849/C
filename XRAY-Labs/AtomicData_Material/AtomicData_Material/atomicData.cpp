@@ -1,3 +1,11 @@
+/*
+ * Filename: atomicData.cpp
+ * Author: Myungjun Kim
+ * Version: 1.0
+ * Date: 31.12.2021
+ * Description: Source code file for the cAtomicData class.
+ */
+
 #include "atomicData.h"
 #include <iostream>
 #include <string>
@@ -10,6 +18,7 @@ vector<cAtomicData::tPoint2d> cAtomicData::tcs[100]; // Raw total cross section 
 float cAtomicData::A[100]; // Atomic weights.
 bool cAtomicData::prepared = false;
 
+//===========================================================================================================================================
 /*
  * prepare()
  *	Opens the file "totalCrossSection.dat" and stores the content in the attributes "tcs" and "A".
@@ -54,6 +63,7 @@ void cAtomicData::prepare() {
 	prepared = true;
 }
 
+//===========================================================================================================================================
 /*
  * getStdAtomicWeight(Z)
  *	Return the atomic weight for the element of the given atomic number "Z".
@@ -65,6 +75,7 @@ double cAtomicData::getStdAtomicWeight(unsigned Z) {
 	return A[Z-1];
 }
 
+//===========================================================================================================================================
 /*
  * getTotalCrossSection(Z, energy)
  *	Return the cross section in barn for the given atomic number "Z" and the given energy in keV "energy".
