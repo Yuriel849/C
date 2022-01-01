@@ -27,7 +27,7 @@ void cAtomicData::prepare() {
 	// Execute if data is not already prepared.
 	if (!prepared) {
 		string filename = "totalCrossSection.dat"; // Name of the file to read.
-		char title[11];							   // Char array to hold the title "atomic-data" read from the file "filename".
+		char title[12];							   // Char array to hold the title "atomic-data" read from the file "filename".
 		uint32_t tcsNameLength = 0;				   // Length of the table name (no. of characters) to read from the file.
 		char* tcsName;							   // Char pointer to hold the table name "totalCrossSection" read from the file.
 		uint32_t atomicNumber = 0;				   // Variable to store the atomic number read from the file.
@@ -42,10 +42,11 @@ void cAtomicData::prepare() {
 		input.read(title, 11); // Read string "atomic-data".
 		if (!strcmp(title, "atomic-data"))
 			throw runtime_error("Title is not as expected.");
+		title[11] = '\0';
 		input.read((char*)&tcsNameLength, sizeof(tcsNameLength)); // Read length of the following string.
 		tcsName = new char[tcsNameLength];
 		input.read(tcsName, tcsNameLength); // Read string "totalCrossSection".
-		title[tcsNameLength] = '\0';
+		tcsName[tcsNameLength] = '\0';
 
 		// Loop through and store the entries for the photon energy in MeV and the cross section data in barn.
 		for (unsigned i = 0; i < 100; i++) {
@@ -83,7 +84,9 @@ double cAtomicData::getStdAtomicWeight(unsigned Z) {
  * If the given energy is out of range, the method returns the cross section of the energy closest to it.
  */
 double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
-	unsigned ip = 0; // Variable for the index of the correct entry for interpolation.
+	unsigned ip = 0;	  // Variable for the index of the correct entry for interpolation.
+	double diff = 0.0;	  // The absolute value of the difference between the energy from tcs and the given energy.
+	double minDiff = 1.0; // The minimum value of the above "diff".
 
 	// Check if the given atomic number is within range (between 1 and 100).
 	if (Z > 100 || Z < 1)
@@ -100,14 +103,17 @@ double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
 	
 	// Loop through the stored entries in the tcs vector to find the energy that most closely matches the given energy.
 	for (unsigned i = 0; i < numberOfEntries; i++) {
-		if (!(abs(tcs[Z-1][i].x - energyMeV) < 0.001)) // tcs.x is a float, energyMeV is a double, check that the difference is not more than 0.1%.
+		diff = abs(tcs[Z - 1][i].x - energyMeV);
+		if (diff < minDiff) {
+			minDiff = diff;
 			ip = i;
+		}
 	}
 	
 	// Calculate the linear interpolation on a log-log scale.
-	float energyK = tcs[Z - 1][ip].x;
-	float energyK1 = tcs[Z - 1][ip+1].x;
-	float csK = tcs[Z - 1][ip].y;
-	float csK1 = tcs[Z - 1][ip + 1].x;
+	float energyK = tcs[Z - 1][ip - 1].x;
+	float energyK1 = tcs[Z - 1][ip].x;
+	float csK = tcs[Z - 1][ip - 1].y;
+	float csK1 = tcs[Z - 1][ip].y;
 	return csK * exp(log(csK1 / csK) * log(energyMeV / energyK) / log(energyK1 / energyK));
 }
