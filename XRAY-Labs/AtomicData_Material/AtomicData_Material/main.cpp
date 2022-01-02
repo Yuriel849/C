@@ -1,8 +1,8 @@
 /*
  * Filename: main.cpp
  * Author: Myungjun Kim
- * Version: 1.0
- * Date: 31.12.2021
+ * Version: 1.2
+ * Date: 02.01.2022
  * Description: Source code file to test the cAtomicData and cMaterial classes.
  */
 
@@ -27,13 +27,11 @@ int main() {
 
 		cout << "Successful run!" << endl;
 	}
-	// Error that throws an object of class exception.
-	// Use exception::what() to get specific error message.
+	// Catch errors of that throw objects of class exception.
 	catch (exception& e) {
 		cout << "ERROR: " << e.what() << endl;
 	}
-	// All other errors.
-	// Give general error message.
+	// Catch all other errors.
 	catch (...) {
 		cout << "ERROR: Unexpected error." << endl;
 	}
