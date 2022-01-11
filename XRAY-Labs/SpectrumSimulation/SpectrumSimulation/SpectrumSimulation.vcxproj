@@ -143,6 +143,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material.cpp" />
     <ClCompile Include="particle.cpp" />
+    <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="spectrum.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="MedImage.h" />
     <ClInclude Include="MedImageIO.h" />
     <ClInclude Include="particle.h" />
+    <ClInclude Include="Simulation.h" />
     <ClInclude Include="spectrum.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

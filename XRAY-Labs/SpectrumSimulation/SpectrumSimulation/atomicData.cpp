@@ -92,7 +92,7 @@ double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
 	if (Z > 100 || Z < 1)
 		throw runtime_error("Atomic number if out of range.");
 
-	int numberOfEntries = tcs[Z - 1].size(); // Number of entries in the tcs vector for the given atomic number.
+	unsigned numberOfEntries = tcs[Z - 1].size(); // Number of entries in the tcs vector for the given atomic number.
 	double energyMeV = energy / 1000;		 // The given energy is in keV, the energy in tcs is in MeV.
 
 	// Check if the given energy is out of range and if yes, return the closest value (the first or last cross section in barn).
