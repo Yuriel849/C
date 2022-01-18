@@ -40,11 +40,11 @@ void cAtomicData::prepare() {
 		if (!input.is_open())
 			throw runtime_error("File failed to open.");
 		input.read(title, 11); // Read string "atomic-data".
-		if (!strcmp(title, "atomic-data"))
-			throw runtime_error("Title is not as expected.");
 		title[11] = '\0';
+		if (strcmp(title, "atomic-data") != 0)
+			throw runtime_error("Title is not as expected.");
 		input.read((char*)&tcsNameLength, sizeof(tcsNameLength)); // Read length of the following string.
-		tcsName = new char[tcsNameLength];
+		tcsName = new char[tcsNameLength + 1];
 		input.read(tcsName, tcsNameLength); // Read string "totalCrossSection".
 		tcsName[tcsNameLength] = '\0';
 
